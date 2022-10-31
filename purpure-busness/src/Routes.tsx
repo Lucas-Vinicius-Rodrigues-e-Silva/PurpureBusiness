@@ -1,12 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-import { LandingPage } from "./Pages/landingPage";
-import LoginPage from "./Pages/loginPage";
+import { Route, Routes } from "react-router-dom"
+import { LandingPage } from "./Pages/landingPage"
+
 
 export const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="login" element={<LoginPage />} />
-    </Routes>
-  );
-};
+
+    return (
+        <Routes>
+            <Route path='/' element={<LandingPage/>} />
+        </Routes>
+    )
+}
