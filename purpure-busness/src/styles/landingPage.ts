@@ -58,4 +58,17 @@ export const LandingPageStyle = styled.main`
        }
     }
 
+    .landingPageBtn1 {
+        text-decoration: none;
+        border: 2px solid #7D02DD;
+        cursor: pointer;
+    }
+
+    .landingPageBtn2 {
+        text-decoration: none;
+        border-radius: 5px;
+        color: white;
+        background-color: #7D02DD;
+    }
+
 `
