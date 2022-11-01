@@ -11,7 +11,7 @@ const RegisterPage = () => {
     password: string;
     confirmPassword: string;
     email: string;
-    userName: string;
+    commercialName: string;
   }
   const {
     register,
@@ -61,7 +61,7 @@ const RegisterPage = () => {
         type={"text"}
         placeholder={"Insira seu nome fantasia"}
         register={register}
-        keyName={"userName"}
+        keyName={"commercialName"}
       />
       <Button type={"submit"} text={"Cadastrar empresa"} />
       <Link to={"/login"}>Efetuar login</Link>

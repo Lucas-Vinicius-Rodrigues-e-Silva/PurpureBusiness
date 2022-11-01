@@ -1,12 +1,15 @@
 import * as yup from "yup";
 
 export const registerSchema = yup.object().shape({
-  CNPJ: yup.string().required("O CNPJ é obrigatório"),
+  CNPJ: yup
+    .string()
+    .required("O CNPJ é obrigatório")
+    .matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/, "Insira um CNPJ válido"),
   password: yup.string().required("A senha é obrigatória"),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "As senhas não coincidem")
     .required("A confirmação de senha é obrigatória"),
   email: yup.string().required("O email é obrigatório"),
-  userName: yup.string().required("O Nome da empresa é obrigatório"),
+  commercialName: yup.string().required("O Nome fantasia é obrigatório"),
 });
