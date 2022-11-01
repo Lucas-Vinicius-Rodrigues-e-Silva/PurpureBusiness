@@ -33,14 +33,14 @@ const LoginPage = () => {
           type={"text"}
           placeholder={"Digite seu CNPJ"}
           register={register}
-          chave={"CNPJ"}
+          keyName={"CNPJ"}
         />
         <Input
           id={"Senha"}
           type={"password"}
           placeholder={"Digite sua senha"}
           register={register}
-          chave={"password"}
+          keyName={"password"}
         />
 
         <Button text={"Autenticar-se"} type={"submit"} />
