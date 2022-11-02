@@ -8,6 +8,7 @@
 </p>
 
 `🇧🇷` Bem vindo ao nosso projeto de front-end! Clique [aqui](#) para acessar o projeto.
+
 `🇺🇸` Welcome to our front-end project! Click [here](#) to access the deploy.
 
 # 📝 Índice / Index
