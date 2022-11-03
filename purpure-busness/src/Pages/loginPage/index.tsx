@@ -1,53 +1,57 @@
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import { loginSchema } from "./loginSchema";
-
-interface iFormLogin {
-  CNPJ: string;
-  password: string;
-}
+import { loginSchema } from "../../schemas/loginSchema";
+import { FilledBtn, Input, Title1, OutlinedBtn } from "../../styles/elements";
+import { useContext } from "react";
+import { AuthContext, iLogin } from "../../context/AuthContext";
+import MainForm from "./styles";
+import { Text } from "../../styles/text/text";
 
 const LoginPage = () => {
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<iFormLogin>({
+  const { loginUser } = useContext(AuthContext);
+
+  const { register, handleSubmit } = useForm<iLogin>({
     resolver: yupResolver(loginSchema),
   });
 
-  const submit = async (data: iFormLogin) => {
-    // inserir a lógica da Api
-    console.log(data);
+  const submit = async (data: iLogin) => {
+    loginUser(data);
   };
 
   return (
-    <main>
+    <MainForm>
       <form onSubmit={handleSubmit(submit)}>
-        <h1>Login</h1>
+        <Title1 tag="h1">Login</Title1>
+
+        <Text tag="label" className="headline">
+          E-mail:
+        </Text>
         <Input
-          id={"CNPJ"}
-          type={"text"}
-          placeholder={"Digite seu CNPJ"}
-          register={register}
-          keyName={"CNPJ"}
+          id={"E-mail"}
+          type={"email"}
+          placeholder={"Digite seu email"}
+          {...register("email")}
         />
+
+        <Text tag="label" className="headline">
+          Senha:
+        </Text>
         <Input
           id={"Senha"}
           type={"password"}
           placeholder={"Digite sua senha"}
-          register={register}
-          keyName={"password"}
+          {...register("password")}
         />
 
-        <Button text={"Autenticar-se"} type={"submit"} />
+        <FilledBtn type="submit">Autenticar-se</FilledBtn>
+        <hr />
         <span> ou </span>
-        <Link to="/register">Crie sua conta</Link>
+        <Link to="/register">
+          <OutlinedBtn>Criar sua conta</OutlinedBtn>
+        </Link>
       </form>
-    </main>
+    </MainForm>
   );
 };
 
