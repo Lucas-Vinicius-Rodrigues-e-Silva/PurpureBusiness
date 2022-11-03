@@ -29,7 +29,6 @@ interface iAuthContextProps {
 interface iAuthContext {
   user: iUser | null;
   loading: boolean;
-
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigate: any;
@@ -46,7 +45,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
 
   useEffect(() => {
     async function loadingUser() {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
 
       if (token) {
@@ -67,10 +66,10 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     try {
       const response = await api.post("/login", data);
 
-      const { user: userResponse, token } = response.data;
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      const { user: userResponse, accessToken } = response.data;
+      api.defaults.headers.authorization = `Bearer ${accessToken}`;
       setUser(userResponse);
-      localStorage.setItem("@TOKEN", token);
+      localStorage.setItem("@accessToken", accessToken);
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
       navigate("dashboard");
