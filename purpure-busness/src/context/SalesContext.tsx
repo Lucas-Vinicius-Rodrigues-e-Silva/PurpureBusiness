@@ -29,7 +29,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
 
   useEffect(() => {
     async function loadingSales() {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
 
       if (token) {
@@ -47,7 +47,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
 
   const registerSale = async (data: iSales) => {
     try {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
 
       const newSale = [
         ...sales,
@@ -76,7 +76,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
     if (confirm("Deseja excluir esta venda?")) {
       try {
         const newSalesList = sales.filter((sale) => sale.id !== deletedSale.id);
-        const token = localStorage.getItem("@TOKEN");
+        const token = localStorage.getItem("@accessToken");
 
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.delete(`/sales/${deletedSale.id}`);
@@ -90,7 +90,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
 
   const editSale = async (editedSale: iSales) => {
     try {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
 
       const pachSale = {
         cliente_sale_product: editedSale.cliente_sale_product,
