@@ -2,10 +2,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
 import { AuthContext, iRegister } from "../../context/AuthContext";
 import { registerSchema } from "../../schemas/registerSchema";
+import { Title1, Input, FilledBtn, OutlinedBtn } from "../../styles/elements";
+import { Text } from "../../styles/text/text";
+import MainRegister from "./styled";
 
 const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
@@ -19,46 +20,67 @@ const RegisterPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <h1>Cadastro</h1>
-      <Input
-        id={"CNPJ: "}
-        type={"text"}
-        placeholder={"Digite seu CNPJ"}
-        register={register}
-        keyName={"CNPJ"}
-      />
-      <Input
-        id={"Senha: "}
-        type={"password"}
-        placeholder={"Digite sua senha"}
-        register={register}
-        keyName={"password"}
-      />
-      <Input
-        id={"Repetir sua senha: "}
-        type={"password"}
-        placeholder={"Digite novamente sua senha"}
-        register={register}
-        keyName={"confirmPassword"}
-      />
-      <Input
-        id={"email: "}
-        type={"email"}
-        placeholder={"Digite seu email para contato"}
-        register={register}
-        keyName={"email"}
-      />
-      <Input
-        id={"Nome fantasia: "}
-        type={"text"}
-        placeholder={"Insira seu nome fantasia"}
-        register={register}
-        keyName={"commercialName"}
-      />
-      <Button type={"submit"} text={"Cadastrar empresa"} />
-      <Link to={"/login"}>Efetuar login</Link>
-    </form>
+    <MainRegister>
+      <form onSubmit={handleSubmit(submit)}>
+        <Title1 tag="h1">Cadastro</Title1>
+
+        <Text tag="label" className="headline">
+          CNPJ:
+        </Text>
+        <Input
+          id={"CNPJ"}
+          type={"text"}
+          placeholder={"Digite seu CNPJ"}
+          {...register("CNPJ")}
+        />
+
+        <Text tag="label" className="headline">
+          Senha:
+        </Text>
+        <Input
+          id={"Senha"}
+          type={"password"}
+          placeholder={"Digite sua senha"}
+          {...register("password")}
+        />
+
+        <Text tag="label" className="headline">
+          Confirme sua senha:
+        </Text>
+        <Input
+          id={"confirmPassword"}
+          type={"password"}
+          placeholder={"Digite novamente sua senha"}
+          {...register("confirmPassword")}
+        />
+
+        <Text tag="label" className="headline">
+          E-mail:
+        </Text>
+        <Input
+          id={"email: "}
+          type={"email"}
+          placeholder={"Digite seu email"}
+          {...register("email")}
+        />
+
+        <Text tag="label" className="headline">
+          Nome Fantasia:
+        </Text>
+        <Input
+          id={"commercialName"}
+          type={"text"}
+          placeholder={"Insira seu nome fantasia"}
+          {...register("commercialName")}
+        />
+
+        <FilledBtn type="submit">Cadastrar empresa</FilledBtn>
+
+        <Link to={"/login"}>
+          <OutlinedBtn>Efetuar login</OutlinedBtn>
+        </Link>
+      </form>
+    </MainRegister>
   );
 };
 
