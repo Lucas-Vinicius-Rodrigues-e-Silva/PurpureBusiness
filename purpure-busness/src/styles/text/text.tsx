@@ -17,6 +17,7 @@ export function Text({ children, className, tag }: iTextProps) {
             {tag === "h6" && <h6 className={className}>{children}</h6>}
             {tag === "p" && <p className={className}>{children}</p>}
             {tag === "span" && <span className={className}>{children}</span>}
+            {tag === "label" && <label className={className}>{children}</label>}
         </>
     );
 }
