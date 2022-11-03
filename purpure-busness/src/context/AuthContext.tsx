@@ -73,6 +73,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       localStorage.setItem("@TOKEN", token);
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
+      navigate("dashboard");
     } catch (error) {
       console.log(error);
     }
