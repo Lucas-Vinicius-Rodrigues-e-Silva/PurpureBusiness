@@ -1,33 +1,21 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import { AuthContext, iRegister } from "../../context/AuthContext";
 import { registerSchema } from "../../schemas/registerSchema";
-import Api from "../../services/api";
 
 const RegisterPage = () => {
-  interface iFormRegister {
-    CNPJ: string;
-    password: string;
-    confirmPassword: string;
-    email: string;
-    commercialName: string;
-  }
-  const { register, handleSubmit } = useForm<iFormRegister>({
+  const { registerUser } = useContext(AuthContext);
+
+  const { register, handleSubmit } = useForm<iRegister>({
     resolver: yupResolver(registerSchema),
   });
 
-  const navigate = useNavigate();
-
-  const submit = async (data: iFormRegister) => {
-    try {
-      await Api.post("register", data);
-      navigate("login");
-    } catch (error) {
-      const responseError = error;
-      console.log(responseError);
-    }
+  const submit = async (data: iRegister) => {
+    registerUser(data);
   };
 
   return (
