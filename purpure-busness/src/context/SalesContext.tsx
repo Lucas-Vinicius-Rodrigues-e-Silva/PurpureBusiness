@@ -43,7 +43,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
       }
     }
     loadingSales();
-  });
+  }, []);
 
   const registerSale = async (data: iSales) => {
     try {
