@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { registerSchema } from "./registerSchema";
+import { registerSchema } from "../../schemas/registerSchema";
+import Api from "../../services/api";
 
 const RegisterPage = () => {
   interface iFormRegister {
@@ -13,16 +14,20 @@ const RegisterPage = () => {
     email: string;
     commercialName: string;
   }
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<iFormRegister>({
+  const { register, handleSubmit } = useForm<iFormRegister>({
     resolver: yupResolver(registerSchema),
   });
 
-  const submit = (data: iFormRegister) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const submit = async (data: iFormRegister) => {
+    try {
+      await Api.post("register", data);
+      navigate("login");
+    } catch (error) {
+      const responseError = error;
+      console.log(responseError);
+    }
   };
 
   return (
