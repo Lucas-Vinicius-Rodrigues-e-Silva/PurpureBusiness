@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../services/api";
 
 export interface iUser {
@@ -35,6 +36,18 @@ export interface iSales {
   id?: number;
 }
 
+export interface iLogin {
+  email: string;
+  password: string;
+}
+
+export interface iRegister {
+  CNPJ: string;
+  password: string;
+  email: string;
+  commercialName: string;
+}
+
 interface iAuthContextProps {
   children: React.ReactNode;
 }
@@ -51,6 +64,8 @@ interface iAuthContext {
   setSales: React.Dispatch<React.SetStateAction<iSales[]>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigate: any;
+  loginUser: (data: iLogin) => Promise<void>;
+  registerUser: (data: iRegister) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as iAuthContext);
@@ -82,6 +97,31 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     loadingUser();
   }, []);
 
+  const loginUser = async (data: iLogin) => {
+    try {
+      const response = await api.post("/login", data);
+
+      const { user: userResponse, token } = response.data;
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      setUser(userResponse);
+      localStorage.setItem("@TOKEN", token);
+      localStorage.setItem("@TOKEN", userResponse.id);
+      toast.success("Login realizado com sucesso!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const registerUser = async (data: iRegister) => {
+    try {
+      await api.post("/register", data);
+      toast.success("Usuarioa cadastrado com sucesso!");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -96,6 +136,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
         setSales,
         setLoading,
         navigate,
+        loginUser,
+        registerUser,
       }}
     >
       {children}
