@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
-import { AuthContext, iClients } from "./AuthContext";
 
 export interface iClient {
   client_name: string;
@@ -17,15 +16,16 @@ interface iClientsProps {
 }
 
 interface iClientsContext {
-  registerClient: (data: iClients) => void;
-  deleteClient: (deletedClient: iClients) => void;
-  editClient: (editedClient: iClients) => void;
+  clients: iClient[];
+  registerClient: (data: iClient) => void;
+  deleteClient: (deletedClient: iClient) => void;
+  editClient: (editedClient: iClient) => void;
 }
 
 export const ClientContext = createContext({} as iClientsContext);
 
 const ClientPovider = ({ children }: iClientsProps) => {
-  const { clients, setClients } = useContext(AuthContext);
+  const [clients, setClients] = useState([] as iClient[]);
 
   useEffect(() => {
     async function loadingClients() {
@@ -45,7 +45,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
     loadingClients();
   });
 
-  const registerClient = async (data: iClients) => {
+  const registerClient = async (data: iClient) => {
     if (
       !clients.find(
         (client) => client.cliente_document === data.cliente_document
@@ -79,7 +79,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
     }
   };
 
-  const deleteClient = async (deletedClient: iClients) => {
+  const deleteClient = async (deletedClient: iClient) => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm("Deseja excluir este cliente?")) {
       try {
@@ -120,7 +120,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
   return (
     <ClientContext.Provider
-      value={{ registerClient, deleteClient, editClient }}
+      value={{ clients, registerClient, deleteClient, editClient }}
     >
       {children}
     </ClientContext.Provider>

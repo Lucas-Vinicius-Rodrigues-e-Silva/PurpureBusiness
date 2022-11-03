@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
-import { AuthContext } from "./AuthContext";
 
 export interface iProducts {
   product_name: string;
@@ -16,6 +15,7 @@ interface iProductProps {
 }
 
 interface iProductContext {
+  products: iProducts[];
   registerProduct: (data: iProducts) => void;
   deleteProduct: (deletedProduct: iProducts) => void;
   editProduct: (editedProduct: iProducts) => void;
@@ -24,7 +24,7 @@ interface iProductContext {
 export const ProductContext = createContext({} as iProductContext);
 
 const ProductPovider = ({ children }: iProductProps) => {
-  const { products, setProducts } = useContext(AuthContext);
+  const [products, setProducts] = useState([] as iProducts[]);
 
   useEffect(() => {
     async function loadingClients() {
@@ -115,7 +115,7 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   return (
     <ProductContext.Provider
-      value={{ registerProduct, deleteProduct, editProduct }}
+      value={{ products, registerProduct, deleteProduct, editProduct }}
     >
       {children}
     </ProductContext.Provider>

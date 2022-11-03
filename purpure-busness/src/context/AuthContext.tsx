@@ -10,32 +10,6 @@ export interface iUser {
   id: number;
 }
 
-export interface iClients {
-  client_name: string;
-  cliente_document: string;
-  client_email: string;
-  clinte_phone: string;
-  userId: number;
-  id?: number;
-}
-
-export interface iProducts {
-  product_name: string;
-  product_value: string;
-  product_stock: string;
-  userId: number;
-  id?: number;
-}
-
-export interface iSales {
-  cliente_sale_product: string;
-  product_sale: string;
-  product_sale_quant: string;
-  total_sale_value: string;
-  userId: number;
-  id?: number;
-}
-
 export interface iLogin {
   email: string;
   password: string;
@@ -55,13 +29,8 @@ interface iAuthContextProps {
 interface iAuthContext {
   user: iUser | null;
   loading: boolean;
-  clients: iClients[];
-  products: iProducts[];
-  sales: iSales[];
+
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
-  setClients: React.Dispatch<React.SetStateAction<iClients[]>>;
-  setProducts: React.Dispatch<React.SetStateAction<iProducts[]>>;
-  setSales: React.Dispatch<React.SetStateAction<iSales[]>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigate: any;
   loginUser: (data: iLogin) => Promise<void>;
@@ -72,9 +41,6 @@ export const AuthContext = createContext({} as iAuthContext);
 
 const AuthProvider = ({ children }: iAuthContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [clients, setClients] = useState([] as iClients[]);
-  const [products, setProducts] = useState([] as iProducts[]);
-  const [sales, setSales] = useState([] as iSales[]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -126,14 +92,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     <AuthContext.Provider
       value={{
         user,
-        clients,
-        products,
-        sales,
         loading,
         setUser,
-        setClients,
-        setProducts,
-        setSales,
         setLoading,
         navigate,
         loginUser,

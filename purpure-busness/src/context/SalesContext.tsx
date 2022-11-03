@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
-import { AuthContext } from "./AuthContext";
 
 export interface iSales {
   cliente_sale_product: string;
@@ -17,6 +16,7 @@ interface iSalesProps {
 }
 
 interface iSalesContext {
+  sales: iSales[];
   registerSale: (data: iSales) => void;
   deleteSale: (deletedSale: iSales) => void;
   editSale: (editedSale: iSales) => void;
@@ -25,7 +25,7 @@ interface iSalesContext {
 export const ProductContext = createContext({} as iSalesContext);
 
 const ProductPovider = ({ children }: iSalesProps) => {
-  const { sales, setSales } = useContext(AuthContext);
+  const [sales, setSales] = useState([] as iSales[]);
 
   useEffect(() => {
     async function loadingSales() {
@@ -109,7 +109,9 @@ const ProductPovider = ({ children }: iSalesProps) => {
   };
 
   return (
-    <ProductContext.Provider value={{ registerSale, deleteSale, editSale }}>
+    <ProductContext.Provider
+      value={{ sales, registerSale, deleteSale, editSale }}
+    >
       {children}
     </ProductContext.Provider>
   );
