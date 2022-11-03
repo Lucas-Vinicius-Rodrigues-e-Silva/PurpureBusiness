@@ -105,7 +105,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       setUser(userResponse);
       localStorage.setItem("@TOKEN", token);
-      localStorage.setItem("@TOKEN", userResponse.id);
+      localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
     } catch (error) {
       console.log(error);
