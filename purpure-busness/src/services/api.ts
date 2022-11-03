@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const Api = axios.create({
-  baseURL: "https://capstone-purpurebusiness.herokuapp.com/",
-  timeout: 1500,
+const api = axios.create({
+  baseURL: "https://capstone-purpurebusiness.herokuapp.com",
+  timeout: 5000,
 });
 
-export default Api;
+export default api;
