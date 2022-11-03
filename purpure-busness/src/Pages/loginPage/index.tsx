@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
 import { loginSchema } from "./loginSchema";
+import { FilledBtn, Input, Title1 } from "../../styles/elements";
 
 interface iFormLogin {
   CNPJ: string;
@@ -27,23 +26,21 @@ const LoginPage = () => {
   return (
     <main>
       <form onSubmit={handleSubmit(submit)}>
-        <h1>Login</h1>
+        <Title1 tag="h1">Login</Title1>
         <Input
           id={"CNPJ"}
           type={"text"}
           placeholder={"Digite seu CNPJ"}
-          register={register}
-          keyName={"CNPJ"}
+          {...register("CNPJ")}
         />
         <Input
           id={"Senha"}
           type={"password"}
           placeholder={"Digite sua senha"}
-          register={register}
-          keyName={"password"}
+          {...register("password")}
         />
 
-        <Button text={"Autenticar-se"} type={"submit"} />
+        <FilledBtn type="submit">Autenticar-se</FilledBtn>
         <span> ou </span>
         <Link to="/register">Crie sua conta</Link>
       </form>
