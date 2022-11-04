@@ -13,7 +13,8 @@ const MainRegister = styled.main`
     box-shadow: 0px 0px 10px 1px rgb(0 0 0 / 25%);
     border-radius: 28px;
     background-color: white;
-    width: 350px;
+    width: 450px;
+    z-index: 2;
   }
   h1 {
     text-align: center;
