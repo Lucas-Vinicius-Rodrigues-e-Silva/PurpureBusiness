@@ -18,6 +18,7 @@ export interface iLogin {
 export interface iRegister {
   CNPJ: string;
   password: string;
+  confirmPassword: string;
   email: string;
   commercialName: string;
 }
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
 
   useEffect(() => {
     async function loadingUser() {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
 
       if (token) {
@@ -70,7 +71,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       const { user: userResponse, token } = response.data;
       api.defaults.headers.authorization = `Bearer ${token}`;
       setUser(userResponse);
-      localStorage.setItem("@TOKEN", token);
+      localStorage.setItem("@accessToken", token);
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
       navigate("dashboard");
@@ -83,7 +84,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     try {
       await api.post("/register", data);
       toast.success("Usuarioa cadastrado com sucesso!");
-      navigate("/");
+      navigate("dashboard");
     } catch (error) {
       console.log(error);
     }

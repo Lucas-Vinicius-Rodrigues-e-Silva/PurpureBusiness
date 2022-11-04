@@ -2,7 +2,7 @@ import { StyledInventoryPage } from "./style";
 import { BiSearchAlt2 } from "react-icons/bi";
 import UiDashboard from "../../components/Interface";
 import api from "../../services/api";
-import { useTable } from "react-table";
+import { useSortBy, useTable } from "react-table";
 import { useEffect, useMemo, useState } from "react";
 
 const InventoryPage = () => {
@@ -16,15 +16,13 @@ const InventoryPage = () => {
     if (response) {
       const teste = response.data;
 
-      console.log(products, teste);
-
       setProducts(teste);
     }
   };
 
   const productsData = useMemo(() => [...products], [products]);
 
-  const productsColumns:any = useMemo(
+  const productsColumns: any = useMemo(
     () =>
       products[0]
         ? Object.keys(products[0])
@@ -36,7 +34,27 @@ const InventoryPage = () => {
     [products]
   );
 
-  const tableInstance = useTable({ columns:productsColumns, data:productsData});
+  const tableHooks = (hooks: any) => {
+    hooks.visibleColumns.push((columns: any) => [
+      ...columns,
+      {
+        id: "Edit and delete",
+        Header: "Ações",
+        Cell: ({ row }: any) => (
+          <>
+            <button onClick={() => alert("working")}>Editar</button>
+            <button onClick={() => alert("working")}>excluir</button>
+          </>
+        ),
+      },
+    ]);
+  };
+
+  const tableInstance = useTable(
+    { columns: productsColumns, data: productsData },
+    tableHooks,
+    useSortBy,
+  );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
@@ -74,11 +92,14 @@ const InventoryPage = () => {
                 {rows.map((row) => {
                   prepareRow(row);
 
-                  return <tr {...row.getRowProps()}>
-                  {row.cells.map((cell, idx) => (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  ))};
-                  </tr>
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      ))}
+                      ;
+                    </tr>
+                  );
                 })}
               </tbody>
             </table>

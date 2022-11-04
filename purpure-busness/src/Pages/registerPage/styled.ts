@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-const MainForm = styled.main`
+const MainRegister = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-
   form {
     display: flex;
     flex-direction: column;
@@ -20,9 +19,7 @@ const MainForm = styled.main`
   h1 {
     text-align: center;
   }
-  hr {
-    transform: translateY(20px);
-  }
+
   span {
     text-align: center;
     background-color: white;
@@ -36,4 +33,4 @@ const MainForm = styled.main`
   }
 `;
 
-export default MainForm;
+export default MainRegister;
