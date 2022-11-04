@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Li } from "../../styles/dashboardBase";
 
 interface iUiDashboardProps {
@@ -10,8 +10,10 @@ interface iUiDashboardProps {
 
 export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
 
+    const location = useLocation();
+
     const defineActive = (path: string) => {
-        if (window.location.pathname === "/" + path) {
+        if (location.pathname === "/" + path) {
             return "true";
         }
         return "false";
