@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Li } from "../../styles/dashboardBase";
 
 interface iUiDashboardProps {
@@ -15,6 +15,13 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
             return "true";
         }
         return "false";
+    }
+
+    const navigate = useNavigate()
+
+    const logOut = () => {
+        localStorage.clear()
+        navigate('/')
     }
 
     return (
@@ -56,7 +63,7 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
                 </nav>
                 <nav>
                     <div>
-                        <i className="bx bx-exit"></i>
+                        <i className="bx bx-exit" onClick={logOut}></i>
                         <span>Sair</span>
                     </div>
                 </nav>

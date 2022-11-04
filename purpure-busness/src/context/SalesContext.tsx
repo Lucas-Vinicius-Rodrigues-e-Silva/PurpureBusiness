@@ -5,8 +5,8 @@ import api from "../services/api";
 export interface iSales {
   cliente_sale_product: string;
   product_sale: string;
-  product_sale_quant: string;
-  total_sale_value: string;
+  product_sale_quant: number;
+  total_sale_value: number;
   userId: number;
   id?: number;
 }
@@ -22,14 +22,14 @@ interface iSalesContext {
   editSale: (editedSale: iSales) => void;
 }
 
-export const ProductContext = createContext({} as iSalesContext);
+export const SaleContext = createContext({} as iSalesContext);
 
-const ProductPovider = ({ children }: iSalesProps) => {
+const SalePovider = ({ children }: iSalesProps) => {
   const [sales, setSales] = useState([] as iSales[]);
 
   useEffect(() => {
     async function loadingSales() {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
 
       if (token) {
@@ -47,7 +47,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
 
   const registerSale = async (data: iSales) => {
     try {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
 
       const newSale = [
         ...sales,
@@ -76,7 +76,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
     if (confirm("Deseja excluir esta venda?")) {
       try {
         const newSalesList = sales.filter((sale) => sale.id !== deletedSale.id);
-        const token = localStorage.getItem("@TOKEN");
+        const token = localStorage.getItem("@accessToken");
 
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.delete(`/sales/${deletedSale.id}`);
@@ -90,7 +90,7 @@ const ProductPovider = ({ children }: iSalesProps) => {
 
   const editSale = async (editedSale: iSales) => {
     try {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
 
       const pachSale = {
         cliente_sale_product: editedSale.cliente_sale_product,
@@ -109,12 +109,12 @@ const ProductPovider = ({ children }: iSalesProps) => {
   };
 
   return (
-    <ProductContext.Provider
+    <SaleContext.Provider
       value={{ sales, registerSale, deleteSale, editSale }}
     >
       {children}
-    </ProductContext.Provider>
+    </SaleContext.Provider>
   );
 };
 
-export default ProductPovider;
+export default SalePovider;
