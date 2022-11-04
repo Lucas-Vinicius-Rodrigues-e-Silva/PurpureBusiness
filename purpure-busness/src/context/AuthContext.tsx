@@ -18,6 +18,7 @@ export interface iLogin {
 export interface iRegister {
   CNPJ: string;
   password: string;
+  confirmPassword: string;
   email: string;
   commercialName: string;
 }
@@ -83,7 +84,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     try {
       await api.post("/register", data);
       toast.success("Usuarioa cadastrado com sucesso!");
-      navigate("/");
+      navigate("dashboard");
     } catch (error) {
       console.log(error);
     }
