@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { FilledBtn, OutlinedBtn, Title2 } from "../../styles/elements"
 import { LandingPageStyle } from "../../styles/landingPage"
 
 
@@ -6,12 +7,10 @@ export const LandingPage = () => {
 
     return (
         <LandingPageStyle>
+            <title>PURPURE Business - Sua ferramenta de BI grátis!</title>
             <header>
-                <div>
-                    <p>PUR<span>PURE</span></p> 
-                    <p> Business</p>
-                </div>
-                <Link className="landingPageBtn1" to={'/register'}>Começar Grátis</Link>
+                <Title2 tag="h1">PUR<span>PURE</span> Business</Title2>
+                <Link to='/register'><OutlinedBtn>Começe grátis!</OutlinedBtn></Link>
             </header>
             <section>
                 <div className="container">
@@ -19,13 +18,17 @@ export const LandingPage = () => {
                         Toda simplicidade para o seu <span>PURO DESEMPENHO</span> empresarial.
                     </h2>
                     <div className="btnContainer">
-                        <Link className="landingPageBtn1" to={'/login'}>Efetuar Login</Link>
+                        <Link to='/login'><OutlinedBtn>Efetuar Login</OutlinedBtn></Link>
+                        <hr />
                         <span>ou</span>
-                        <Link className="landingPageBtn2" to={'/register'}>Criar sua conta</Link>
+                        <Link to='/register'><FilledBtn>Criar sua conta</FilledBtn></Link>
                     </div>
                 </div>
-                <div className="apresentation">
-                    <h1>POR QUE UTILIZAR NOSSA SOLUÇÃO?</h1>
+                <div className="apresentation" >
+                    <a href="#down">
+                        <h1>POR QUE UTILIZAR NOSSA SOLUÇÃO?</h1>
+                        <i className='bx bxs-chevron-down' ></i>
+                    </a>
                 </div>
                 <div className="containerValues">
                     <div className="valuesBoxes">
@@ -37,12 +40,12 @@ export const LandingPage = () => {
                     <div className="valuesBoxes">
                         <h3>AGILIDADE</h3>
                         <p>
-                            Desenvlvido por quem prioriza a resolução das tarefas do dia a dia de forma ágil e de qualidade.
+                            Desenvolvido por quem prioriza a resolução das tarefas do dia a dia de forma ágil e de qualidade.
                         </p>
                     </div>
                     <div className="valuesBoxes">
                         <h3>TRANSPARÊNCIA</h3>
-                        <p>
+                        <p id="down">
                             Temos o compromisso em oferecer nossos serviços, bem como nosso suporte de forma totalmente transparente.
                         </p>
                     </div>

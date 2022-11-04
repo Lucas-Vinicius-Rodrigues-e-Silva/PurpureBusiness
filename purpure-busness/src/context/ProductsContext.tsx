@@ -28,7 +28,7 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   useEffect(() => {
     async function loadingClients() {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
 
       if (token) {
@@ -42,14 +42,14 @@ const ProductPovider = ({ children }: iProductProps) => {
       }
     }
     loadingClients();
-  });
+  }, []);
 
   const registerProduct = async (data: iProducts) => {
     if (
       !products.find((product) => product.product_name === data.product_name)
     ) {
       try {
-        const token = localStorage.getItem("@TOKEN");
+        const token = localStorage.getItem("@accessToken");
 
         const newProduct = [
           ...products,
@@ -82,7 +82,7 @@ const ProductPovider = ({ children }: iProductProps) => {
         const newProductList = products.filter(
           (product) => product.id !== deletedProduct.id
         );
-        const token = localStorage.getItem("@TOKEN");
+        const token = localStorage.getItem("@accessToken");
 
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.delete(`/products/${deletedProduct.id}`);
@@ -96,7 +96,7 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   const editProduct = async (editedProduct: iProducts) => {
     try {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
 
       const pachProduct = {
         product_name: editedProduct.product_name,

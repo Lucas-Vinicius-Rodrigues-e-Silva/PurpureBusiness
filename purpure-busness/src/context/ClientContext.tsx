@@ -29,7 +29,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
   useEffect(() => {
     async function loadingClients() {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
 
       if (token) {
@@ -43,7 +43,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       }
     }
     loadingClients();
-  });
+  }, []);
 
   const registerClient = async (data: iClient) => {
     if (
@@ -52,7 +52,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       )
     ) {
       try {
-        const token = localStorage.getItem("@TOKEN");
+        const token = localStorage.getItem("@accessToken");
 
         const newClient = [
           ...clients,
@@ -86,7 +86,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
         const newClientsList = clients.filter(
           (client) => client.id !== deletedClient.id
         );
-        const token = localStorage.getItem("@TOKEN");
+        const token = localStorage.getItem("@accessToken");
 
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.delete(`/client/${deletedClient.id}`);
@@ -100,7 +100,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
   const editClient = async (editedClient: iClient) => {
     try {
-      const token = localStorage.getItem("@TOKEN");
+      const token = localStorage.getItem("@accessToken");
 
       const pachClient = {
         client_name: editedClient.client_name,
