@@ -145,7 +145,8 @@ body{
 #waves{
     position: fixed;
     width: 100%;
-    top: 80vh;
+    bottom: -4px;
+    /* top: 80vh; */
     filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
 }
 
@@ -160,4 +161,4 @@ body{
     animation: upTransition 1s ease;
 
 }
-`
+`;
