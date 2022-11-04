@@ -2,6 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Wave from "react-wavify";
+import Waves from "../../components/purpleWaves";
 import { AuthContext, iRegister } from "../../context/AuthContext";
 import { registerSchema } from "../../schemas/registerSchema";
 import { Title1, Input, FilledBtn, OutlinedBtn } from "../../styles/elements";
@@ -80,6 +82,7 @@ const RegisterPage = () => {
           <OutlinedBtn>Efetuar login</OutlinedBtn>
         </Link>
       </form>
+      <Waves />
     </MainRegister>
   );
 };
