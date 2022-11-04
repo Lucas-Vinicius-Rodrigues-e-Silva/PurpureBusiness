@@ -29,25 +29,25 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
                 <nav>
                     <ul>
                         <Li active={defineActive("dashboard")}>
-                            <Link to={"/dashboard"}>
+                            <Link to="/dashboard">
                                 <i className='bx bx-home'></i>
                                 <span>Dashboard</span>
                             </Link>
                         </Li>
                         <Li active={defineActive("dashboard/stock")}>
-                            <Link to={"stock"}>
+                            <Link to="/dashboard/stock">
                                 <i className='bx bxs-cube'></i>
                                 <span>Estoque</span>
                             </Link>
                         </Li>
                         <Li active={defineActive("dashboard/sales")}>
-                            <Link to={"sales"}>
+                            <Link to="/dashboard/sales">
                                 <i className='bx bx-store'></i>
                                 <span>Vendas</span>
                             </Link>
                         </Li>
                         <Li active={defineActive("dashboard/clients")}>
-                            <Link to={"clients"}>
+                            <Link to="/dashboard/clients">
                                 <i className='bx bx-user'></i>
                                 <span>Clientes</span>
                             </Link>
