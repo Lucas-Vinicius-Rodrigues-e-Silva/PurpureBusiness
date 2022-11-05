@@ -1,11 +1,9 @@
 import { useContext } from "react";
 import UiDashboard from "../../components/Interface";
 import { ClientContext } from "../../context/ClientContext";
-import Apptable from "./table";
 
 export const ClientPage = () => {
-  const { clients, editClient, deleteClient, registerClient } =
-    useContext(ClientContext);
+  const { clients } = useContext(ClientContext);
 
   return (
     <UiDashboard companyName="matheus ltda">
