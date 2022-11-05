@@ -3,7 +3,7 @@ import Wave from "react-wavify";
 export const Waves = () => {
   return (
     <>
-      <div id="waves">
+      <div id="waves" className="waveOne">
         <Wave
           fill="url(#gradient)"
           options={{
@@ -14,14 +14,14 @@ export const Waves = () => {
           }}
         >
           <defs>
-            <linearGradient id="gradient" gradientTransform="rotate(140)">
-              <stop offset="32%" stopColor="rgba(125,2,221,5)" />
-              <stop offset="100%" stopColor="rgba(79,0,255,5)" />
+            <linearGradient id="gradient" gradientTransform="rotate(90)">
+              <stop offset="70%" stopColor="rgba(125,2,221,.8)" />
+              <stop offset="100%" stopColor="rgba(79,0,255,.5)" />
             </linearGradient>
           </defs>
         </Wave>
       </div>
-      <div id="waves">
+      <div id="waves" className="waveTwo">
         <Wave
           fill="url(#gradient)"
           options={{

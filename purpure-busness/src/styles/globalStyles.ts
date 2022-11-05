@@ -150,15 +150,18 @@ body{
     filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
 }
 
-#waves:not(:focus){
-    @keyframes upTransition{
-        from{
-            transform: translateY(30vh);
-        }to{
-            transform: translateY(0);
-        }
+@keyframes slideUp{
+    from{
+        transform: translateY(100%);
+    }to{
+        transform: translateY(0);
     }
-    animation: upTransition 1s ease;
+}
 
+.waveOne:not(:focus){
+    animation: slideUp 1s ease;
+}
+.waveTwo:not(:focus){
+    animation: slideUp 1.5s ease;
 }
 `;
