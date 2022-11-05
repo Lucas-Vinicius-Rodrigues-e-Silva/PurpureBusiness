@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 
@@ -6,7 +6,7 @@ export interface iProducts {
   product_name: string;
   product_value: string;
   product_stock: string;
-  userId: number;
+  userId: number | null;
   id?: number;
 }
 
@@ -16,41 +16,35 @@ interface iProductProps {
 
 interface iProductContext {
   products: iProducts[];
-  registerProduct: (data: iProducts) => void;
+  loadingClientProducts: () => void;
+  registerProduct: (data: iProducts, userId:number|null) => void;
   deleteProduct: (deletedProduct: iProducts) => void;
   editProduct: (editedProduct: iProducts) => void;
 }
 
 export const ProductContext = createContext({} as iProductContext);
+const token = localStorage.getItem("@accessToken");
+const id = localStorage.getItem("@USER_ID");
 
 const ProductPovider = ({ children }: iProductProps) => {
   const [products, setProducts] = useState([] as iProducts[]);
 
-  useEffect(() => {
-    async function loadingClients() {
-      const token = localStorage.getItem("@accessToken");
-      const id = localStorage.getItem("@USER_ID");
-
-      if (token) {
-        try {
-          api.defaults.headers.authorization = `Bearer ${token}`;
-          const { data } = await api.get(`/users/${id}?_embed=products`);
-          setProducts(data.products);
-        } catch (error) {
-          console.log(error);
-        }
+  const loadingClientProducts = async () => {
+    if (token) {
+      try {
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        const { data } = await api.get(`/users/${id}?_embed=products`);
+        setProducts(data.products);
+      } catch (error) {
+        console.log(error);
       }
     }
-    loadingClients();
-  }, []);
+  };
 
-  const registerProduct = async (data: iProducts) => {
-    if (
-      !products.find((product) => product.product_name === data.product_name)
-    ) {
+  const registerProduct = async (data:iProducts, userId: number|null) => {
+
+    if (!products.find((product) => product.product_name === data.product_name)) {
       try {
-        const token = localStorage.getItem("@accessToken");
-
         const newProduct = [
           ...products,
           {
@@ -62,7 +56,7 @@ const ProductPovider = ({ children }: iProductProps) => {
         ];
 
         api.defaults.headers.authorization = `Bearer ${token}`;
-        await api.post("/products", data);
+        await api.post("/products", {...data, userId});        
 
         toast.success("Cliente cadastrado com sucesso!");
 
@@ -82,8 +76,6 @@ const ProductPovider = ({ children }: iProductProps) => {
         const newProductList = products.filter(
           (product) => product.id !== deletedProduct.id
         );
-        const token = localStorage.getItem("@accessToken");
-
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.delete(`/products/${deletedProduct.id}`);
         setProducts(newProductList);
@@ -115,7 +107,13 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   return (
     <ProductContext.Provider
-      value={{ products, registerProduct, deleteProduct, editProduct }}
+      value={{
+        products,
+        loadingClientProducts,
+        registerProduct,
+        deleteProduct,
+        editProduct,
+      }}
     >
       {children}
     </ProductContext.Provider>

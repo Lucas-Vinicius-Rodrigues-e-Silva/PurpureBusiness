@@ -1,24 +1,17 @@
 import { StyledInventoryPage } from "./style";
 import { BiSearchAlt2 } from "react-icons/bi";
 import UiDashboard from "../../components/Interface";
-import api from "../../services/api";
 import { useSortBy, useTable } from "react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo } from "react";
+import { ProductContext } from "../../context/ProductsContext";
+import ConfirmationModal from "../../components/NewProductModal";
 
 const InventoryPage = () => {
-  const [products, setProducts] = useState([]);
+  const { loadingClientProducts, products } = useContext(ProductContext);
 
-  const fetchProducts = async () => {
-    const response = await api
-      .get("/products/")
-      .catch((err) => console.log(err));
-
-    if (response) {
-      const teste = response.data;
-
-      setProducts(teste);
-    }
-  };
+  useEffect(() => {
+    loadingClientProducts();
+  }, []);
 
   const productsData = useMemo(() => [...products], [products]);
 
@@ -53,15 +46,11 @@ const InventoryPage = () => {
   const tableInstance = useTable(
     { columns: productsColumns, data: productsData },
     tableHooks,
-    useSortBy,
+    useSortBy
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   return (
     <UiDashboard companyName={"Teste"}>
@@ -69,7 +58,7 @@ const InventoryPage = () => {
         <section>
           <div>
             <h2>Estoque</h2>
-            <button>Novo Produto</button>
+            <ConfirmationModal />
             <input type="text" id="seach-product"></input>
             <button>
               <BiSearchAlt2 />

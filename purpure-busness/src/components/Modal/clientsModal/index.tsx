@@ -16,7 +16,7 @@ const customStyles = {
 Modal.setAppElement("#yourAppElement");
 
 function ModalClient() {
-  let subtitle;
+  let subtitle:any;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {

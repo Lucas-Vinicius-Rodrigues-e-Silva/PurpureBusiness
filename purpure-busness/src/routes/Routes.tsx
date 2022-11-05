@@ -7,6 +7,8 @@ import InventoryPage from "../Pages/inventoryPage";
 import { SalesPage } from "../Pages/dashSales";
 import SalePovider from "../context/SalesContext";
 import { NotFound } from "../Pages/notFound";
+import ProductPovider from "../context/ProductsContext";
+import NewProductModal from "../components/NewProductModal";
 
 
 export const AppRoutes = () => {
@@ -16,7 +18,7 @@ export const AppRoutes = () => {
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
       <Route path="dashboard" element={<DashHome />} />
-      <Route path="dashboard/stock" element={<InventoryPage/>} />
+      <Route path="dashboard/stock" element={ <ProductPovider> <InventoryPage/> <NewProductModal/> </ProductPovider>} />
       <Route path="dashboard/sales" element={ <SalePovider> <SalesPage /> </SalePovider>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
