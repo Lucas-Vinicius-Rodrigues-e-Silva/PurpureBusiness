@@ -17,9 +17,9 @@ interface iProductProps {
 interface iProductContext {
   products: iProducts[];
   loadingClientProducts: () => void;
-  registerProduct: (data: iProducts, userId:number|null) => void;
+  registerProduct: (data: iProducts, userId:number | null) => void;
   deleteProduct: (deletedProduct: iProducts) => void;
-  editProduct: (editedProduct: iProducts) => void;
+  editProduct: (editedProduct: iProducts, productId: number | null) => void;
 }
 
 export const ProductContext = createContext({} as iProductContext);
@@ -41,7 +41,7 @@ const ProductPovider = ({ children }: iProductProps) => {
     }
   };
 
-  const registerProduct = async (data:iProducts, userId: number|null) => {
+  const registerProduct = async (data:iProducts, userId: number | null) => {
 
     if (!products.find((product) => product.product_name === data.product_name)) {
       try {
@@ -51,13 +51,13 @@ const ProductPovider = ({ children }: iProductProps) => {
             product_name: data.product_name,
             product_value: data.product_value,
             product_stock: data.product_stock,
-            userId: data.userId,
+            userId: userId,
           },
         ];
 
         api.defaults.headers.authorization = `Bearer ${token}`;
-        await api.post("/products", {...data, userId});        
-
+        const teste = await api.post("/products", {...data, userId});        
+        console.log(teste)
         toast.success("Cliente cadastrado com sucesso!");
 
         setProducts(newProduct);
@@ -86,9 +86,8 @@ const ProductPovider = ({ children }: iProductProps) => {
     }
   };
 
-  const editProduct = async (editedProduct: iProducts) => {
+  const editProduct = async (editedProduct: iProducts, productId: number | null) => {
     try {
-      const token = localStorage.getItem("@accessToken");
 
       const pachProduct = {
         product_name: editedProduct.product_name,
@@ -97,7 +96,7 @@ const ProductPovider = ({ children }: iProductProps) => {
       };
 
       api.defaults.headers.authorization = `Bearer ${token}`;
-      await api.patch(`/products/${editedProduct.id}`, pachProduct);
+      await api.patch(`/products/${productId}`, pachProduct);
 
       toast.success("O produto foi editado com sucesso!");
     } catch (error) {

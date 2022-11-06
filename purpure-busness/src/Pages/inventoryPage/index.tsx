@@ -4,9 +4,12 @@ import UiDashboard from "../../components/Interface";
 import { useSortBy, useTable } from "react-table";
 import { useContext, useEffect, useMemo } from "react";
 import { ProductContext } from "../../context/ProductsContext";
-import ConfirmationModal from "../../components/NewProductModal";
+import ConfirmationModal from "../../components/Modal/ConfirmationModal";
+import EditProductModal from "../../components/Modal/EditProductModal";
+import NewProductModal from "../../components/Modal/NewProductModal";
 
 const InventoryPage = () => {
+
   const { loadingClientProducts, products } = useContext(ProductContext);
 
   useEffect(() => {
@@ -35,8 +38,8 @@ const InventoryPage = () => {
         Header: "Ações",
         Cell: ({ row }: any) => (
           <>
-            <button onClick={() => alert("working")}>Editar</button>
-            <button onClick={() => alert("working")}>excluir</button>
+            <button >{<EditProductModal productProps={row.original} />}</button>
+            <button >{<ConfirmationModal productProps={row.original} />}</button>
           </>
         ),
       },
@@ -58,7 +61,7 @@ const InventoryPage = () => {
         <section>
           <div>
             <h2>Estoque</h2>
-            <ConfirmationModal />
+            <NewProductModal />
             <input type="text" id="seach-product"></input>
             <button>
               <BiSearchAlt2 />
