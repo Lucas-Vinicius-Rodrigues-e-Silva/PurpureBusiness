@@ -35,11 +35,11 @@ const RegisterPage = () => {
         </Text>
         <Input
           id={"CNPJ"}
-          type={"number"}
+          type={"text"}
           placeholder={"Digite seu CNPJ"}
           {...register("CNPJ")}
         />
-        <Text tag="p" className="headline small">
+        <Text tag="p" className="headline small errorText">
           {errors?.CNPJ?.message}
         </Text>
 
@@ -52,7 +52,7 @@ const RegisterPage = () => {
           placeholder={"Digite sua senha"}
           {...register("password")}
         />
-        <Text tag="p" className="headline small">
+        <Text tag="p" className="headline small errorText">
           {errors?.password?.message}
         </Text>
 
@@ -65,7 +65,7 @@ const RegisterPage = () => {
           placeholder={"Digite novamente sua senha"}
           {...register("confirmPassword")}
         />
-        <Text tag="p" className="headline small">
+        <Text tag="p" className="headline small errorText">
           {errors?.confirmPassword?.message}
         </Text>
 
@@ -78,7 +78,7 @@ const RegisterPage = () => {
           placeholder={"Digite seu email"}
           {...register("email")}
         />
-        <Text tag="p" className="headline small">
+        <Text tag="p" className="headline small errorText">
           {errors?.email?.message}
         </Text>
 
@@ -91,7 +91,7 @@ const RegisterPage = () => {
           placeholder={"Insira seu nome fantasia"}
           {...register("commercialName")}
         />
-        <Text tag="p" className="headline small">
+        <Text tag="p" className="headline small errorText">
           {errors?.commercialName?.message}
         </Text>
 

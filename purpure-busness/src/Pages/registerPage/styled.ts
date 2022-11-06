@@ -8,7 +8,7 @@ const MainRegister = styled.main`
   form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     padding: 40px;
     box-shadow: 0px 0px 10px 1px rgb(0 0 0 / 25%);
     border-radius: 28px;
@@ -30,6 +30,13 @@ const MainRegister = styled.main`
   }
   button {
     width: 100%;
+    margin-top: 10px;
+  }
+
+  .errorText {
+    color: red;
+    font-size: 12px;
+    text-align: center;
   }
 `;
 
