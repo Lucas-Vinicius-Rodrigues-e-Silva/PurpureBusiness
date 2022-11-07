@@ -48,7 +48,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       }
     }
     loadingClients();
-  });
+  }, []);
 
   const registerClient = async (data: iClient) => {
     if (

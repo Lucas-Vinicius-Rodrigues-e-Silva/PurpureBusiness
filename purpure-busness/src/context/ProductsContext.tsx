@@ -49,7 +49,7 @@ const ProductPovider = ({ children }: iProductProps) => {
       }
     }
     loadingClients();
-  });
+  }, []);
 
   const registerProduct = async (data: iProducts) => {
     if (

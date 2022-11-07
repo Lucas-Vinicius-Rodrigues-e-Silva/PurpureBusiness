@@ -23,6 +23,7 @@ export interface iLogin {
 export interface iRegister {
   CNPJ: string;
   password: string;
+  confirmPassword: string;
   email: string;
   commercialName: string;
 }
@@ -80,6 +81,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       localStorage.setItem("@accessToken", accessToken);
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
+      navigate("dashboard");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
@@ -91,7 +93,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     try {
       await api.post("/register", data);
       toast.success("Usuarioa cadastrado com sucesso!");
-      navigate("/");
+      navigate("dashboard");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
