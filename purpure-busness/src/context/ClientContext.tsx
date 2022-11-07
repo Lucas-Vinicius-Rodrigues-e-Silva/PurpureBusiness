@@ -1,6 +1,11 @@
+import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
+
+interface iApiError {
+  error: string;
+}
 
 export interface iClient {
   client_name: string;
@@ -72,6 +77,8 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
         setClients(newClient);
       } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
         console.log(error);
       }
     } else {
@@ -93,6 +100,8 @@ const ClientPovider = ({ children }: iClientsProps) => {
         setClients(newClientsList);
         toast.success("O clinte foi apagado da sua lista!");
       } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
         console.log(error);
       }
     }
@@ -114,6 +123,8 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
       toast.success("O cliente foi editado com sucesso!");
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };

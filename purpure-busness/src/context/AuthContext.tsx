@@ -1,7 +1,12 @@
+import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../services/api";
+
+interface iApiError {
+  error: string;
+}
 
 export interface iUser {
   email: string;
@@ -55,6 +60,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
           const { data } = await api.get(`/users/${id}`);
           setUser(data);
         } catch (error) {
+          const requestError = error as AxiosError<iApiError>;
+          toast.error(requestError?.request.data.error);
           console.log(error);
         }
       }
@@ -67,13 +74,15 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     try {
       const response = await api.post("/login", data);
 
-      const { user: userResponse, token } = response.data;
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      const { user: userResponse, accessToken } = response.data;
+      api.defaults.headers.authorization = `Bearer ${accessToken}`;
       setUser(userResponse);
-      localStorage.setItem("@accessToken", token);
+      localStorage.setItem("@accessToken", accessToken);
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };
@@ -84,6 +93,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       toast.success("Usuarioa cadastrado com sucesso!");
       navigate("/");
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };
