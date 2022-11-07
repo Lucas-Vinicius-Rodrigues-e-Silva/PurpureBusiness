@@ -1,5 +1,9 @@
 import React from "react";
+<<<<<<< HEAD
 import ReactDOM from "react-dom";
+=======
+import Modal from "react-modal";
+>>>>>>> 1d575d36b2b4ddb695c44f69b6e6e6f65d6b3238
 
 const customStyles = {
   content: {
@@ -56,3 +60,8 @@ function ModalClient() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+export default ModalClient;
+>>>>>>> 1d575d36b2b4ddb695c44f69b6e6e6f65d6b3238

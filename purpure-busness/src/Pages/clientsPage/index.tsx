@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import UiDashboard from "../../components/Interface";
+import UiDashboard from "../../components/Interface/index";
 import { ClientContext } from "../../context/ClientContext";
 
 export const ClientPage = () => {

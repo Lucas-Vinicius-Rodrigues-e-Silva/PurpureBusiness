@@ -142,4 +142,23 @@ body{
     flex-wrap: wrap;
 }
 
-`
+#waves{
+    position: fixed;
+    width: 100%;
+    bottom: -4px;
+    /* top: 80vh; */
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+}
+
+#waves:not(:focus){
+    @keyframes upTransition{
+        from{
+            transform: translateY(30vh);
+        }to{
+            transform: translateY(0);
+        }
+    }
+    animation: upTransition 1s ease;
+
+}
+`;

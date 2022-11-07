@@ -18,6 +18,7 @@ export interface iLogin {
 export interface iRegister {
   CNPJ: string;
   password: string;
+  confirmPassword: string;
   email: string;
   commercialName: string;
 }
@@ -69,7 +70,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       const { user: userResponse, accessToken } = response.data;
       api.defaults.headers.authorization = `Bearer ${accessToken}`;
       setUser(userResponse);
-      localStorage.setItem("@accessToken", accessToken);
+      localStorage.setItem("@accessToken", token);
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
       navigate("dashboard");
@@ -82,7 +83,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
     try {
       await api.post("/register", data);
       toast.success("Usuarioa cadastrado com sucesso!");
-      navigate("/");
+      navigate("dashboard");
     } catch (error) {
       console.log(error);
     }

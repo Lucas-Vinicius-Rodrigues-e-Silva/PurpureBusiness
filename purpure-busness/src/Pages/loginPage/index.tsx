@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext, iLogin } from "../../context/AuthContext";
 import MainForm from "./styles";
 import { Text } from "../../styles/text/text";
+import Waves from "../../components/purpleWaves";
 
 const LoginPage = () => {
   const { loginUser } = useContext(AuthContext);
@@ -51,6 +52,7 @@ const LoginPage = () => {
           <OutlinedBtn>Criar sua conta</OutlinedBtn>
         </Link>
       </form>
+      <Waves />
     </MainForm>
   );
 };

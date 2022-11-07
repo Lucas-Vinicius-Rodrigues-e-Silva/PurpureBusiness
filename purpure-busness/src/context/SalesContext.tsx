@@ -5,8 +5,8 @@ import api from "../services/api";
 export interface iSales {
   cliente_sale_product: string;
   product_sale: string;
-  product_sale_quant: string;
-  total_sale_value: string;
+  product_sale_quant: number;
+  total_sale_value: number;
   userId: number;
   id?: number;
 }
@@ -22,9 +22,9 @@ interface iSalesContext {
   editSale: (editedSale: iSales) => void;
 }
 
-export const SalesContext = createContext({} as iSalesContext);
+export const SaleContext = createContext({} as iSalesContext);
 
-const SalesPovider = ({ children }: iSalesProps) => {
+const SalePovider = ({ children }: iSalesProps) => {
   const [sales, setSales] = useState([] as iSales[]);
 
   useEffect(() => {
@@ -109,12 +109,10 @@ const SalesPovider = ({ children }: iSalesProps) => {
   };
 
   return (
-    <SalesContext.Provider
-      value={{ sales, registerSale, deleteSale, editSale }}
-    >
+    <SaleContext.Provider value={{ sales, registerSale, deleteSale, editSale }}>
       {children}
-    </SalesContext.Provider>
+    </SaleContext.Provider>
   );
 };
 
-export default SalesPovider;
+export default SalePovider;
