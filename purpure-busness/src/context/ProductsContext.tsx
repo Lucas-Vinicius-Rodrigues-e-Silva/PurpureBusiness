@@ -16,6 +16,7 @@ interface iProductProps {
 
 interface iProductContext {
   products: iProducts[];
+  setProducts: React.Dispatch<React.SetStateAction<iProducts[]>>;
   loadingClientProducts: () => void;
   registerProduct: (data: iProducts, userId:number | null) => void;
   deleteProduct: (deletedProduct: iProducts) => void;
@@ -108,6 +109,7 @@ const ProductPovider = ({ children }: iProductProps) => {
     <ProductContext.Provider
       value={{
         products,
+        setProducts,
         loadingClientProducts,
         registerProduct,
         deleteProduct,

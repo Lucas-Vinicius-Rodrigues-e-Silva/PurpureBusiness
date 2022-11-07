@@ -2,19 +2,46 @@ import { StyledInventoryPage } from "./style";
 import { BiSearchAlt2 } from "react-icons/bi";
 import UiDashboard from "../../components/Interface";
 import { useSortBy, useTable } from "react-table";
-import { useContext, useEffect, useMemo } from "react";
-import { ProductContext } from "../../context/ProductsContext";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { iProducts, ProductContext } from "../../context/ProductsContext";
 import ConfirmationModal from "../../components/Modal/ConfirmationModal";
 import EditProductModal from "../../components/Modal/EditProductModal";
 import NewProductModal from "../../components/Modal/NewProductModal";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { searchProductSchema } from "../../schemas/searchItemSchema";
+import { Input } from "../../styles/elements";
+
+interface iSearchProduct {
+  searchProduct: string;
+}
 
 const InventoryPage = () => {
-
-  const { loadingClientProducts, products } = useContext(ProductContext);
+  const { products, setProducts, loadingClientProducts} = useContext(ProductContext);
+  const [fakeProducts, setfakeProducts] = useState([] as iProducts[])
 
   useEffect(() => {
     loadingClientProducts();
   }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iSearchProduct>({
+    resolver: yupResolver(searchProductSchema),
+  });
+
+  const searchedItemSubmit = (data: iSearchProduct) => {
+    const searchedProduct = products.find((product) => product.product_name.includes(data.searchProduct))
+    if(searchedProduct !== undefined){
+    setProducts([...fakeProducts,searchedProduct])
+  }
+  };
+
+  const resetProducts = async () => {
+    loadingClientProducts()
+  }
 
   const productsData = useMemo(() => [...products], [products]);
 
@@ -38,8 +65,8 @@ const InventoryPage = () => {
         Header: "Ações",
         Cell: ({ row }: any) => (
           <>
-            <button >{<EditProductModal productProps={row.original} />}</button>
-            <button >{<ConfirmationModal productProps={row.original} />}</button>
+            <button>{<EditProductModal productProps={row.original} />}</button>
+            <button>{<ConfirmationModal productProps={row.original} />}</button>
           </>
         ),
       },
@@ -62,10 +89,18 @@ const InventoryPage = () => {
           <div>
             <h2>Estoque</h2>
             <NewProductModal />
-            <input type="text" id="seach-product"></input>
-            <button>
-              <BiSearchAlt2 />
-            </button>
+            <button onClick={() => resetProducts()} >Resetar filtro</button>
+            <form onSubmit={handleSubmit(searchedItemSubmit)}>
+              <Input
+                type="text"
+                id="seach-product"
+                placeholder="Digite o nome do produto aqui"
+                {...register("searchProduct")}
+              ></Input>
+              <button type="submit">
+                <BiSearchAlt2 />
+              </button>
+            </form>
           </div>
           <div>
             <table {...getTableProps()}>
