@@ -1,3 +1,4 @@
+import { JSXElement } from "@babel/types";
 import React from "react";
 import Modal from "react-modal";
 
@@ -16,7 +17,7 @@ const customStyles = {
 Modal.setAppElement("#yourAppElement");
 
 function ModalClient() {
-  let subtitle:any;
+  let subtitle: any;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
