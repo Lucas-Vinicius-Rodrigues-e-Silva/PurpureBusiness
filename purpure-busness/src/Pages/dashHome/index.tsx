@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import UiDashboard from "../../components/Interface";
+import { UiDashboard } from "../../components/Interface";
 import { SalesModal } from "../../components/Modal/salesModal";
 import { SaleContext } from "../../context/SalesContext";
 import {

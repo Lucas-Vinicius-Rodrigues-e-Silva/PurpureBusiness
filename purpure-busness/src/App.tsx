@@ -3,9 +3,6 @@ import AuthProvider from "./context/AuthContext";
 import { AppRoutes } from "./routes/Routes";
 import ReactModal from "react-modal";
 import SalePovider from "./context/SalesContext";
-
-ReactModal.setAppElement("#root");
-import ReactModal from "react-modal";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {

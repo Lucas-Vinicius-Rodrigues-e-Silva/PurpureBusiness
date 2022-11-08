@@ -2,16 +2,15 @@ import { Route, Routes } from "react-router-dom";
 import { LandingPage } from "../Pages/landingPage";
 import LoginPage from "../Pages/loginPage";
 import RegisterPage from "../Pages/registerPage";
-import DashHome from "../Pages/dashHome";
 import { SalesPage } from "../Pages/dashSales";
 import SalePovider from "../context/SalesContext";
 import { NotFound } from "../Pages/notFound";
 import { useEffect } from "react";
 import NotAllowed from "../Pages/notAllowed";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import ClientPovider from "../context/ClientContext";
 import { ClientPage } from "../Pages/clientsPage";
+import { DashHome } from "../Pages/dashHome";
 
 export const AppRoutes = () => {
   const navigate = useNavigate();
