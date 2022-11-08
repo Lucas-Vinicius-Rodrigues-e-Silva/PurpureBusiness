@@ -27,6 +27,8 @@ interface iClientsContext {
   modalIsOpen: boolean;
   modalEditIsOpen: boolean;
   modalDeletIsOpen: boolean;
+  filtered: string;
+  setFiltered: React.Dispatch<React.SetStateAction<string>>;
   setClientMod: React.Dispatch<React.SetStateAction<iClient | null>>;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setModalEditIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,6 +47,7 @@ export const ClientContext = createContext({} as iClientsContext);
 const ClientPovider = ({ children }: iClientsProps) => {
   const [clients, setClients] = useState([] as iClient[]);
   const [clientsFilter, setClientsFilter] = useState([] as iClient[]);
+  const [filtered, setFiltered] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [modalDeletIsOpen, setModalDeletIsOpen] = useState(false);
@@ -54,24 +57,20 @@ const ClientPovider = ({ children }: iClientsProps) => {
     async function loadingClients() {
       const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
-      console.log(clientMod);
 
       if (token) {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}?_embed=clients`);
           setClients(data.clients);
+          setClientsFilter(data.clients);
         } catch (error) {
           console.log(error);
         }
       }
     }
     loadingClients();
-  }, [clientMod]);
-
-  useEffect(() => {
-    setClientsFilter(clients);
-  }, [clients]);
+  }, []);
 
   const registerClient = async (data: iClient) => {
     if (
@@ -95,9 +94,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.post("/clients", data);
-
         toast.success("Cliente cadastrado com sucesso!");
-
         setClients(newClient);
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
@@ -130,17 +127,14 @@ const ClientPovider = ({ children }: iClientsProps) => {
   };
 
   const deleteModalOpen = async (id: string) => {
-    console.log(id);
     const token = localStorage.getItem("@accessToken");
     api.defaults.headers.authorization = `Bearer ${token}`;
     const { data } = await api.get(`/clients/${parseInt(id)}`);
-    console.log(data);
     setClientMod(data);
     setModalDeletIsOpen(true);
   };
 
   const editClient = async (editedClient: iClient) => {
-    console.log(editedClient);
     try {
       const token = localStorage.getItem("@accessToken");
 
@@ -168,6 +162,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
   };
 
   const filterClients = (filter: string) => {
+    console.log(clientsFilter);
     setClientsFilter(
       clients.filter(
         (client) =>
@@ -201,6 +196,8 @@ const ClientPovider = ({ children }: iClientsProps) => {
         filterClients,
         clientsFilter,
         setClientsFilter,
+        filtered,
+        setFiltered,
       }}
     >
       {children}
