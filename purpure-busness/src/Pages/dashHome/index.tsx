@@ -1,4 +1,7 @@
+import { useContext } from "react"
 import UiDashboard from "../../components/Interface"
+import { SalesModal } from "../../components/Modal/salesModal"
+import { SaleContext } from "../../context/SalesContext"
 import { DashboardQuickCards, DashboardBallInfo, DashboardColumnInfo } from "../../styles/dashboardBase"
 import { Title3 } from "../../styles/elements"
 
@@ -10,9 +13,12 @@ let exemplos = {
 }
 
 export const DashHome = () => {
+    const { setSaleModalIsOpen } = useContext(SaleContext)
+
     return (
         <UiDashboard companyName={exemplos.nomeFantasia}>
             <title>Dashboard | Purpure Business</title>
+            <SalesModal></SalesModal>
             <div id="mainDashboard">
                 <div className="hot-info">
                     <DashboardBallInfo>
@@ -43,7 +49,7 @@ export const DashHome = () => {
                             <i className="bx bxs-minus-circle"></i>
                             <Title3 tag="h3">Deletar cliente</Title3>
                         </DashboardQuickCards>
-                        <DashboardQuickCards color="add">
+                        <DashboardQuickCards onClick={() => setSaleModalIsOpen(true)} color="add">
                             <i className="bx bxs-purchase-tag"></i>
                             <Title3 tag="h3">Vender produto</Title3>
                         </DashboardQuickCards>
