@@ -22,6 +22,8 @@ interface iClientsProps {
 
 interface iClientsContext {
   clients: iClient[];
+  modalIsOpen: boolean;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   registerClient: (data: iClient) => void;
   deleteClient: (deletedClient: iClient) => void;
   editClient: (editedClient: iClient) => void;
@@ -31,6 +33,7 @@ export const ClientContext = createContext({} as iClientsContext);
 
 const ClientPovider = ({ children }: iClientsProps) => {
   const [clients, setClients] = useState([] as iClient[]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     async function loadingClients() {
@@ -131,7 +134,14 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
   return (
     <ClientContext.Provider
-      value={{ clients, registerClient, deleteClient, editClient }}
+      value={{
+        clients,
+        registerClient,
+        deleteClient,
+        editClient,
+        modalIsOpen,
+        setModalIsOpen,
+      }}
     >
       {children}
     </ClientContext.Provider>

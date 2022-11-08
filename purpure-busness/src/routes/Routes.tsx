@@ -3,6 +3,8 @@ import { LandingPage } from "../Pages/landingPage";
 import LoginPage from "../Pages/loginPage";
 import RegisterPage from "../Pages/registerPage";
 import DashHome from "../Pages/dashHome";
+import ClientPovider from "../context/ClientContext";
+import { ClientPage } from "../Pages/clientsPage";
 
 export const AppRoutes = () => {
   return (
@@ -11,6 +13,14 @@ export const AppRoutes = () => {
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
       <Route path="dashboard" element={<DashHome />} />
+      <Route
+        path="/dashboard/clients"
+        element={
+          <ClientPovider>
+            <ClientPage />
+          </ClientPovider>
+        }
+      />
     </Routes>
   );
 };

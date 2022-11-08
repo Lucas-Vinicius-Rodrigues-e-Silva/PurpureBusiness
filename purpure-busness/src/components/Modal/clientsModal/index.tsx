@@ -1,10 +1,11 @@
-import { JSXElement } from "@babel/types";
-import React from "react";
-<<<<<<< HEAD
-import ReactDOM from "react-dom";
-=======
+import React, { useContext } from "react";
+import { ClientContext, iClient } from "../../../context/ClientContext";
 import Modal from "react-modal";
->>>>>>> 1d575d36b2b4ddb695c44f69b6e6e6f65d6b3238
+import { Input } from "../../../styles/elements";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { clientsSherma } from "../../../schemas/clientsScherma";
+import { Text } from "../../../styles/text/text";
 
 const customStyles = {
   content: {
@@ -17,52 +18,83 @@ const customStyles = {
   },
 };
 
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement("#yourAppElement");
+export const ModalAddClient = () => {
+  const { modalIsOpen, setModalIsOpen, registerClient } =
+    useContext(ClientContext);
 
-function ModalClient() {
-  let subtitle: any;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const { register, handleSubmit } = useForm<iClient>({
+    resolver: yupResolver(clientsSherma),
+  });
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const submit = async (data: iClient) => {
+    const clientId = localStorage.getItem("@USER_ID");
+    const newData = {
+      ...data,
+      userId: parseInt(`${clientId}`),
+    };
+    registerClient(newData);
+    setModalIsOpen(false);
+  };
 
   return (
     <div>
-      <button onClick={openModal}>Open Modal</button>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
+        onRequestClose={() => setModalIsOpen(false)}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
+        <h2>Cadastro de novo cliente</h2>
+        <span onClick={() => setModalIsOpen(false)}>x</span>
+        <button onClick={() => setModalIsOpen(false)}>close</button>
+        <form onSubmit={handleSubmit(submit)}>
+          <Text tag="label" className="newClientInput">
+            Cliente
+          </Text>
+          <Input
+            id={"client_name"}
+            type={"text"}
+            placeholder={"Nome fantasia ou Nome pessoa física"}
+            {...register("client_name")}
+          />
+          <Text tag="label" className="newClientInput">
+            Documento do cliente
+          </Text>
+          <Input
+            id={"cliente_document"}
+            type={"text"}
+            placeholder={"CPF ou CNPJ"}
+            {...register("cliente_document")}
+          />
+          <Text tag="label" className="newClientInput">
+            Cliente
+          </Text>
+          <Input
+            id={"client_email"}
+            type={"email"}
+            placeholder={"Digite aqui o e-mail do Cliente"}
+            {...register("client_email")}
+          />
+          <Text tag="label" className="newClientInput">
+            Cliente
+          </Text>
+          <Input
+            id={"clinte_phone"}
+            type={"number"}
+            placeholder={"(xx) x xxxx-xxxx"}
+            {...register("clinte_phone")}
+          />
+          <button type="submit">Cadastrar novo cliente</button>
         </form>
       </Modal>
     </div>
   );
-}
-<<<<<<< HEAD
-=======
+};
 
-export default ModalClient;
->>>>>>> 1d575d36b2b4ddb695c44f69b6e6e6f65d6b3238
+function ModalEditClient() {
+  return "";
+}
+
+function ModalDeleteClient() {
+  return "s";
+}
