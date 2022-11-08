@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ClientContext, iClient } from "../../../context/ClientContext";
 import Modal from "react-modal";
 import { Input } from "../../../styles/elements";
@@ -9,6 +9,7 @@ import { Text } from "../../../styles/text/text";
 
 const customStyles = {
   content: {
+    width: "50vw",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -18,8 +19,8 @@ const customStyles = {
   },
 };
 
-export const ModalAddClient = () => {
-  const { modalIsOpen, setModalIsOpen, registerClient } =
+export function ModalEditClient() {
+  const { modalEditIsOpen, setModalEditIsOpen, editClient, clientMod } =
     useContext(ClientContext);
 
   const { register, handleSubmit } = useForm<iClient>({
@@ -32,21 +33,20 @@ export const ModalAddClient = () => {
       ...data,
       userId: parseInt(`${clientId}`),
     };
-    registerClient(newData);
-    setModalIsOpen(false);
+    editClient(newData);
+    setModalEditIsOpen(false);
   };
 
   return (
     <div>
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        isOpen={modalEditIsOpen}
+        onRequestClose={() => setModalEditIsOpen(false)}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2>Cadastro de novo cliente</h2>
-        <span onClick={() => setModalIsOpen(false)}>x</span>
-        <button onClick={() => setModalIsOpen(false)}>close</button>
+        <h2>Editar Cliente</h2>
+        <span onClick={() => setModalEditIsOpen(false)}>x</span>
         <form onSubmit={handleSubmit(submit)}>
           <Text tag="label" className="newClientInput">
             Cliente
@@ -54,7 +54,7 @@ export const ModalAddClient = () => {
           <Input
             id={"client_name"}
             type={"text"}
-            placeholder={"Nome fantasia ou Nome pessoa física"}
+            placeholder={`${clientMod?.client_name}`}
             {...register("client_name")}
           />
           <Text tag="label" className="newClientInput">
@@ -63,7 +63,7 @@ export const ModalAddClient = () => {
           <Input
             id={"cliente_document"}
             type={"text"}
-            placeholder={"CPF ou CNPJ"}
+            placeholder={`${clientMod?.cliente_document}`}
             {...register("cliente_document")}
           />
           <Text tag="label" className="newClientInput">
@@ -72,7 +72,7 @@ export const ModalAddClient = () => {
           <Input
             id={"client_email"}
             type={"email"}
-            placeholder={"Digite aqui o e-mail do Cliente"}
+            placeholder={`${clientMod?.client_email}`}
             {...register("client_email")}
           />
           <Text tag="label" className="newClientInput">
@@ -81,20 +81,12 @@ export const ModalAddClient = () => {
           <Input
             id={"clinte_phone"}
             type={"number"}
-            placeholder={"(xx) x xxxx-xxxx"}
+            placeholder={`${clientMod?.clinte_phone}`}
             {...register("clinte_phone")}
           />
-          <button type="submit">Cadastrar novo cliente</button>
+          <button type="submit">Atualizar dados do cliente</button>
         </form>
       </Modal>
     </div>
   );
-};
-
-function ModalEditClient() {
-  return "";
-}
-
-function ModalDeleteClient() {
-  return "s";
 }
