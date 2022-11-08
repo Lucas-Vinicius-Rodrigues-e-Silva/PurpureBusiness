@@ -9,7 +9,7 @@ export const ConfirmationModalStyledBtns = styled.div`
     background: transparent;
     border: none;
     position: absolute;
-    left: 1200px;
+    left: 1300px;
     cursor: pointer;
   }
 `;

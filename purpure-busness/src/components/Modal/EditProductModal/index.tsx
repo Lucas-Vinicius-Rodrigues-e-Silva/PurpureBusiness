@@ -7,7 +7,8 @@ import { Input, FilledBtn } from "../../../styles/elements";
 import { Text } from "../../../styles/text/text";
 import { iProducts, ProductContext } from "../../../context/ProductsContext";
 import { editProductSchema } from "../../../schemas/editProductSchema";
-
+import { StyledDivEditProductModal, StyledDivEditProductModalBtn } from "../../../styles/editProductModal";
+import {BiEdit} from "react-icons/bi"
 const customStyles = {
   content: {
     top: "50%",
@@ -19,7 +20,7 @@ const customStyles = {
   },
 };
 
-const EditProductModal = ({productProps}:any) => {
+const EditProductModal = ({ productProps }: any) => {
   const { editProduct, loadingClientProducts } = useContext(ProductContext);
 
   const {
@@ -32,7 +33,7 @@ const EditProductModal = ({productProps}:any) => {
 
   const editProductSubmit = async (data: iProducts) => {
     editProduct(data, productProps.id);
-    loadingClientProducts()
+    loadingClientProducts();
     setIsOpen(false);
   };
 
@@ -51,53 +52,63 @@ const EditProductModal = ({productProps}:any) => {
   }
 
   return (
-    <div>
-      <button onClick={openModal}>Editar produto</button>
+    <StyledDivEditProductModalBtn>
+      <button onClick={openModal}><BiEdit size={24} /></button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
       >
-        <h2>Editar produto</h2>
-        <button onClick={() => closeModal()}>
-          <AiFillCloseCircle />
-        </button>
-        <form onSubmit={handleSubmit(editProductSubmit)}>
-          <Text tag="label" className="headline">
-           Nome do produto
-          </Text>
-          <Input
-            id={"ProductName"}
-            type={"text"}
-            placeholder={productProps.product_name}
-            {...register("product_name")}
-          />
-          <p>{errors.product_name?.message}</p>
-          <Text tag="label" className="headline">
-          Valor do produto
-          </Text>
-          <Input
-            id={"productPrice"}
-            type={"text"}
-            placeholder={productProps.product_value}
-            {...register("product_value")}
-          />
-          <p>{errors.product_value?.message}</p>
-          <Text tag="label" className="headline">
-         Estoque atual
-          </Text>
-          <Input
-            id={"productInventory"}
-            type={"text"}
-            placeholder={productProps.product_stock}
-            {...register("product_stock")}
-            disabled={true}
-          />
-          <FilledBtn type="submit">Confirmar mudanças</FilledBtn>
-        </form>
+        <StyledDivEditProductModal>
+          <div>
+            <h2>Editar produto</h2>
+            <button onClick={() => closeModal()}>
+              <AiFillCloseCircle  size={24}/>
+            </button>
+          </div>
+          <form onSubmit={handleSubmit(editProductSubmit)}>
+            <Text tag="label" className="headline">
+              Nome do produto
+            </Text>
+            <Input
+              id={"ProductName"}
+              type={"text"}
+              placeholder={productProps.product_name}
+              {...register("product_name")}
+            />
+            <p>{errors.product_name?.message}</p>
+            <div>
+              <div className="priceInput">
+                <Text tag="label" className="headline">
+                  Valor do produto:
+                </Text>
+                <Input
+                  id={"productPrice"}
+                  type={"text"}
+                  placeholder={productProps.product_value}
+                  {...register("product_value")}
+                />
+                <p>{errors.product_value?.message}</p>
+              </div>
+              <div className="inventoryInput">
+                <Text tag="label" className="headline">
+                  Estoque atual:
+                </Text>
+                <Input
+                  id={"productInventory"}
+                  type={"text"}
+                  placeholder={productProps.product_stock}
+                  {...register("product_stock")}
+                  disabled={true}
+                />
+              </div>
+            </div>
+            <FilledBtn type="submit">Confirmar mudanças</FilledBtn>
+          </form>
+        </StyledDivEditProductModal>
       </Modal>
-    </div>
+    </StyledDivEditProductModalBtn>
   );
 };
 

@@ -18,21 +18,23 @@ interface iProductContext {
   products: iProducts[];
   setProducts: React.Dispatch<React.SetStateAction<iProducts[]>>;
   loadingClientProducts: () => void;
-  registerProduct: (data: iProducts, userId:number | null) => void;
+  registerProduct: (data: iProducts) => void;
   deleteProduct: (deletedProduct: iProducts) => void;
   editProduct: (editedProduct: iProducts, productId: number | null) => void;
 }
 
 export const ProductContext = createContext({} as iProductContext);
-const token = localStorage.getItem("@accessToken");
-const id = localStorage.getItem("@USER_ID");
+
+
 
 const ProductPovider = ({ children }: iProductProps) => {
   const [products, setProducts] = useState([] as iProducts[]);
 
   const loadingClientProducts = async () => {
+    const token = localStorage.getItem("@accessToken");
     if (token) {
       try {
+        const id = localStorage.getItem("@USER_ID");
         api.defaults.headers.authorization = `Bearer ${token}`;
         const { data } = await api.get(`/users/${id}?_embed=products`);
         setProducts(data.products);
@@ -42,8 +44,7 @@ const ProductPovider = ({ children }: iProductProps) => {
     }
   };
 
-  const registerProduct = async (data:iProducts, userId: number | null) => {
-
+  const registerProduct = async (data:iProducts) => {
     if (!products.find((product) => product.product_name === data.product_name)) {
       try {
         const newProduct = [
@@ -52,15 +53,14 @@ const ProductPovider = ({ children }: iProductProps) => {
             product_name: data.product_name,
             product_value: data.product_value,
             product_stock: data.product_stock,
-            userId: userId,
+            userId: data.userId,
           },
         ];
-
+        const token = localStorage.getItem("@accessToken");
         api.defaults.headers.authorization = `Bearer ${token}`;
-        const editProduct = await api.post("/products", {...data, userId});        
-        console.log(editProduct)
+        console.log(data)
+        await api.post("/products", data);        
         toast.success("Cliente cadastrado com sucesso!");
-
         setProducts(newProduct);
       } catch (error) {
         console.log(error);
@@ -77,6 +77,7 @@ const ProductPovider = ({ children }: iProductProps) => {
         const newProductList = products.filter(
           (product) => product.id !== deletedProduct.id
         );
+        const token = localStorage.getItem("@accessToken");
         api.defaults.headers.authorization = `Bearer ${token}`;
         await api.delete(`/products/${deletedProduct.id}`);
         setProducts(newProductList);
@@ -95,7 +96,7 @@ const ProductPovider = ({ children }: iProductProps) => {
         product_value: editedProduct.product_value,
         product_stock: editedProduct.product_stock,
       };
-
+      const token = localStorage.getItem("@accessToken");
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/products/${productId}`, pachProduct);
 

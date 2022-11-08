@@ -52,6 +52,10 @@ export const StyledInventoryPage = styled.main`
         cursor: pointer;
       }
     }
+
+    .btnReset {
+      border-radius: 10px;
+    }
   }
   td {
     border: 1px solid rgba(0, 0, 0, 0.25);

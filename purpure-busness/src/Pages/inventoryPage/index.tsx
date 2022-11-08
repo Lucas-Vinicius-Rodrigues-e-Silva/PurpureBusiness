@@ -11,6 +11,7 @@ import UiDashboard from "../../components/Interface";
 import ConfirmationModal from "../../components/Modal/ConfirmationModal";
 import EditProductModal from "../../components/Modal/EditProductModal";
 import NewProductModal from "../../components/Modal/NewProductModal";
+import { NoProductsFound } from "../../components/NotFoundProducts";
 
 interface iSearchProduct {
   searchProduct: string;
@@ -27,7 +28,6 @@ const InventoryPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<iSearchProduct>({
     resolver: yupResolver(searchProductSchema),
   });
@@ -46,7 +46,6 @@ const InventoryPage = () => {
     notFound && setNotFound(false)
   }
 
-  
   return (
     <UiDashboard companyName={"Prime imports LTDA"}>
       <StyledInventoryPage>
@@ -55,7 +54,7 @@ const InventoryPage = () => {
             <h2>Estoque</h2>
             <div className="navHeader">
             <NewProductModal />
-            <OutlinedBtn onClick={() => resetProducts()} >Resetar filtro</OutlinedBtn>
+            <OutlinedBtn className="btnReset" onClick={() => resetProducts()} >Resetar filtro</OutlinedBtn>
             <form onSubmit={handleSubmit(searchedItemSubmit)}>
               <Input
                 type="text"
@@ -70,6 +69,7 @@ const InventoryPage = () => {
             </div>
           </div>
            { !notFound ? <div className="table">
+            { products.length ?
           <table>
           <thead>
             <tr>
@@ -107,7 +107,8 @@ const InventoryPage = () => {
                     </tr> )
                 }
           </tbody>
-        </table>
+        </table> : <NoProductsFound/> 
+        }
           </div> : <NoItensFound/>}
         </section>
       </StyledInventoryPage>
