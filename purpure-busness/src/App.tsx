@@ -14,7 +14,6 @@ function App() {
           <AppRoutes />
         </SalePovider>
         <ToastContainer />
-        <AppRoutes />
       </AuthProvider>
     </div>
   );
