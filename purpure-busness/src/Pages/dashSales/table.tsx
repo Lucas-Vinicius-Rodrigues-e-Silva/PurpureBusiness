@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { SaleContext } from "../../context/SalesContext";
+import { TableContent } from "./dashboardSales";
 
 export const Table = () => {
 
     const { sales, filtered } = useContext(SaleContext)
 
     return (
-        <table>
+        <TableContent>
           <thead>
             <tr>
               <th>
@@ -46,6 +47,6 @@ export const Table = () => {
                   )
                 }
           </tbody>
-        </table>
+        </TableContent>
       )
 }

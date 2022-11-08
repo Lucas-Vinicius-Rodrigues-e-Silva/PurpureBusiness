@@ -11,25 +11,44 @@ export const HeaderSearch = styled.div`
 
   margin-bottom: 20px;
 
-  div {
-    display: flex;
-    justify-content: space-around;
-
-    width: 50%;
+  button {
+    border-radius: 15px;
+    border: none;
+    background-color: #4ECB71;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    color: white;
+    width: 65px;
+    height: 20px;
+    margin-right: 15px;
   }
 
-  /* input {
-    background-color: #fbfbfb;
+  .btnSearch {
+    display: flex;
+  }
 
-    padding: 5px 10px;
-
-    border-radius: 15px;
+  .searchBar {
+    background: #F9F9F9;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
 
-    &&:focus {
-      outline: 1px solid black;
+    input {
+      border: none;
+      padding-left: 10px;
+      border-radius: 15px;
     }
-  } */
+
+    input:focus {
+      box-shadow: 0;
+      outline: 0;
+    }
+
+    svg {
+      cursor: pointer;
+      position: relative;
+      right: 2%;
+    }
+  }
+
 `;
 
 export const TableContent = styled.table`
