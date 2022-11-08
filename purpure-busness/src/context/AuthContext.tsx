@@ -35,7 +35,6 @@ interface iAuthContextProps {
 interface iAuthContext {
   user: iUser | null;
   loading: boolean;
-
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigate: any;
