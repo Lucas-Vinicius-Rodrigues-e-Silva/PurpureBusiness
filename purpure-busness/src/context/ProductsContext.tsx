@@ -1,6 +1,11 @@
+import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
+
+interface iApiError {
+  error: string;
+}
 
 export interface iProducts {
   product_name: string;
@@ -37,6 +42,8 @@ const ProductPovider = ({ children }: iProductProps) => {
           const { data } = await api.get(`/users/${id}?_embed=products`);
           setProducts(data.products);
         } catch (error) {
+          const requestError = error as AxiosError<iApiError>;
+          toast.error(requestError?.request.data.error);
           console.log(error);
         }
       }
@@ -68,6 +75,8 @@ const ProductPovider = ({ children }: iProductProps) => {
 
         setProducts(newProduct);
       } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
         console.log(error);
       }
     } else {
@@ -89,6 +98,8 @@ const ProductPovider = ({ children }: iProductProps) => {
         setProducts(newProductList);
         toast.success("O produto foi apagado da sua lista!");
       } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
         console.log(error);
       }
     }
@@ -109,6 +120,8 @@ const ProductPovider = ({ children }: iProductProps) => {
 
       toast.success("O produto foi editado com sucesso!");
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };

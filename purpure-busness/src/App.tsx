@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import AuthProvider from "./context/AuthContext";
 import { AppRoutes } from "./routes/Routes";
 import ReactModal from 'react-modal';
@@ -12,6 +13,8 @@ function App() {
         <SalePovider>
           <AppRoutes />
         </SalePovider>
+        <ToastContainer />
+        <AppRoutes />
       </AuthProvider>
     </div>
   );
