@@ -57,8 +57,8 @@ const ProductPovider = ({ children }: iProductProps) => {
         ];
 
         api.defaults.headers.authorization = `Bearer ${token}`;
-        const teste = await api.post("/products", {...data, userId});        
-        console.log(teste)
+        const editProduct = await api.post("/products", {...data, userId});        
+        console.log(editProduct)
         toast.success("Cliente cadastrado com sucesso!");
 
         setProducts(newProduct);
@@ -72,7 +72,7 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   const deleteProduct = async (deletedProduct: iProducts) => {
     // eslint-disable-next-line no-restricted-globals
-    if (confirm("Deseja excluir este produto?")) {
+    console.log(deletedProduct)
       try {
         const newProductList = products.filter(
           (product) => product.id !== deletedProduct.id
@@ -84,7 +84,7 @@ const ProductPovider = ({ children }: iProductProps) => {
       } catch (error) {
         console.log(error);
       }
-    }
+    
   };
 
   const editProduct = async (editedProduct: iProducts, productId: number | null) => {

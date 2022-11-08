@@ -1,25 +1,25 @@
-import { StyledInventoryPage } from "./style";
+import { StyledInventoryPage } from "../../styles/inventoryPage";
 import { BiSearchAlt2 } from "react-icons/bi";
-import UiDashboard from "../../components/Interface";
-import { useSortBy, useTable } from "react-table";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { iProducts, ProductContext } from "../../context/ProductsContext";
-import ConfirmationModal from "../../components/Modal/ConfirmationModal";
-import EditProductModal from "../../components/Modal/EditProductModal";
-import NewProductModal from "../../components/Modal/NewProductModal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { searchProductSchema } from "../../schemas/searchItemSchema";
-import { Input } from "../../styles/elements";
+import { Input, OutlinedBtn } from "../../styles/elements";
+import { NoItensFound } from "../../components/NotFoundItens";
+import UiDashboard from "../../components/Interface";
+import ConfirmationModal from "../../components/Modal/ConfirmationModal";
+import EditProductModal from "../../components/Modal/EditProductModal";
+import NewProductModal from "../../components/Modal/NewProductModal";
 
 interface iSearchProduct {
   searchProduct: string;
 }
 
 const InventoryPage = () => {
-  const { products, setProducts, loadingClientProducts} = useContext(ProductContext);
-  const [fakeProducts, setfakeProducts] = useState([] as iProducts[])
-
+  const { products, loadingClientProducts} = useContext(ProductContext);
+  const [filteredProducts, setfilteredProducts] = useState([] as iProducts[])
+  const [notFound, setNotFound] = useState(false)
   useEffect(() => {
     loadingClientProducts();
   }, []);
@@ -33,104 +33,82 @@ const InventoryPage = () => {
   });
 
   const searchedItemSubmit = (data: iSearchProduct) => {
-    const searchedProduct = products.find((product) => product.product_name.includes(data.searchProduct))
-    if(searchedProduct !== undefined){
-    setProducts([...fakeProducts,searchedProduct])
+    const searchedProduct = products.filter((product) => product.product_name.toLowerCase().includes(data.searchProduct))
+    if(searchedProduct.length === 0){
+      setNotFound(true)
+    } else {
+    setfilteredProducts(searchedProduct)
   }
   };
 
   const resetProducts = async () => {
-    loadingClientProducts()
+    setfilteredProducts([])
+    notFound && setNotFound(false)
   }
 
-  const productsData = useMemo(() => [...products], [products]);
-
-  const productsColumns: any = useMemo(
-    () =>
-      products[0]
-        ? Object.keys(products[0])
-            .filter((key) => key !== "rating")
-            .map((key) => {
-              return { Header: key, accessor: key };
-            })
-        : [],
-    [products]
-  );
-
-  const tableHooks = (hooks: any) => {
-    hooks.visibleColumns.push((columns: any) => [
-      ...columns,
-      {
-        id: "Edit and delete",
-        Header: "Ações",
-        Cell: ({ row }: any) => (
-          <>
-            <button>{<EditProductModal productProps={row.original} />}</button>
-            <button>{<ConfirmationModal productProps={row.original} />}</button>
-          </>
-        ),
-      },
-    ]);
-  };
-
-  const tableInstance = useTable(
-    { columns: productsColumns, data: productsData },
-    tableHooks,
-    useSortBy
-  );
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
-
+  
   return (
-    <UiDashboard companyName={"Teste"}>
+    <UiDashboard companyName={"Prime imports LTDA"}>
       <StyledInventoryPage>
         <section>
-          <div>
+          <div className="pageHeader">
             <h2>Estoque</h2>
+            <div className="navHeader">
             <NewProductModal />
-            <button onClick={() => resetProducts()} >Resetar filtro</button>
+            <OutlinedBtn onClick={() => resetProducts()} >Resetar filtro</OutlinedBtn>
             <form onSubmit={handleSubmit(searchedItemSubmit)}>
               <Input
                 type="text"
-                id="seach-product"
+                id="search-product"
                 placeholder="Digite o nome do produto aqui"
                 {...register("searchProduct")}
               ></Input>
               <button type="submit">
-                <BiSearchAlt2 />
+                <BiSearchAlt2  size={24}/>
               </button>
             </form>
+            </div>
           </div>
-          <div>
-            <table {...getTableProps()}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                  prepareRow(row);
-
-                  return (
-                    <tr {...row.getRowProps()}>
-                      {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      ))}
-                      ;
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+           { !notFound ? <div className="table">
+          <table>
+          <thead>
+            <tr>
+              <th className="id">
+              Id
+              </th>
+              <th className="name">
+                Nome do produto
+              </th>
+              <th className="quantity">
+                Quantidade
+              </th>
+              <th className="price">
+                Valor
+              </th>
+              <th className="actions">Ações</th>
+            </tr>
+          </thead>
+          <tbody className="tableBody">
+                { filteredProducts.length === 0 ? products.map((product) =>
+                        <tr key={product.id}> 
+                            <td>{product.id}</td>
+                            <td>{product.product_name}</td>
+                            <td>{product.product_stock}</td>
+                            <td>{product.product_value}</td>
+                            <td><ConfirmationModal productProps={product}/> <EditProductModal productProps={product}/></td>
+                        </tr>
+                    ) : filteredProducts.map((product) =>
+                    <tr key={product.id}> 
+                        <td>{product.id}</td>
+                        <td>{product.product_name}</td>
+                        <td>{product.product_stock}</td>
+                        <td>{product.product_value}</td>
+                        <td><ConfirmationModal productProps={product}/> <EditProductModal productProps={product}/></td>
+                    </tr> )
+                }
+          </tbody>
+        </table>
+          </div> : <NoItensFound/>}
         </section>
       </StyledInventoryPage>
     </UiDashboard>
