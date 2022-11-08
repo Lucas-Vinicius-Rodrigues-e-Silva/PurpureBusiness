@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SaleContext } from "../../context/SalesContext"
+import { SaleContext } from "../../context/SalesContext";
 
 export const Table = () => {
 
