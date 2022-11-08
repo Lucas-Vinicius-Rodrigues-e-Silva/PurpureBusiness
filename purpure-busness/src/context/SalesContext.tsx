@@ -25,22 +25,22 @@ interface iSalesContext {
   saleModalIsOpen: boolean;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
-  filtered:iSales[];
+  filtered: iSales[];
   setFiltered: React.Dispatch<React.SetStateAction<iSales[]>>;
   setSaleModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   registerSale: (data: iSales) => void;
   deleteSale: (deletedSale: iSales) => void;
   editSale: (editedSale: iSales) => void;
-  salesFiltered: (filtered:string) => void;
+  salesFiltered: (filtered: string) => void;
 }
 
 export const SaleContext = createContext({} as iSalesContext);
 
 const SalePovider = ({ children }: iSalesProps) => {
   const [sales, setSales] = useState([] as iSales[]);
-  const [saleModalIsOpen, setSaleModalIsOpen] = useState(false)
-  const [filter, setFilter] = useState('')
-  const [filtered, setFiltered] = useState([] as iSales[])
+  const [saleModalIsOpen, setSaleModalIsOpen] = useState(false);
+  const [filter, setFilter] = useState("");
+  const [filtered, setFiltered] = useState([] as iSales[]);
 
   useEffect(() => {
     async function loadingSales() {
@@ -52,7 +52,7 @@ const SalePovider = ({ children }: iSalesProps) => {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}?_embed=sales`);
           setSales(data.sales);
-          setFilter(data.sales)
+          setFilter(data.sales);
         } catch (error) {
           const requestError = error as AxiosError<iApiError>;
           toast.error(requestError?.request.data.error);
@@ -132,13 +132,31 @@ const SalePovider = ({ children }: iSalesProps) => {
     }
   };
 
-  const salesFiltered = (filtered:string) => {
-    setFiltered(sales.filter(sale => sale.cliente_sale_product.toLowerCase().includes(filtered) || sale.product_sale.toLowerCase().includes(filtered) ))
-  }
+  const salesFiltered = (filtered: string) => {
+    setFiltered(
+      sales.filter(
+        (sale) =>
+          sale.cliente_sale_product.toLowerCase().includes(filtered) ||
+          sale.product_sale.toLowerCase().includes(filtered)
+      )
+    );
+  };
 
   return (
     <SaleContext.Provider
-      value={{ sales, filter, setFilter, registerSale, deleteSale, editSale, saleModalIsOpen, setSaleModalIsOpen, salesFiltered, filtered, setFiltered}}
+      value={{
+        sales,
+        filter,
+        setFilter,
+        registerSale,
+        deleteSale,
+        editSale,
+        saleModalIsOpen,
+        setSaleModalIsOpen,
+        salesFiltered,
+        filtered,
+        setFiltered,
+      }}
     >
       {children}
     </SaleContext.Provider>

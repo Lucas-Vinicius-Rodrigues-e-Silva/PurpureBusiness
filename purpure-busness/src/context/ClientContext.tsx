@@ -22,20 +22,39 @@ interface iClientsProps {
 
 interface iClientsContext {
   clients: iClient[];
+  clientMod: iClient | null;
+  clientsFilter: iClient[];
+  modalIsOpen: boolean;
+  modalEditIsOpen: boolean;
+  modalDeletIsOpen: boolean;
+  setClientMod: React.Dispatch<React.SetStateAction<iClient | null>>;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalEditIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalDeletIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setClientsFilter: React.Dispatch<React.SetStateAction<iClient[]>>;
   registerClient: (data: iClient) => void;
-  deleteClient: (deletedClient: iClient) => void;
+  deleteClient: (deletedClient: iClient | null) => void;
   editClient: (editedClient: iClient) => void;
+  deleteModalOpen: (id: string) => void;
+  editModalOpen: (id: string) => Promise<void>;
+  filterClients: (filter: string) => void;
 }
 
 export const ClientContext = createContext({} as iClientsContext);
 
 const ClientPovider = ({ children }: iClientsProps) => {
   const [clients, setClients] = useState([] as iClient[]);
+  const [clientsFilter, setClientsFilter] = useState([] as iClient[]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
+  const [modalDeletIsOpen, setModalDeletIsOpen] = useState(false);
+  const [clientMod, setClientMod] = useState<iClient | null>(null);
 
   useEffect(() => {
     async function loadingClients() {
       const token = localStorage.getItem("@accessToken");
       const id = localStorage.getItem("@USER_ID");
+      console.log(clientMod);
 
       if (token) {
         try {
@@ -48,7 +67,11 @@ const ClientPovider = ({ children }: iClientsProps) => {
       }
     }
     loadingClients();
-  }, []);
+  }, [clientMod]);
+
+  useEffect(() => {
+    setClientsFilter(clients);
+  }, [clients]);
 
   const registerClient = async (data: iClient) => {
     if (
@@ -86,40 +109,47 @@ const ClientPovider = ({ children }: iClientsProps) => {
     }
   };
 
-  const deleteClient = async (deletedClient: iClient) => {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm("Deseja excluir este cliente?")) {
-      try {
-        const newClientsList = clients.filter(
-          (client) => client.id !== deletedClient.id
-        );
-        const token = localStorage.getItem("@accessToken");
-
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        await api.delete(`/client/${deletedClient.id}`);
-        setClients(newClientsList);
-        toast.success("O clinte foi apagado da sua lista!");
-      } catch (error) {
-        const requestError = error as AxiosError<iApiError>;
-        toast.error(requestError?.request.data.error);
-        console.log(error);
-      }
+  const deleteClient = async (deletedsClient: iClient | null) => {
+    try {
+      console.log(deletedsClient);
+      const newClientsList = clients.filter(
+        (client) => client.id !== deletedsClient?.id
+      );
+      const token = localStorage.getItem("@accessToken");
+      console.log(newClientsList);
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.delete(`/clients/${deletedsClient?.id}`);
+      setClients(newClientsList);
+      toast.success("O clinte foi apagado da sua lista!");
+    } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
+      console.log(error);
     }
+    setModalDeletIsOpen(false);
+  };
+
+  const deleteModalOpen = async (id: string) => {
+    console.log(id);
+    const token = localStorage.getItem("@accessToken");
+    api.defaults.headers.authorization = `Bearer ${token}`;
+    const { data } = await api.get(`/clients/${parseInt(id)}`);
+    console.log(data);
+    setClientMod(data);
+    setModalDeletIsOpen(true);
   };
 
   const editClient = async (editedClient: iClient) => {
+    console.log(editedClient);
     try {
       const token = localStorage.getItem("@accessToken");
 
       const pachClient = {
-        client_name: editedClient.client_name,
-        cliente_document: editedClient.cliente_document,
-        client_email: editedClient.client_email,
-        clinte_phone: editedClient.clinte_phone,
+        ...editedClient,
       };
 
       api.defaults.headers.authorization = `Bearer ${token}`;
-      await api.patch(`/clients/${editedClient.id}`, pachClient);
+      await api.patch(`/clients/${clientMod?.id}`, pachClient);
 
       toast.success("O cliente foi editado com sucesso!");
     } catch (error) {
@@ -129,9 +159,49 @@ const ClientPovider = ({ children }: iClientsProps) => {
     }
   };
 
+  const editModalOpen = async (id: string) => {
+    const token = localStorage.getItem("@accessToken");
+    api.defaults.headers.authorization = `Bearer ${token}`;
+    const { data } = await api.get(`/clients/${parseInt(id)}`);
+    setClientMod(data);
+    setModalEditIsOpen(true);
+  };
+
+  const filterClients = (filter: string) => {
+    setClientsFilter(
+      clients.filter(
+        (client) =>
+          client.client_name
+            .toLocaleLowerCase()
+            .includes(filter.toLocaleLowerCase()) ||
+          client.cliente_document
+            .toLocaleLowerCase()
+            .includes(filter.toLocaleLowerCase())
+      )
+    );
+  };
+
   return (
     <ClientContext.Provider
-      value={{ clients, registerClient, deleteClient, editClient }}
+      value={{
+        clients,
+        registerClient,
+        deleteClient,
+        editClient,
+        modalIsOpen,
+        setModalIsOpen,
+        modalEditIsOpen,
+        setModalEditIsOpen,
+        modalDeletIsOpen,
+        setModalDeletIsOpen,
+        deleteModalOpen,
+        clientMod,
+        setClientMod,
+        editModalOpen,
+        filterClients,
+        clientsFilter,
+        setClientsFilter,
+      }}
     >
       {children}
     </ClientContext.Provider>
