@@ -1,6 +1,11 @@
+import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
+
+interface iApiError {
+  error: string;
+}
 
 export interface iSales {
   cliente_sale_product: string;
@@ -49,6 +54,8 @@ const SalePovider = ({ children }: iSalesProps) => {
           setSales(data.sales);
           setFilter(data.sales)
         } catch (error) {
+          const requestError = error as AxiosError<iApiError>;
+          toast.error(requestError?.request.data.error);
           console.log(error);
         }
       }
@@ -78,6 +85,8 @@ const SalePovider = ({ children }: iSalesProps) => {
 
       setSales(newSale);
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };
@@ -94,6 +103,8 @@ const SalePovider = ({ children }: iSalesProps) => {
         setSales(newSalesList);
         toast.success("A venda foi apagada da sua lista!");
       } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
         console.log(error);
       }
     }
@@ -115,6 +126,8 @@ const SalePovider = ({ children }: iSalesProps) => {
 
       toast.success("A venda foi editada com sucesso!");
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };
