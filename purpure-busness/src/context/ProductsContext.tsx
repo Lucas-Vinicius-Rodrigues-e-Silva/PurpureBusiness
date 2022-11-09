@@ -1,12 +1,18 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
+import { AxiosError } from "axios";
+
 import { toast } from "react-toastify";
 import api from "../services/api";
+
+interface iApiError {
+  error: string;
+}
 
 export interface iProducts {
   product_name: string;
   product_value: string;
   product_stock: string;
-  userId: number;
+  userId: number | null;
   id?: number;
 }
 
@@ -16,41 +22,45 @@ interface iProductProps {
 
 interface iProductContext {
   products: iProducts[];
-  registerProduct: (data: iProducts) => void;
+  setProducts: React.Dispatch<React.SetStateAction<iProducts[]>>;
+  loadingClientProducts: () => void;
+  registerProduct: (data: iProducts) => Promise<void>;
   deleteProduct: (deletedProduct: iProducts) => void;
-  editProduct: (editedProduct: iProducts) => void;
+  editProduct: (editedProduct: iProducts, productId: number | null) => void;
+  styleModal: boolean;
+  setStyleModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ProductContext = createContext({} as iProductContext);
 
 const ProductPovider = ({ children }: iProductProps) => {
   const [products, setProducts] = useState([] as iProducts[]);
+  const [styleModal, setStyleModal] = useState(false)
 
-  useEffect(() => {
-    async function loadingClients() {
-      const token = localStorage.getItem("@accessToken");
-      const id = localStorage.getItem("@USER_ID");
+  const loadingClientProducts = async () => {
+    const token = localStorage.getItem("@accessToken");
+    setStyleModal(true)
+    if (token) {
+      try {
+        const id = localStorage.getItem("@USER_ID");
 
-      if (token) {
-        try {
-          api.defaults.headers.authorization = `Bearer ${token}`;
-          const { data } = await api.get(`/users/${id}?_embed=products`);
-          setProducts(data.products);
-        } catch (error) {
-          console.log(error);
-        }
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        const { data } = await api.get(`/users/${id}?_embed=products`);
+        setProducts(data.products);
+      } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
+        console.log(error);
       }
     }
-    loadingClients();
-  }, []);
+  };
 
   const registerProduct = async (data: iProducts) => {
+    console.log(data)
     if (
       !products.find((product) => product.product_name === data.product_name)
     ) {
       try {
-        const token = localStorage.getItem("@accessToken");
-
         const newProduct = [
           ...products,
           {
@@ -60,14 +70,15 @@ const ProductPovider = ({ children }: iProductProps) => {
             userId: data.userId,
           },
         ];
-
+        const token = localStorage.getItem("@accessToken");
         api.defaults.headers.authorization = `Bearer ${token}`;
+        console.log(data);
         await api.post("/products", data);
-
-        toast.success("Cliente cadastrado com sucesso!");
-
+        toast.success("Produto cadastrado com sucesso!");
         setProducts(newProduct);
       } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
         console.log(error);
       }
     } else {
@@ -77,45 +88,58 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   const deleteProduct = async (deletedProduct: iProducts) => {
     // eslint-disable-next-line no-restricted-globals
-    if (confirm("Deseja excluir este produto?")) {
-      try {
-        const newProductList = products.filter(
-          (product) => product.id !== deletedProduct.id
-        );
-        const token = localStorage.getItem("@accessToken");
-
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        await api.delete(`/products/${deletedProduct.id}`);
-        setProducts(newProductList);
-        toast.success("O produto foi apagado da sua lista!");
-      } catch (error) {
+    console.log(deletedProduct);
+    try {
+      const newProductList = products.filter(
+        (product) => product.id !== deletedProduct.id
+      );
+      const token = localStorage.getItem("@accessToken");
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.delete(`/products/${deletedProduct.id}`);
+      setProducts(newProductList);
+      toast.success("O produto foi apagado da sua lista!");
+    } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      
+        toast.error(requestError?.request.data.error);
         console.log(error);
-      }
     }
   };
 
-  const editProduct = async (editedProduct: iProducts) => {
+  const editProduct = async (
+    editedProduct: iProducts,
+    productId: number | null
+  ) => {
     try {
-      const token = localStorage.getItem("@accessToken");
-
       const pachProduct = {
         product_name: editedProduct.product_name,
         product_value: editedProduct.product_value,
         product_stock: editedProduct.product_stock,
       };
-
+      const token = localStorage.getItem("@accessToken");
       api.defaults.headers.authorization = `Bearer ${token}`;
-      await api.patch(`/products/${editedProduct.id}`, pachProduct);
+      await api.patch(`/products/${productId}`, pachProduct);
 
       toast.success("O produto foi editado com sucesso!");
     } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      toast.error(requestError?.request.data.error);
       console.log(error);
     }
   };
 
   return (
     <ProductContext.Provider
-      value={{ products, registerProduct, deleteProduct, editProduct }}
+      value={{
+        products,
+        setProducts,
+        loadingClientProducts,
+        registerProduct,
+        deleteProduct,
+        editProduct,
+        styleModal, 
+        setStyleModal,
+      }}
     >
       {children}
     </ProductContext.Provider>
