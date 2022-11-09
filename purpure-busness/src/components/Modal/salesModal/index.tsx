@@ -59,7 +59,7 @@ export const SalesModal = () => {
       <form onSubmit={handleSubmit(submit)}>
         <label htmlFor="">Selecionar o Cliente:</label>
         <select id="cliente_sale_product" {...register("cliente_sale_product")}>
-          <option value="">Selecione o Produto:</option>
+          <option value="">Selecione o Cliente:</option>
           {clients.map((client, i) => (
             <option key={i} value={client.client_name}>
               {client.client_name}
