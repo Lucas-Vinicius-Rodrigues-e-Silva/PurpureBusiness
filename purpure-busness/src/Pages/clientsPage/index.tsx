@@ -17,7 +17,7 @@ export const ClientPage = () => {
     useContext(ClientContext);
 
   return (
-    <UiDashboard companyName={`${user?.nomeFantasia}`}>
+    <UiDashboard companyName={`${user?.commercialName}`}>
       <ModalAddClient></ModalAddClient>
       <ModalEditClient></ModalEditClient>
       <DeleteClient></DeleteClient>

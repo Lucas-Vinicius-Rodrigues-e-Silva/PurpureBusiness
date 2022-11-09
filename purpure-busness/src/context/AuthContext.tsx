@@ -11,7 +11,7 @@ interface iApiError {
 export interface iUser {
   email: string;
   cnpj: string;
-  nomeFantasia: string;
+  commercialName: string;
   id: number;
 }
 
@@ -47,7 +47,7 @@ export const AuthContext = createContext({} as iAuthContext);
 
 const AuthProvider = ({ children }: iAuthContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [, setCurrentRoute] = useState<string | null>(null)
+  const [, setCurrentRoute] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -61,19 +61,19 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}`);
           setUser(data);
-          navigate('dashboard');
+          navigate("dashboard");
         } catch (error) {
           const requestError = error as AxiosError<iApiError>;
           toast.error(requestError?.request.data.error);
           console.log(error);
           localStorage.removeItem("@accessToken");
-          navigate('/');
+          navigate("/");
         }
       }
       setLoading(false);
     }
     loadingUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loginUser = async (data: iLogin) => {
@@ -99,8 +99,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       await api.post("/register", data);
       toast.success("Usuario cadastrado com sucesso!");
       try {
-        loginUser({ email: data.email, password: data.password })
-      } catch { }
+        loginUser({ email: data.email, password: data.password });
+      } catch {}
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
