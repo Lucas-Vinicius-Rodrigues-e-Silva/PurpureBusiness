@@ -72,7 +72,7 @@ export const ModalAddClient = () => {
               {...register("cliente_document")}
             />
             <Text tag="label" className="newClientInput">
-              Telefone do cliente
+              Email do cliente
             </Text>
             <Input
               id={"client_email"}
@@ -85,7 +85,7 @@ export const ModalAddClient = () => {
             </Text>
             <Input
               id={"clinte_phone"}
-              type={"number"}
+              type={"text"}
               placeholder={"(xx) x xxxx-xxxx"}
               {...register("clinte_phone")}
             />
