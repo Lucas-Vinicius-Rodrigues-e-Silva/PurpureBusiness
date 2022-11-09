@@ -24,7 +24,7 @@ export const ChoseClientModal = () => {
   const {
     modalChoseIsOpen,
     setModalChoseIsOpen,
-    clientsFilter,
+    clients,
     clientModType,
     editModalOpen,
     deleteModalOpen,
@@ -34,11 +34,7 @@ export const ChoseClientModal = () => {
     Select_client: yup.string().required("campo obrigatório"),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<any>({
+  const { register, handleSubmit } = useForm<any>({
     resolver: yupResolver(formSchema),
   });
 
@@ -68,7 +64,7 @@ export const ChoseClientModal = () => {
         <form onSubmit={handleSubmit(submit)}>
           <select id="Select_client" {...register("Select_client")}>
             <option value="">Selecione o Cliente</option>
-            {clientsFilter.map((client, i) => (
+            {clients.map((client, i) => (
               <option key={i} value={client.id}>
                 {client.client_name}
               </option>

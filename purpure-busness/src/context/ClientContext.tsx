@@ -55,10 +55,12 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const [clients, setClients] = useState([] as iClient[]);
   const [clientsFilter, setClientsFilter] = useState([] as iClient[]);
   const [filtered, setFiltered] = useState("");
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [modalDeletIsOpen, setModalDeletIsOpen] = useState(false);
   const [modalChoseIsOpen, setModalChoseIsOpen] = useState(false);
+
   const [clientMod, setClientMod] = useState<iClient | null>(null);
   const [clientModID, setClientModID] = useState<any>("");
   const [clientModType, setClientModType] = useState<any>("");
@@ -79,11 +81,11 @@ const ClientPovider = ({ children }: iClientsProps) => {
       }
     }
     loadingClients();
-  }, [clientsFilter]);
+  });
 
   useEffect(() => {
-    setClientsFilter(clients);
-  }, [clients]);
+    filterClients(filtered);
+  }, [filtered]);
 
   const registerClient = async (data: iClient) => {
     if (
