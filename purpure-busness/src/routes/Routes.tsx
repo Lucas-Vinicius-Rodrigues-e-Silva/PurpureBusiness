@@ -28,12 +28,14 @@ export const AppRoutes = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
+
       <Route path="dashboard" element={<ProtectedRoutes />}>
         <Route index element={<DashHome />}/>
       </Route>
       <Route path="dashboard/sales" element={<SalePovider> <SalesPage /> </SalePovider>} />
       <Route path="mobile" element={<NotAllowed />} />
       <Route path="*" element={<NotFound />} />
+
       <Route
         path="/dashboard/clients"
         element={
@@ -42,6 +44,8 @@ export const AppRoutes = () => {
           </ClientPovider>
         }
       />
+      <Route path="mobile" element={<NotAllowed />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

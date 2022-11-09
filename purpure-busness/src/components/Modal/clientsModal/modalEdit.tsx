@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clientsSherma } from "../../../schemas/clientsScherma";
 import { Text } from "../../../styles/text/text";
+import { StyledModalEdit } from "./styledModal";
 
 const customStyles = {
   content: {
-    width: "50vw",
+    width: "300px",
+    height: "auto",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -45,47 +47,51 @@ export function ModalEditClient() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2>Editar Cliente</h2>
-        <span onClick={() => setModalEditIsOpen(false)}>x</span>
-        <form onSubmit={handleSubmit(submit)}>
-          <Text tag="label" className="newClientInput">
-            Cliente
-          </Text>
-          <Input
-            id={"client_name"}
-            type={"text"}
-            placeholder={`${clientMod?.client_name}`}
-            {...register("client_name")}
-          />
-          <Text tag="label" className="newClientInput">
-            Documento do cliente
-          </Text>
-          <Input
-            id={"cliente_document"}
-            type={"text"}
-            placeholder={`${clientMod?.cliente_document}`}
-            {...register("cliente_document")}
-          />
-          <Text tag="label" className="newClientInput">
-            Cliente
-          </Text>
-          <Input
-            id={"client_email"}
-            type={"email"}
-            placeholder={`${clientMod?.client_email}`}
-            {...register("client_email")}
-          />
-          <Text tag="label" className="newClientInput">
-            Cliente
-          </Text>
-          <Input
-            id={"clinte_phone"}
-            type={"number"}
-            placeholder={`${clientMod?.clinte_phone}`}
-            {...register("clinte_phone")}
-          />
-          <button type="submit">Atualizar dados do cliente</button>
-        </form>
+        <StyledModalEdit>
+          <div className="modal_edit_header">
+            <h2>Editar Cliente</h2>
+            <span onClick={() => setModalEditIsOpen(false)}>x</span>
+          </div>
+          <form onSubmit={handleSubmit(submit)}>
+            <Text tag="label" className="newClientInput">
+              Cliente
+            </Text>
+            <Input
+              id={"client_name"}
+              type={"text"}
+              placeholder={`${clientMod?.client_name}`}
+              {...register("client_name")}
+            />
+            <Text tag="label" className="newClientInput">
+              Documento do cliente:
+            </Text>
+            <Input
+              id={"cliente_document"}
+              type={"text"}
+              placeholder={`${clientMod?.cliente_document}`}
+              {...register("cliente_document")}
+            />
+            <Text tag="label" className="newClientInput">
+              Email do Cliente:
+            </Text>
+            <Input
+              id={"client_email"}
+              type={"email"}
+              placeholder={`${clientMod?.client_email}`}
+              {...register("client_email")}
+            />
+            <Text tag="label" className="newClientInput">
+              Telefone do cliente:
+            </Text>
+            <Input
+              id={"clinte_phone"}
+              type={"number"}
+              placeholder={`${clientMod?.clinte_phone}`}
+              {...register("clinte_phone")}
+            />
+            <button type="submit">Atualizar dados do cliente</button>
+          </form>
+        </StyledModalEdit>
       </Modal>
     </div>
   );

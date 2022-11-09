@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UiDashboard } from "../../components/Interface";
 import { SalesModal } from "../../components/Modal/salesModal";
-import { SaleContext } from "../../context/SalesContext";
+import { SaleContext } from "../../context/SalesContext"
+import { ModalAddClient } from "../../components/Modal/clientsModal/modalNewClient";
+import { ModalEditClient } from "../../components/Modal/clientsModal/modalEdit";
+import { DeleteClient } from "../../components/Modal/clientsModal/ModalDelete"
 import api from "../../services/api";
 import {
   DashboardQuickCards,
@@ -12,10 +15,13 @@ import {
   DashboardColumnInfo,
 } from "../../styles/dashboardBase";
 import { Title3 } from "../../styles/elements";
+import { ClientContext } from "../../context/ClientContext";
 
 export const DashHome = () => {
   const navigate = useNavigate();
   const { setSaleModalIsOpen } = useContext(SaleContext);
+  const { setModalIsOpen, setModalDeletIsOpen, setModalEditIsOpen } =
+    useContext(ClientContext);
   const token = localStorage.getItem("@accessToken");
   const id = localStorage.getItem("@USER_ID");
 
@@ -74,6 +80,11 @@ export const DashHome = () => {
     <UiDashboard companyName={companyName}>
 
       <title>Dashboard | Purpure Business</title>
+
+      <ModalAddClient></ModalAddClient>
+      <ModalEditClient></ModalEditClient>
+      <DeleteClient></DeleteClient>
+
       <span id="loading">
         {loading ? (
           <div className="loading">
@@ -86,6 +97,7 @@ export const DashHome = () => {
           <></>
         )}
       </span>
+
       <SalesModal></SalesModal>
       <div id="mainDashboard">
         <div className="hot-info">
@@ -105,7 +117,10 @@ export const DashHome = () => {
         <div>
           <h2>Ações rápidas</h2>
           <section>
-            <DashboardQuickCards color="add">
+            <DashboardQuickCards
+              color="add"
+              onClick={() => setModalIsOpen(true)}
+            >
               <i className="bx bxs-plus-circle"></i>
               <Title3 tag="h3">Cadastrar cliente</Title3>
             </DashboardQuickCards>

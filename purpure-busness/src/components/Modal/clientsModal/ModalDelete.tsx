@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { ClientContext } from "../../../context/ClientContext";
 import Modal from "react-modal";
 import { Text } from "../../../styles/text/text";
+import { StyledModalDelete } from "./styledModal";
 
 const customStyles = {
   content: {
-    width: "50vw",
+    width: "300px",
+    height: "auto",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -26,10 +28,24 @@ export const DeleteClient = () => {
       style={customStyles}
       contentLabel="Delete Client Modal"
     >
-      <h2>Deseja deletar este cliente?</h2>
-      <span>Note que esta ação não pode ser desfeita.</span>
-      <button onClick={() => deleteClient(clientMod)}>Deletar</button>
-      <button onClick={() => setModalDeletIsOpen(false)}>Cancelar</button>
+      <StyledModalDelete>
+        <h2>Deseja deletar este cliente?</h2>
+        <span>Note que esta ação não pode ser desfeita.</span>
+        <div className="div_btn">
+          <button
+            className="btn confirm_btn"
+            onClick={() => deleteClient(clientMod)}
+          >
+            Deletar
+          </button>
+          <button
+            className="btn cancel_btn"
+            onClick={() => setModalDeletIsOpen(false)}
+          >
+            Cancelar
+          </button>
+        </div>
+      </StyledModalDelete>
     </Modal>
   );
 };
