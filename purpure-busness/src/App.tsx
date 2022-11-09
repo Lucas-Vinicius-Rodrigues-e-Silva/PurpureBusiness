@@ -1,14 +1,34 @@
+import { ToastContainer } from "react-toastify";
 import AuthProvider from "./context/AuthContext";
 import { AppRoutes } from "./routes/Routes";
 import ReactModal from "react-modal";
-
 ReactModal.setAppElement("#root");
+import SalePovider from "./context/SalesContext";
+import "react-toastify/dist/ReactToastify.css";
+import ClientPovider from "./context/ClientContext";
 
 function App() {
+  ReactModal.setAppElement("#root");
   return (
     <div>
       <AuthProvider>
-        <AppRoutes />
+        <ClientPovider>
+          <SalePovider>
+            <AppRoutes />
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </SalePovider>
+        </ClientPovider>
       </AuthProvider>
     </div>
   );

@@ -27,6 +27,9 @@ const RegisterPage = () => {
 
   return (
     <MainRegister>
+      <Link to="/">
+        <i className='bx bx-arrow-back'></i>
+      </Link>
       <form onSubmit={handleSubmit(submit)}>
         <Title1 tag="h1">Cadastro</Title1>
 

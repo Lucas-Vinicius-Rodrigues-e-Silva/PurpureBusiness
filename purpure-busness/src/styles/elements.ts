@@ -15,6 +15,20 @@ export const FilledBtn = styled.button`
   }
 `;
 
+export const BuyBtn = styled.button`
+  background-color: #4ecb71;
+  color: white;
+
+  border: none;
+  border-radius: 20px;
+
+  height: 30px;
+  padding: 5px 40px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+  cursor: pointer;
+`;
+
 export const OutlinedBtn = styled.button`
   background-color: white;
   border: 1px solid ${primaryColor};
@@ -87,11 +101,11 @@ export const WhiteBtn = styled.button`
   font-weight: bold;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
 
-  &&:hover{
+  &&:hover {
     cursor: pointer;
     background-color: #f2f2f2;
   }
-`
+`;
 
 export const ErrorPage = styled.div`
   display: flex;
@@ -102,21 +116,33 @@ export const ErrorPage = styled.div`
   width: 100vw;
   gap: 20px;
 
-  h2{
+  h2 {
     color: white;
     font-size: 30px;
     font-weight: 800;
   }
 
-  p{
+  p {
     color: white;
     font-size: 20px;
     font-weight: bolder;
   }
 
-  background: rgb(125,2,221);
-  background: -moz-linear-gradient(140deg, rgba(125,2,221,1) 32%, rgba(79,0,255,1) 100%);
-  background: -webkit-linear-gradient(140deg, rgba(125,2,221,1) 32%, rgba(79,0,255,1) 100%);
-  background: linear-gradient(140deg, rgba(125,2,221,1) 32%, rgba(79,0,255,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7d02dd",endColorstr="#4f00ff",GradientType=1); 
-`
+  background: rgb(125, 2, 221);
+  background: -moz-linear-gradient(
+    140deg,
+    rgba(125, 2, 221, 1) 32%,
+    rgba(79, 0, 255, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    140deg,
+    rgba(125, 2, 221, 1) 32%,
+    rgba(79, 0, 255, 1) 100%
+  );
+  background: linear-gradient(
+    140deg,
+    rgba(125, 2, 221, 1) 32%,
+    rgba(79, 0, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7d02dd",endColorstr="#4f00ff",GradientType=1);
+`;

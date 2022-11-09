@@ -1,12 +1,13 @@
 import { useContext } from "react";
-import { SaleContext } from "../../context/SalesContext"
+import { SaleContext } from "../../context/SalesContext";
+import { TableContent } from "./dashboardSales";
 
 export const Table = () => {
 
-    const {sales} = useContext(SaleContext)
+    const { sales, filtered } = useContext(SaleContext)
 
     return (
-        <table>
+        <TableContent>
           <thead>
             <tr>
               <th>
@@ -25,16 +26,27 @@ export const Table = () => {
           </thead>
           <tbody>
                 {
+                  filtered.length ? (
+                    filtered.map((item, i) =>
+                    <tr key={i}> 
+                        <td>{item.cliente_sale_product}</td>
+                        <td>{item.product_sale}</td>
+                        <td>{item.product_sale_quant}</td>
+                        <td>R$ {item.total_sale_value * item.product_sale_quant}</td>
+                    </tr>
+                )
+                  ) : (
                     sales.map((item, i) =>
-                        <tr key={i}> 
-                            <td>{item.cliente_sale_product}</td>
-                            <td>{item.product_sale}</td>
-                            <td>{item.product_sale_quant}</td>
-                            <td>{item.total_sale_value}</td>
-                        </tr>
-                    )
+                    <tr key={i}> 
+                        <td>{item.cliente_sale_product}</td>
+                        <td>{item.product_sale}</td>
+                        <td>{item.product_sale_quant}</td>
+                        <td>R$ {item.total_sale_value * item.product_sale_quant}</td>
+                    </tr>
+                )
+                  )
                 }
           </tbody>
-        </table>
+        </TableContent>
       )
 }
