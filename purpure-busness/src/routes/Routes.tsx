@@ -8,9 +8,11 @@ import { NotFound } from "../Pages/notFound";
 import { useEffect } from "react";
 import NotAllowed from "../Pages/notAllowed";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ProtectedRoutes } from "../components/protectedRoutes";
 import ClientPovider from "../context/ClientContext";
 import { ClientPage } from "../Pages/clientsPage";
 import { DashHome } from "../Pages/dashHome";
+
 
 export const AppRoutes = () => {
   const navigate = useNavigate();
@@ -26,16 +28,14 @@ export const AppRoutes = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
-      <Route path="dashboard" element={<DashHome />} />
-      <Route
-        path="dashboard/sales"
-        element={
-          <SalePovider>
-            {" "}
-            <SalesPage />{" "}
-          </SalePovider>
-        }
-      />
+
+      <Route path="dashboard" element={<ProtectedRoutes />}>
+        <Route index element={<DashHome />}/>
+      </Route>
+      <Route path="dashboard/sales" element={<SalePovider> <SalesPage /> </SalePovider>} />
+      <Route path="mobile" element={<NotAllowed />} />
+      <Route path="*" element={<NotFound />} />
+
       <Route
         path="/dashboard/clients"
         element={
