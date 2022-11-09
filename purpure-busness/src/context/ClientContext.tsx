@@ -47,6 +47,7 @@ interface iClientsContext {
   editModalOpen: (id: string) => Promise<void>;
   filterClients: (filter: string) => void;
   ChoseClient: (value: "edit" | "delete", state: boolean) => void;
+  loadingClients: () => Promise<void>;
 }
 
 export const ClientContext = createContext({} as iClientsContext);
@@ -65,23 +66,40 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const [clientModID, setClientModID] = useState<any>("");
   const [clientModType, setClientModType] = useState<any>("");
 
-  useEffect(() => {
-    async function loadingClients() {
-      const token = localStorage.getItem("@accessToken");
-      const id = localStorage.getItem("@USER_ID");
+  // useEffect(() => {
+  //   async function loadingClients() {
+  //     const token = localStorage.getItem("@accessToken");
+  //     const id = localStorage.getItem("@USER_ID");
 
-      if (token) {
-        try {
-          api.defaults.headers.authorization = `Bearer ${token}`;
-          const { data } = await api.get(`/users/${id}?_embed=clients`);
-          setClients(data.clients);
-        } catch {
-          console.clear();
-        }
+  //     if (token) {
+  //       try {
+  //         api.defaults.headers.authorization = `Bearer ${token}`;
+  //         const { data } = await api.get(`/users/${id}?_embed=clients`);
+  //         setClients(data.clients);
+  //       } catch {
+  //         console.clear();
+  //       }
+  //     }
+  //   }
+  //   loadingClients();
+  // });
+
+  const loadingClients = async () => {
+    const token = localStorage.getItem("@accessToken");
+    if (token) {
+      try {
+        const id = localStorage.getItem("@USER_ID");
+
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        const { data } = await api.get(`/users/${id}?_embed=clients`);
+        setClients(data.clients);
+      } catch (error) {
+        const requestError = error as AxiosError<iApiError>;
+        toast.error(requestError?.request.data.error);
+        console.log(error);
       }
     }
-    loadingClients();
-  });
+  };
 
   useEffect(() => {
     filterClients(filtered);
@@ -226,6 +244,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
         setClientModID,
         clientModType,
         setClientModType,
+        loadingClients
       }}
     >
       {children}

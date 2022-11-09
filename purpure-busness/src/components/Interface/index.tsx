@@ -64,8 +64,8 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
           </ul>
         </nav>
         <nav>
-          <div>
-            <i className="bx bx-exit" onClick={logOut}></i>
+          <div onClick={logOut}>
+            <i className="bx bx-exit"></i>
             <span>Sair</span>
           </div>
         </nav>
