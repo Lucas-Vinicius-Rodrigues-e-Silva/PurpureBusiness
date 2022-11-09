@@ -8,7 +8,7 @@ import { searchProductSchema } from "../../schemas/searchItemSchema";
 import { Input, OutlinedBtn } from "../../styles/elements";
 import { NoItensFound } from "../../components/NotFoundItens";
 import { NoProductsFound } from "../../components/NotFoundProducts";
-import UiDashboard from "../../components/Interface";
+import {UiDashboard} from "../../components/Interface";
 import ConfirmationModal from "../../components/Modal/ConfirmationModal";
 import EditProductModal from "../../components/Modal/EditProductModal";
 import NewProductModal from "../../components/Modal/NewProductModal";
@@ -52,12 +52,12 @@ const InventoryPage = () => {
       <StyledInventoryPage>
         <section>
           <div className="pageHeader">
-            <div className="butonsAndName">
+            <div className="nameAndResetFilter">
             <h2>Estoque</h2>
-            <NewProductModal />
+            {filteredProducts.length ? <OutlinedBtn className="btnReset" onClick={() => resetProducts()} >Resetar filtro</OutlinedBtn> : <></>}
             </div>
             <div className="navHeader">
-            <OutlinedBtn className="btnReset" onClick={() => resetProducts()} >Resetar filtro</OutlinedBtn>
+            <NewProductModal />
             <form onSubmit={handleSubmit(searchedItemSubmit)}>
               <Input
                 type="text"

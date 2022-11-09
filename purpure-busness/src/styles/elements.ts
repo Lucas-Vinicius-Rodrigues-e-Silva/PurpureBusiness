@@ -41,7 +41,18 @@ export const OutlinedBtn = styled.button`
     cursor: pointer;
   }
 `;
-export const CardNewProduct = styled.button`
+export const ButtonNewProduct = styled.button`
+    border: none;
+    color: white;
+    margin-right: 15px;
+    width: auto;
+    height: auto;
+    left: 373px;
+    top: 60px;
+    background: #4ecb71;
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    padding: 4px 12px;
   
 `;
 

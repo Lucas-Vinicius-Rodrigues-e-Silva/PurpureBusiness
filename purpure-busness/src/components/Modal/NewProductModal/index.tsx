@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { newProductSchema } from "../../../schemas/newProductSchema";
-import { Input, FilledBtn, OutlinedBtn, Title3 } from "../../../styles/elements";
+import { Input, FilledBtn, Title3, ButtonNewProduct } from "../../../styles/elements";
 import { Text } from "../../../styles/text/text";
 import { iProducts, ProductContext } from "../../../context/ProductsContext";
-import { StyledDivNewProductModal,StyledDivNewProductModalBtn } from "../../../styles/newProductModal";
+import {
+  StyledDivNewProductModal,
+  StyledDivNewProductModalBtn,
+} from "../../../styles/newProductModal";
 import { DashboardQuickCards } from "../../../styles/dashboardBase";
 
 const customStyles = {
@@ -45,16 +48,21 @@ const NewProductModal = () => {
     setIsOpen(true);
   }
 
-  function closeModal ():void {
-     setIsOpen(false);
-    
+  function closeModal(): void {
+    setIsOpen(false);
   }
 
   return (
     <StyledDivNewProductModalBtn>
-      { styleModal ? <FilledBtn onClick={openModal}>Cadastrar produto </FilledBtn> : <DashboardQuickCards id="100%" color="add" onClick={openModal}>  <i className="bx bx-cube-alt"></i>
-      <Title3 tag="h3">Cadastrar produto</Title3>
-      </DashboardQuickCards>}
+      {styleModal ? (
+        <ButtonNewProduct onClick={openModal}>Cadastrar produto </ButtonNewProduct>
+      ) : (
+        <DashboardQuickCards id="100%" color="add" onClick={openModal}>
+          {" "}
+          <i className="bx bx-cube-alt"></i>
+          <Title3 tag="h3">Cadastrar produto</Title3>
+        </DashboardQuickCards>
+      )}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

@@ -6,14 +6,13 @@ export const StyledDivNewProductModalBtn = styled.div`
     height:38px;
   }
 `
-
 export const StyledDivNewProductModal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 390px;
-  height: 250px;
+  height: 280px;
 
   > div {
     display: flex;
@@ -59,13 +58,16 @@ export const StyledDivNewProductModal = styled.div`
   }
   .priceInput {
     display: flex;
+    justify-content:flex-start;
     flex-direction: column;
-    width: 40%;
+    width: 43%;
+  
 
     > input {
       width: 90%;
       margin-top: 0.3rem;
       border-radius: 10px;
+      
     }
   }
 
@@ -73,10 +75,10 @@ export const StyledDivNewProductModal = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 40%;
+    width: 43%;
 
     > input {
-      width: 80%;
+      width: 90%;
       margin-top: 0.3rem;
       border-radius: 10px;
     }

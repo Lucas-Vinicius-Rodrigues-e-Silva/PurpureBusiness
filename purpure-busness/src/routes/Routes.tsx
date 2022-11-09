@@ -35,18 +35,14 @@ export const AppRoutes = () => {
       <Route
         path="dashboard"
         element={
-          <ProductPovider>
-            {" "}
-            <DashHome />{" "}
-          </ProductPovider>
+         <DashHome/>
         }
       />
       <Route
         path="dashboard/stock"
         element={
           <ProductPovider>
-            {" "}
-            <InventoryPage /> <NewProductModal />{" "}
+            <InventoryPage /> <NewProductModal />
           </ProductPovider>
         }
       />
@@ -54,8 +50,8 @@ export const AppRoutes = () => {
         path="dashboard/sales"
         element={
           <SalePovider>
-            {" "}
-            <SalesPage />{" "}
+        
+            <SalesPage />
           </SalePovider>
         }
       />

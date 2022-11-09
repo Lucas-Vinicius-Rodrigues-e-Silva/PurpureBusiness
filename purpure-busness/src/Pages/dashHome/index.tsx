@@ -2,15 +2,15 @@ import { useContext, useEffect } from "react";
 import NewProductModal from "../../components/Modal/NewProductModal";
 import { ProductContext } from "../../context/ProductsContext";
 import { useState } from "react";
-import ReactLoading from "react-loading";
+import ReactLoading from "react-loading"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UiDashboard } from "../../components/Interface";
 import { SalesModal } from "../../components/Modal/salesModal";
-import { SaleContext } from "../../context/SalesContext"
+import { SaleContext } from "../../context/SalesContext";
 import { ModalAddClient } from "../../components/Modal/clientsModal/modalNewClient";
 import { ModalEditClient } from "../../components/Modal/clientsModal/modalEdit";
-import { DeleteClient } from "../../components/Modal/clientsModal/ModalDelete"
+import { DeleteClient } from "../../components/Modal/clientsModal/ModalDelete";
 import api from "../../services/api";
 import {
   DashboardQuickCards,
@@ -19,6 +19,7 @@ import {
 } from "../../styles/dashboardBase";
 import { Title3 } from "../../styles/elements";
 import { ClientContext } from "../../context/ClientContext";
+import AddInventoryModal from "../../components/Modal/AddInventoryModal";
 export const DashHome = () => {
   const { styleModal, setStyleModal } = useContext(ProductContext);
 
@@ -47,7 +48,7 @@ export const DashHome = () => {
   async function fistSetUp() {
     try {
       api.defaults.headers.authorization = `Bearer ${token}`;
-      const response = await api.get(`users/${id}?_embed=clients`)
+      const response = await api.get(`users/${id}?_embed=clients`);
       const { clients } = response.data;
       const { commercialName } = response.data;
       setCompanyName(commercialName);
@@ -70,7 +71,11 @@ export const DashHome = () => {
     if (sales.length === 0) {
       setMonthlyBalance(0);
     } else if (sales.length > 0) {
-      const total = sales.reduce((acc: any, curr: { total_sale_value: any; }) => acc + curr.total_sale_value, 0);
+      const total = sales.reduce(
+        (acc: any, curr: { total_sale_value: any }) =>
+          acc + curr.total_sale_value,
+        0
+      );
       setMonthlyBalance(total);
     }
   }
@@ -86,11 +91,10 @@ export const DashHome = () => {
   productsListing();
   setTimeout(() => {
     setLoading(false);
-  }, 1000)
+  }, 1000);
 
   return (
     <UiDashboard companyName={companyName}>
-
       <title>Dashboard | Purpure Business</title>
 
       <ModalAddClient></ModalAddClient>
@@ -119,7 +123,9 @@ export const DashHome = () => {
           </DashboardBallInfo>
           <DashboardColumnInfo>
             <Title3 tag="h3">Saldo mensal</Title3>
-            <span>R$ {(monthlyBalance.toFixed(2) + "").split(".").join(",")}</span>
+            <span>
+              R$ {(monthlyBalance.toFixed(2) + "").split(".").join(",")}
+            </span>
           </DashboardColumnInfo>
           <DashboardBallInfo>
             <span>{registeredClients}</span>
@@ -129,28 +135,29 @@ export const DashHome = () => {
         <div>
           <h2>Ações rápidas</h2>
           <section>
-            <DashboardQuickCards
+            <DashboardQuickCards id="30%"
               color="add"
               onClick={() => setModalIsOpen(true)}
             >
               <i className="bx bxs-plus-circle"></i>
               <Title3 tag="h3">Cadastrar cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="edit">
+            <DashboardQuickCards color="edit" id="30%">
               <i className="bx bxs-pencil"></i>
               <Title3 tag="h3">Editar Cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="delete">
+            <DashboardQuickCards color="delete" id="30%">
               <i className="bx bxs-minus-circle"></i>
               <Title3 tag="h3">Deletar cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards
+            <DashboardQuickCards id="30%"
               onClick={() => setSaleModalIsOpen(true)}
-              color="add">
+              color="add"
+            >
               <i className="bx bxs-purchase-tag"></i>
               <Title3 tag="h3">Vender produto</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="add">
+            <DashboardQuickCards color="add" id="30%">
               <i className="bx bxs-component"></i>
               <Title3 tag="h3">Adicionar estoque</Title3>
             </DashboardQuickCards>

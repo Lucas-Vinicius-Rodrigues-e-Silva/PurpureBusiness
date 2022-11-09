@@ -19,15 +19,11 @@ export const StyledInventoryPage = styled.main`
     width: 100%;
     height: 15%;
 
-    > h2 {
-      font-weight: 900;
-    }
   }
-
-  .butonsAndName {
+  .nameAndResetFilter {
     display: flex;
     justify-content: space-between;
-    width: 40%;
+    width: 18%;
   }
 
   .navHeader {
@@ -40,7 +36,7 @@ export const StyledInventoryPage = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50%;
+      width: 65%;
 
       > input {
         width: 95%;

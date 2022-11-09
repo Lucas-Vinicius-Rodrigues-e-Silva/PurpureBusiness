@@ -2,10 +2,11 @@ import { ToastContainer } from "react-toastify";
 import AuthProvider from "./context/AuthContext";
 import { AppRoutes } from "./routes/Routes";
 import ReactModal from "react-modal";
-ReactModal.setAppElement("#root");
 import SalePovider from "./context/SalesContext";
 import "react-toastify/dist/ReactToastify.css";
 import ClientPovider from "./context/ClientContext";
+ReactModal.setAppElement("#root");
+
 
 function App() {
   ReactModal.setAppElement("#root");

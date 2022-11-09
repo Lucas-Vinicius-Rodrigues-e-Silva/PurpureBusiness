@@ -24,7 +24,7 @@ interface iProductContext {
   products: iProducts[];
   setProducts: React.Dispatch<React.SetStateAction<iProducts[]>>;
   loadingClientProducts: () => void;
-  registerProduct: (data: iProducts) => void;
+  registerProduct: (data: iProducts) => Promise<void>;
   deleteProduct: (deletedProduct: iProducts) => void;
   editProduct: (editedProduct: iProducts, productId: number | null) => void;
   styleModal: boolean;
@@ -56,6 +56,7 @@ const ProductPovider = ({ children }: iProductProps) => {
   };
 
   const registerProduct = async (data: iProducts) => {
+    console.log(data)
     if (
       !products.find((product) => product.product_name === data.product_name)
     ) {
@@ -73,7 +74,7 @@ const ProductPovider = ({ children }: iProductProps) => {
         api.defaults.headers.authorization = `Bearer ${token}`;
         console.log(data);
         await api.post("/products", data);
-        toast.success("Cliente cadastrado com sucesso!");
+        toast.success("Produto cadastrado com sucesso!");
         setProducts(newProduct);
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
