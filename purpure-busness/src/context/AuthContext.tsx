@@ -47,7 +47,7 @@ export const AuthContext = createContext({} as iAuthContext);
 
 const AuthProvider = ({ children }: iAuthContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [, setCurrentRoute] = useState<string | null>(null)
+  const [, setCurrentRoute] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -68,6 +68,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       setLoading(false);
     }
     loadingUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loginUser = async (data: iLogin) => {
@@ -93,8 +94,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       await api.post("/register", data);
       toast.success("Usuario cadastrado com sucesso!");
       try {
-        loginUser({ email: data.email, password: data.password })
-      } catch { }
+        loginUser({ email: data.email, password: data.password });
+      } catch {}
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);

@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 
@@ -27,19 +27,26 @@ interface iClientsContext {
   modalIsOpen: boolean;
   modalEditIsOpen: boolean;
   modalDeletIsOpen: boolean;
+  modalChoseIsOpen: boolean;
   filtered: string;
+  clientModID: any;
   setFiltered: React.Dispatch<React.SetStateAction<string>>;
   setClientMod: React.Dispatch<React.SetStateAction<iClient | null>>;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setModalEditIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setModalDeletIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setClientsFilter: React.Dispatch<React.SetStateAction<iClient[]>>;
+  setModalChoseIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setClientModID: React.Dispatch<any>;
+  clientModType: any;
+  setClientModType: React.Dispatch<any>;
   registerClient: (data: iClient) => void;
   deleteClient: (deletedClient: iClient | null) => void;
   editClient: (editedClient: iClient) => void;
   deleteModalOpen: (id: string) => void;
   editModalOpen: (id: string) => Promise<void>;
   filterClients: (filter: string) => void;
+  ChoseClient: (value: "edit" | "delete", state: boolean) => void;
 }
 
 export const ClientContext = createContext({} as iClientsContext);
@@ -51,21 +58,32 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [modalDeletIsOpen, setModalDeletIsOpen] = useState(false);
+  const [modalChoseIsOpen, setModalChoseIsOpen] = useState(false);
   const [clientMod, setClientMod] = useState<iClient | null>(null);
+  const [clientModID, setClientModID] = useState<any>("");
+  const [clientModType, setClientModType] = useState<any>("");
 
-  async function loadingClients() {
-    const token = localStorage.getItem("@accessToken");
-    const id = localStorage.getItem("@USER_ID");
+  useEffect(() => {
+    async function loadingClients() {
+      const token = localStorage.getItem("@accessToken");
+      const id = localStorage.getItem("@USER_ID");
 
-    if (token) {
-      try {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        const { data } = await api.get(`/users/${id}?_embed=clients`);
-        setClients(data.clients);
-      } catch { console.clear() }
+      if (token) {
+        try {
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          const { data } = await api.get(`/users/${id}?_embed=clients`);
+          setClients(data.clients);
+        } catch {
+          console.clear();
+        }
+      }
     }
-  }
-  loadingClients();
+    loadingClients();
+  }, [clientsFilter]);
+
+  useEffect(() => {
+    setClientsFilter(clients);
+  }, [clients]);
 
   const registerClient = async (data: iClient) => {
     if (
@@ -94,7 +112,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
         toast.error(requestError?.request.data.error);
-        loadingClients()
+        //loadingClients()
       }
     } else {
       toast.error("Este cliente já está cadastrado.");
@@ -112,7 +130,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/clients/${deletedsClient?.id}`);
       setClients(newClientsList);
-      loadingClients()
+      //loadingClients()
       toast.success("O cliente foi apagado da sua lista!");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
@@ -170,6 +188,13 @@ const ClientPovider = ({ children }: iClientsProps) => {
     );
   };
 
+  const ChoseClient = (value: "edit" | "delete", state: boolean) => {
+    setModalChoseIsOpen(state);
+    setClientModType(value);
+
+    console.log(value, state);
+  };
+
   return (
     <ClientContext.Provider
       value={{
@@ -192,6 +217,13 @@ const ClientPovider = ({ children }: iClientsProps) => {
         setClientsFilter,
         filtered,
         setFiltered,
+        modalChoseIsOpen,
+        setModalChoseIsOpen,
+        ChoseClient,
+        clientModID,
+        setClientModID,
+        clientModType,
+        setClientModType,
       }}
     >
       {children}
