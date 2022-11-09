@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 
@@ -63,27 +63,19 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const [clientModID, setClientModID] = useState<any>("");
   const [clientModType, setClientModType] = useState<any>("");
 
-  useEffect(() => {
-    async function loadingClients() {
-      const token = localStorage.getItem("@accessToken");
-      const id = localStorage.getItem("@USER_ID");
+  async function loadingClients() {
+    const token = localStorage.getItem("@accessToken");
+    const id = localStorage.getItem("@USER_ID");
 
-      if (token) {
-        try {
-          api.defaults.headers.authorization = `Bearer ${token}`;
-          const { data } = await api.get(`/users/${id}?_embed=clients`);
-          setClients(data.clients);
-        } catch (error) {
-          console.log(error);
-        }
-      }
+    if (token) {
+      try {
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        const { data } = await api.get(`/users/${id}?_embed=clients`);
+        setClients(data.clients);
+      } catch { console.clear() }
     }
-    loadingClients();
-  }, [clientsFilter]);
-
-  useEffect(() => {
-    setClientsFilter(clients);
-  }, [clients]);
+  }
+  loadingClients();
 
   const registerClient = async (data: iClient) => {
     if (
@@ -112,7 +104,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
         toast.error(requestError?.request.data.error);
-        console.log(error);
+        loadingClients()
       }
     } else {
       toast.error("Este cliente já está cadastrado.");
@@ -130,11 +122,11 @@ const ClientPovider = ({ children }: iClientsProps) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/clients/${deletedsClient?.id}`);
       setClients(newClientsList);
-      toast.success("O clinte foi apagado da sua lista!");
+      loadingClients()
+      toast.success("O cliente foi apagado da sua lista!");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
-      console.log(error);
     }
     setModalDeletIsOpen(false);
   };

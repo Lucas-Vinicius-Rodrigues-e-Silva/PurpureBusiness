@@ -54,7 +54,7 @@ export function ModalEditClient() {
           </div>
           <form onSubmit={handleSubmit(submit)}>
             <Text tag="label" className="newClientInput">
-              Cliente
+              Nome do cliente
             </Text>
             <Input
               id={"client_name"}
@@ -81,11 +81,11 @@ export function ModalEditClient() {
               {...register("client_email")}
             />
             <Text tag="label" className="newClientInput">
-              Telefone do cliente:
+              Número do cliente:
             </Text>
             <Input
               id={"clinte_phone"}
-              type={"number"}
+              type={"text"}
               placeholder={`${clientMod?.clinte_phone}`}
               {...register("clinte_phone")}
             />

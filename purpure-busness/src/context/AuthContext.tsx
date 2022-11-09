@@ -61,13 +61,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}`);
           setUser(data);
-          navigate("dashboard");
-        } catch (error) {
-          const requestError = error as AxiosError<iApiError>;
-          toast.error(requestError?.request.data.error);
-          console.log(error);
-          localStorage.removeItem("@accessToken");
-          navigate("/");
+        } catch {
+          localStorage.clear();
         }
       }
       setLoading(false);

@@ -5,17 +5,15 @@ import { Table } from "./table";
 import { SalesModal } from "../../components/Modal/salesModal";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { HeaderSearch } from "./dashboardSales";
-
-let exemplos = {
-  nomeFantasia: "Empresa Tal LTDA",
-};
+import { AuthContext } from "../../context/AuthContext";
 
 export const SalesPage = () => {
+  const { user } = useContext(AuthContext);
   const { setSaleModalIsOpen, filter, setFilter, salesFiltered } =
     useContext(SaleContext);
 
   return (
-    <UiDashboard companyName={exemplos.nomeFantasia}>
+    <UiDashboard companyName={`${user?.commercialName}`}>
       <title>Vendas | Purpure Business</title>
       <SalesModal></SalesModal>
       <HeaderSearch>
@@ -23,7 +21,10 @@ export const SalesPage = () => {
         <div className="btnSearch">
           <button onClick={() => setSaleModalIsOpen(true)}>Vender</button>
           <div className="searchBar">
-            <input type="text" onChange={(e) => setFilter(e.target.value)} />
+            <input type="text" placeholder="Buscar vendas" onChange={(e) => {
+              setFilter(e.target.value);
+              salesFiltered(e.target.value)
+            }} />
             <BiSearchAlt2
               className="icon"
               onClick={() => salesFiltered(filter)}
