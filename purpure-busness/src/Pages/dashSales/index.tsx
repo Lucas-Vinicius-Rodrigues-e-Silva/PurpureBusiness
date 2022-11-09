@@ -23,7 +23,7 @@ export const SalesPage = () => {
         <div className="btnSearch">
           <button onClick={() => setSaleModalIsOpen(true)}>Vender</button>
           <div className="searchBar">
-            <input type="text" onChange={(e) => setFilter(e.target.value)} />
+            <input type="text" placeholder="Buscar vendas" onChange={(e) => setFilter(e.target.value)} />
             <BiSearchAlt2
               className="icon"
               onClick={() => salesFiltered(filter)}
