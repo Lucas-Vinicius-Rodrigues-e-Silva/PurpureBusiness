@@ -63,14 +63,17 @@ const ClientPovider = ({ children }: iClientsProps) => {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}?_embed=clients`);
           setClients(data.clients);
-          setClientsFilter(data.clients);
         } catch (error) {
           console.log(error);
         }
       }
     }
     loadingClients();
-  }, []);
+  }, [clientsFilter]);
+
+  useEffect(() => {
+    setClientsFilter(clients);
+  }, [clients]);
 
   const registerClient = async (data: iClient) => {
     if (
@@ -162,7 +165,6 @@ const ClientPovider = ({ children }: iClientsProps) => {
   };
 
   const filterClients = (filter: string) => {
-    console.log(clientsFilter);
     setClientsFilter(
       clients.filter(
         (client) =>

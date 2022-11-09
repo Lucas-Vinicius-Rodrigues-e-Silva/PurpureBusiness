@@ -2,12 +2,16 @@ import { useContext } from "react";
 import { UiDashboard } from "../../components/Interface";
 import { SalesModal } from "../../components/Modal/salesModal";
 import { SaleContext } from "../../context/SalesContext";
+import { ModalAddClient } from "../../components/Modal/clientsModal/modalNewClient";
+import { ModalEditClient } from "../../components/Modal/clientsModal/modalEdit";
+import { DeleteClient } from "../../components/Modal/clientsModal/ModalDelete";
 import {
   DashboardQuickCards,
   DashboardBallInfo,
   DashboardColumnInfo,
 } from "../../styles/dashboardBase";
 import { Title3 } from "../../styles/elements";
+import { ClientContext } from "../../context/ClientContext";
 
 let exemplos = {
   nomeFantasia: "Empresa Tal LTDA",
@@ -18,10 +22,15 @@ let exemplos = {
 
 export const DashHome = () => {
   const { setSaleModalIsOpen } = useContext(SaleContext);
+  const { setModalIsOpen, setModalDeletIsOpen, setModalEditIsOpen } =
+    useContext(ClientContext);
 
   return (
     <UiDashboard companyName={exemplos.nomeFantasia}>
       <title>Dashboard | Purpure Business</title>
+      <ModalAddClient></ModalAddClient>
+      <ModalEditClient></ModalEditClient>
+      <DeleteClient></DeleteClient>
       <SalesModal></SalesModal>
       <div id="mainDashboard">
         <div className="hot-info">
@@ -41,7 +50,10 @@ export const DashHome = () => {
         <div>
           <h2>Ações rápidas</h2>
           <section>
-            <DashboardQuickCards color="add">
+            <DashboardQuickCards
+              color="add"
+              onClick={() => setModalIsOpen(true)}
+            >
               <i className="bx bxs-plus-circle"></i>
               <Title3 tag="h3">Cadastrar cliente</Title3>
             </DashboardQuickCards>

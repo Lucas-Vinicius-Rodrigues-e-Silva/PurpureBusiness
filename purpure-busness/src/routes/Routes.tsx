@@ -36,8 +36,6 @@ export const AppRoutes = () => {
           </SalePovider>
         }
       />
-      <Route path="mobile" element={<NotAllowed />} />
-      <Route path="*" element={<NotFound />} />
       <Route
         path="/dashboard/clients"
         element={
@@ -46,6 +44,8 @@ export const AppRoutes = () => {
           </ClientPovider>
         }
       />
+      <Route path="mobile" element={<NotAllowed />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
