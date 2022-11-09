@@ -20,6 +20,7 @@ import { ClientContext } from "../../context/ClientContext";
 export const DashHome = () => {
   const navigate = useNavigate();
   const { setSaleModalIsOpen } = useContext(SaleContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { setModalIsOpen, setModalDeletIsOpen, setModalEditIsOpen } =
     useContext(ClientContext);
   const token = localStorage.getItem("@accessToken");
