@@ -194,4 +194,12 @@ div.loading div.whiteBlock{
     flex-direction: column;
     gap: 5px;
 }
+
+#landingPage .btnContainer a{
+    width: 100%;
+    button{
+        width: 60%;
+    }
+}
+
 `;
