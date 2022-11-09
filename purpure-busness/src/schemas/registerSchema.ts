@@ -5,9 +5,8 @@ export const registerSchema = yup.object().shape({
     .string()
     .required("O CNPJ é obrigatório")
     .matches(
-      // eslint-disable-next-line
       /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/,
-      "Insira o CNPJ nesse formato 99.999.999/0001-99"
+      "Insira o CNPJ nesse formato 99.999.999/9999-99"
     ),
   password: yup.string().required("A senha é obrigatória"),
   confirmPassword: yup

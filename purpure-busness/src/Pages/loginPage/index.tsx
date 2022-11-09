@@ -22,9 +22,6 @@ const LoginPage = () => {
 
   return (
     <MainForm>
-      <Link to="/">
-        <i className='bx bx-arrow-back'></i>
-      </Link>
       <form onSubmit={handleSubmit(submit)}>
         <Title1 tag="h1">Login</Title1>
 

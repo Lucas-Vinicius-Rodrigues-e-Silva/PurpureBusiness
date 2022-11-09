@@ -35,7 +35,7 @@ export const DashboardQuickCards = styled.div`
     background-color: #fff;
     box-shadow: 0 0 .5em 0 rgba(0,0,0,0.2);
     margin: 1em 0;
-    width:${props =>(props.id)};
+    width: 30%;
 
     i{
         font-size: 3em;
@@ -71,6 +71,7 @@ export const DashboardQuickCards = styled.div`
 export const DashboardBallInfo = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     background-color: #fff;
     width: 30%;
@@ -85,7 +86,6 @@ export const DashboardBallInfo = styled.div`
         border-radius: 1em;
         font-weight: 600;
         color: ${primaryColor};
-        margin-right: 1em;
     }
 `
 

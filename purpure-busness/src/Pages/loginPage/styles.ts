@@ -6,21 +6,6 @@ const MainForm = styled.main`
   align-items: center;
   height: 100vh;
 
-  i{
-    font-size: 2em;
-    color: grey;
-    padding: .5em;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-  i:hover{
-    cursor: pointer;
-    color: #7D02DD;
-    background-color: #f0f0f0;
-  }
-
   form {
     display: flex;
     flex-direction: column;
@@ -32,18 +17,6 @@ const MainForm = styled.main`
     width: 450px;
     z-index: 2;
   }
-
-  form:not(:focus){
-    @keyframes scaleup{
-      from{
-        scale: 0;
-      }to{
-        scale: 1;
-      }}
-
-    animation: scaleup 1s ease;
-  }
-
   h1 {
     text-align: center;
   }
