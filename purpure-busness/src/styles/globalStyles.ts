@@ -22,7 +22,6 @@ body{
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2;
 }
 
 #dashboardInterface header div{
@@ -100,14 +99,6 @@ body{
             justify-content: flex-start;
         }
         span{
-            @keyframes slideIn{
-               from{
-                opacity: 0;
-               }to{
-                    opacity: 1;
-                }
-            }
-            animation: slideIn .5s ease-in-out;
             display: block;
             margin-left: 1em;
         }
@@ -159,72 +150,18 @@ body{
     filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
 }
 
-#waves:not(:focus){
-    @keyframes upTransition{
-        from{
-            transform: translateY(30vh);
-        }to{
-            transform: translateY(0);
-        }
-    }
-    animation: upTransition 1s ease;
-
-}
-
-div.loading{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-}
-
-div.loading div.whiteBlock{
-    background-color: #fff;
-    padding: 3em;
-    border-radius: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-}
-
-#landingPage .btnContainer a{
-    width: 100%;
-    button{
-        width: 60%;
+@keyframes slideUp{
+    from{
+        transform: translateY(100%);
+    }to{
+        transform: translateY(0);
     }
 }
 
-#tableNoneMessage{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    line-height: 1.5em;
-    width: 100%;
-
-    h2{
-        margin-top: 1em;
-        font-size: 1em;
-    }
-
-    p{
-        font-size: .8em;
-
-        span{
-            background-color: #4ECB71;
-            color: #fff;
-            padding: .2em;
-            border-radius: .5em;
-        }
-    }
+.waveOne:not(:focus){
+    animation: slideUp 1s ease;
 }
-
+.waveTwo:not(:focus){
+    animation: slideUp 1.5s ease;
+}
 `;
