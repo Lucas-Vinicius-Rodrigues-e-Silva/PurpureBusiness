@@ -32,7 +32,7 @@ export const Table = () => {
                         <td>{item.cliente_sale_product}</td>
                         <td>{item.product_sale}</td>
                         <td>{item.product_sale_quant}</td>
-                        <td>R$ {item.total_sale_value}</td>
+                        <td>R$ {item.total_sale_value * item.product_sale_quant}</td>
                     </tr>
                 )
                   ) : (
@@ -41,7 +41,7 @@ export const Table = () => {
                         <td>{item.cliente_sale_product}</td>
                         <td>{item.product_sale}</td>
                         <td>{item.product_sale_quant}</td>
-                        <td>R$ {item.total_sale_value}</td>
+                        <td>R$ {item.total_sale_value * item.product_sale_quant}</td>
                     </tr>
                 )
                   )

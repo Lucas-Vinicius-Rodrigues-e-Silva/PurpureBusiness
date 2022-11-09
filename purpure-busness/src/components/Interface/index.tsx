@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Li } from "../../styles/dashboardBase";
 
 interface iUiDashboardProps {
@@ -22,6 +23,7 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
   const logOut = () => {
     localStorage.clear();
     navigate("/");
+    toast.info("Você foi desconectado!");
   };
 
   return (
