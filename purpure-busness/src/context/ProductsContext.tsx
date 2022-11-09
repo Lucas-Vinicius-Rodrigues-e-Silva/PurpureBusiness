@@ -21,17 +21,19 @@ interface iProductContext {
   registerProduct: (data: iProducts) => void;
   deleteProduct: (deletedProduct: iProducts) => void;
   editProduct: (editedProduct: iProducts, productId: number | null) => void;
+  styleModal: boolean;
+  setStyleModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ProductContext = createContext({} as iProductContext);
 
-
-
 const ProductPovider = ({ children }: iProductProps) => {
   const [products, setProducts] = useState([] as iProducts[]);
+  const [styleModal, setStyleModal] = useState(false)
 
   const loadingClientProducts = async () => {
     const token = localStorage.getItem("@accessToken");
+    setStyleModal(true)
     if (token) {
       try {
         const id = localStorage.getItem("@USER_ID");
@@ -44,8 +46,10 @@ const ProductPovider = ({ children }: iProductProps) => {
     }
   };
 
-  const registerProduct = async (data:iProducts) => {
-    if (!products.find((product) => product.product_name === data.product_name)) {
+  const registerProduct = async (data: iProducts) => {
+    if (
+      !products.find((product) => product.product_name === data.product_name)
+    ) {
       try {
         const newProduct = [
           ...products,
@@ -58,8 +62,8 @@ const ProductPovider = ({ children }: iProductProps) => {
         ];
         const token = localStorage.getItem("@accessToken");
         api.defaults.headers.authorization = `Bearer ${token}`;
-        console.log(data)
-        await api.post("/products", data);        
+        console.log(data);
+        await api.post("/products", data);
         toast.success("Cliente cadastrado com sucesso!");
         setProducts(newProduct);
       } catch (error) {
@@ -72,25 +76,26 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   const deleteProduct = async (deletedProduct: iProducts) => {
     // eslint-disable-next-line no-restricted-globals
-    console.log(deletedProduct)
-      try {
-        const newProductList = products.filter(
-          (product) => product.id !== deletedProduct.id
-        );
-        const token = localStorage.getItem("@accessToken");
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        await api.delete(`/products/${deletedProduct.id}`);
-        setProducts(newProductList);
-        toast.success("O produto foi apagado da sua lista!");
-      } catch (error) {
-        console.log(error);
-      }
-    
+    console.log(deletedProduct);
+    try {
+      const newProductList = products.filter(
+        (product) => product.id !== deletedProduct.id
+      );
+      const token = localStorage.getItem("@accessToken");
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      await api.delete(`/products/${deletedProduct.id}`);
+      setProducts(newProductList);
+      toast.success("O produto foi apagado da sua lista!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const editProduct = async (editedProduct: iProducts, productId: number | null) => {
+  const editProduct = async (
+    editedProduct: iProducts,
+    productId: number | null
+  ) => {
     try {
-
       const pachProduct = {
         product_name: editedProduct.product_name,
         product_value: editedProduct.product_value,
@@ -115,6 +120,8 @@ const ProductPovider = ({ children }: iProductProps) => {
         registerProduct,
         deleteProduct,
         editProduct,
+        styleModal, 
+        setStyleModal,
       }}
     >
       {children}

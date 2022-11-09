@@ -35,7 +35,7 @@ export const DashboardQuickCards = styled.div`
     background-color: #fff;
     box-shadow: 0 0 .5em 0 rgba(0,0,0,0.2);
     margin: 1em 0;
-    width: 30%;
+    width:${props =>(props.id)};
 
     i{
         font-size: 3em;

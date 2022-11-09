@@ -1,8 +1,10 @@
 import styled from "styled-components";
 export const StyledDivNewProductModalBtn = styled.div`
- > button {
-  border-radius: 10px;
- }
+ width:30%;
+  > button {
+    width:100%;
+    height:38px;
+  }
 `
 
 export const StyledDivNewProductModal = styled.div`

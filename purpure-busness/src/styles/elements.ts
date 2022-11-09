@@ -27,6 +27,10 @@ export const OutlinedBtn = styled.button`
     cursor: pointer;
   }
 `;
+export const CardNewProduct = styled.button`
+  
+`;
+
 export const Input = styled.input`
   border: 1px solid transparent;
   background-color: #f2f2f2;

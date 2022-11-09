@@ -7,11 +7,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { searchProductSchema } from "../../schemas/searchItemSchema";
 import { Input, OutlinedBtn } from "../../styles/elements";
 import { NoItensFound } from "../../components/NotFoundItens";
+import { NoProductsFound } from "../../components/NotFoundProducts";
 import UiDashboard from "../../components/Interface";
 import ConfirmationModal from "../../components/Modal/ConfirmationModal";
 import EditProductModal from "../../components/Modal/EditProductModal";
 import NewProductModal from "../../components/Modal/NewProductModal";
-import { NoProductsFound } from "../../components/NotFoundProducts";
+
 
 interface iSearchProduct {
   searchProduct: string;
@@ -51,9 +52,11 @@ const InventoryPage = () => {
       <StyledInventoryPage>
         <section>
           <div className="pageHeader">
+            <div className="butonsAndName">
             <h2>Estoque</h2>
-            <div className="navHeader">
             <NewProductModal />
+            </div>
+            <div className="navHeader">
             <OutlinedBtn className="btnReset" onClick={() => resetProducts()} >Resetar filtro</OutlinedBtn>
             <form onSubmit={handleSubmit(searchedItemSubmit)}>
               <Input

@@ -9,6 +9,7 @@ import SalePovider from "../context/SalesContext";
 import { NotFound } from "../Pages/notFound";
 import ProductPovider from "../context/ProductsContext";
 import NewProductModal from "../components/Modal/NewProductModal";
+import { SetStateAction } from "react";
 
 export const AppRoutes = () => {
   return (
@@ -16,7 +17,15 @@ export const AppRoutes = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
-      <Route path="dashboard" element={<DashHome />} />
+      <Route
+        path="dashboard"
+        element={
+          <ProductPovider>
+            {" "}
+            <DashHome />{" "}
+          </ProductPovider>
+        }
+      />
       <Route
         path="dashboard/stock"
         element={

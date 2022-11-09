@@ -24,11 +24,17 @@ export const StyledInventoryPage = styled.main`
     }
   }
 
+  .butonsAndName {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+  }
+
   .navHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 45%;
+    width: 35%;
 
     > form {
       display: flex;

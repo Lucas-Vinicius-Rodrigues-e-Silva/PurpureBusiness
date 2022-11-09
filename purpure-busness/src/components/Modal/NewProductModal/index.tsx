@@ -4,13 +4,11 @@ import { useForm } from "react-hook-form";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { newProductSchema } from "../../../schemas/newProductSchema";
-import { Input, FilledBtn } from "../../../styles/elements";
+import { Input, FilledBtn, OutlinedBtn, Title3 } from "../../../styles/elements";
 import { Text } from "../../../styles/text/text";
 import { iProducts, ProductContext } from "../../../context/ProductsContext";
-import {
-  StyledDivNewProductModal,
-  StyledDivNewProductModalBtn,
-} from "../../../styles/newProductModal";
+import { StyledDivNewProductModal,StyledDivNewProductModalBtn } from "../../../styles/newProductModal";
+import { DashboardQuickCards } from "../../../styles/dashboardBase";
 
 const customStyles = {
   content: {
@@ -25,8 +23,8 @@ const customStyles = {
 };
 
 const NewProductModal = () => {
-  const { registerProduct, loadingClientProducts } = useContext(ProductContext);
-
+  const { registerProduct, loadingClientProducts, styleModal } = useContext(ProductContext);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -43,29 +41,24 @@ const NewProductModal = () => {
     setIsOpen(false);
   };
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
   function openModal(): void {
     setIsOpen(true);
   }
 
-  function afterOpenModal(): void {
-    // references are now sync'd and can be accessed.
-  }
-
-  function closeModal(): void {
-    setIsOpen(false);
+  function closeModal ():void {
+     setIsOpen(false);
+    
   }
 
   return (
     <StyledDivNewProductModalBtn>
-      <FilledBtn onClick={openModal}>Novo Produto</FilledBtn>
+      { styleModal ? <FilledBtn onClick={openModal}>Cadastrar produto </FilledBtn> : <DashboardQuickCards id="100%" color="add" onClick={openModal}>  <i className="bx bx-cube-alt"></i>
+      <Title3 tag="h3">Cadastrar produto</Title3>
+      </DashboardQuickCards>}
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
       >
         <StyledDivNewProductModal>
           <div>
