@@ -54,7 +54,7 @@ export function ModalEditClient() {
           </div>
           <form onSubmit={handleSubmit(submit)}>
             <Text tag="label" className="newClientInput">
-              Cliente
+              Nome do cliente
             </Text>
             <Input
               id={"client_name"}
