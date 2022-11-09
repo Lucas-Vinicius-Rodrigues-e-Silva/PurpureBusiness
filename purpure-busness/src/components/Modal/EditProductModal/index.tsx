@@ -8,7 +8,9 @@ import { Text } from "../../../styles/text/text";
 import { iProducts, ProductContext } from "../../../context/ProductsContext";
 import { editProductSchema } from "../../../schemas/editProductSchema";
 import { StyledDivEditProductModal, StyledDivEditProductModalBtn } from "../../../styles/editProductModal";
-import {BiEdit} from "react-icons/bi"
+import { RiPencilFill } from "react-icons/ri";
+
+
 const customStyles = {
   content: {
     top: "50%",
@@ -17,6 +19,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    borderRadius:"15px",
   },
 };
 
@@ -32,6 +35,7 @@ const EditProductModal = ({ productProps }: any) => {
   });
 
   const editProductSubmit = async (data: iProducts) => {
+    console.log(data)
     editProduct(data, productProps.id);
     loadingClientProducts();
     setIsOpen(false);
@@ -53,7 +57,7 @@ const EditProductModal = ({ productProps }: any) => {
 
   return (
     <StyledDivEditProductModalBtn>
-      <button onClick={openModal}><BiEdit size={24} /></button>
+      <button onClick={openModal}><RiPencilFill size={24} /></button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

@@ -1,15 +1,17 @@
 import styled from "styled-components";
 export const StyledDivEditProductModalBtn = styled.div`
-  height: 24px;
-  width: 24px;
+  height: 27px;
+  width: 50px;
 
   > button {
+    width:40px;
+    height:25px;
     outline: none;
-    background: transparent;
     border: none;
-    position: absolute;
-    left: 1300px;
     cursor: pointer;
+    background:  #e4a951;
+    color:white;
+    border-radius:10px;;
  }
 `
 
@@ -19,7 +21,7 @@ export const StyledDivEditProductModal = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 390px;
-  height: 250px;
+  height: 260px;
 
   > div {
     display: flex;
@@ -45,6 +47,10 @@ export const StyledDivEditProductModal = styled.div`
     height: 90%;
     margin-top: 1rem;
 
+    > label {
+      margin:0;
+    }
+
     > input {
       margin-top: 0.3rem;
     }
@@ -68,6 +74,9 @@ export const StyledDivEditProductModal = styled.div`
     flex-direction: column;
     width: 40%;
 
+    > label {
+      margin:0;
+    }
     > input {
       width: 90%;
       margin-top: 0.3rem;
@@ -85,6 +94,10 @@ export const StyledDivEditProductModal = styled.div`
       width: 80%;
       margin-top: 0.3rem;
       border-radius: 10px;
+    }
+
+    > label {
+      margin:0;
     }
   }
 `;
