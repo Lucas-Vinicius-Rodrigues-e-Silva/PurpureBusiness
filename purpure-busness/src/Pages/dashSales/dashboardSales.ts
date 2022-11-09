@@ -17,8 +17,7 @@ export const HeaderSearch = styled.div`
     background-color: #4ECB71;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     color: white;
-    width: 65px;
-    height: 20px;
+    padding: .5em .8em;
     margin-right: 15px;
   }
 
@@ -30,6 +29,10 @@ export const HeaderSearch = styled.div`
     background: #F9F9F9;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
 
     input {
       border: none;
