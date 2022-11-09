@@ -27,19 +27,26 @@ interface iClientsContext {
   modalIsOpen: boolean;
   modalEditIsOpen: boolean;
   modalDeletIsOpen: boolean;
+  modalChoseIsOpen: boolean;
   filtered: string;
+  clientModID: any;
   setFiltered: React.Dispatch<React.SetStateAction<string>>;
   setClientMod: React.Dispatch<React.SetStateAction<iClient | null>>;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setModalEditIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setModalDeletIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setClientsFilter: React.Dispatch<React.SetStateAction<iClient[]>>;
+  setModalChoseIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setClientModID: React.Dispatch<any>;
+  clientModType: any;
+  setClientModType: React.Dispatch<any>;
   registerClient: (data: iClient) => void;
   deleteClient: (deletedClient: iClient | null) => void;
   editClient: (editedClient: iClient) => void;
   deleteModalOpen: (id: string) => void;
   editModalOpen: (id: string) => Promise<void>;
   filterClients: (filter: string) => void;
+  ChoseClient: (value: "edit" | "delete", state: boolean) => void;
 }
 
 export const ClientContext = createContext({} as iClientsContext);
@@ -51,7 +58,10 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [modalDeletIsOpen, setModalDeletIsOpen] = useState(false);
+  const [modalChoseIsOpen, setModalChoseIsOpen] = useState(false);
   const [clientMod, setClientMod] = useState<iClient | null>(null);
+  const [clientModID, setClientModID] = useState<any>("");
+  const [clientModType, setClientModType] = useState<any>("");
 
   useEffect(() => {
     async function loadingClients() {
@@ -178,6 +188,13 @@ const ClientPovider = ({ children }: iClientsProps) => {
     );
   };
 
+  const ChoseClient = (value: "edit" | "delete", state: boolean) => {
+    setModalChoseIsOpen(state);
+    setClientModType(value);
+
+    console.log(value, state);
+  };
+
   return (
     <ClientContext.Provider
       value={{
@@ -200,6 +217,13 @@ const ClientPovider = ({ children }: iClientsProps) => {
         setClientsFilter,
         filtered,
         setFiltered,
+        modalChoseIsOpen,
+        setModalChoseIsOpen,
+        ChoseClient,
+        clientModID,
+        setClientModID,
+        clientModType,
+        setClientModType,
       }}
     >
       {children}

@@ -12,6 +12,7 @@ import {
 } from "../../styles/dashboardBase";
 import { Title3 } from "../../styles/elements";
 import { ClientContext } from "../../context/ClientContext";
+import { ChoseClientModal } from "../../components/Modal/clientsModal/modalDeleteDashboard";
 
 let exemplos = {
   nomeFantasia: "Empresa Tal LTDA",
@@ -22,12 +23,12 @@ let exemplos = {
 
 export const DashHome = () => {
   const { setSaleModalIsOpen } = useContext(SaleContext);
-  const { setModalIsOpen, setModalDeletIsOpen, setModalEditIsOpen } =
-    useContext(ClientContext);
+  const { setModalIsOpen, ChoseClient } = useContext(ClientContext);
 
   return (
     <UiDashboard companyName={exemplos.nomeFantasia}>
       <title>Dashboard | Purpure Business</title>
+      <ChoseClientModal></ChoseClientModal>
       <ModalAddClient></ModalAddClient>
       <ModalEditClient></ModalEditClient>
       <DeleteClient></DeleteClient>
@@ -57,11 +58,17 @@ export const DashHome = () => {
               <i className="bx bxs-plus-circle"></i>
               <Title3 tag="h3">Cadastrar cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="edit">
+            <DashboardQuickCards
+              color="edit"
+              onClick={() => ChoseClient("edit", true)}
+            >
               <i className="bx bxs-pencil"></i>
               <Title3 tag="h3">Editar Cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="delete">
+            <DashboardQuickCards
+              color="delete"
+              onClick={() => ChoseClient("delete", true)}
+            >
               <i className="bx bxs-minus-circle"></i>
               <Title3 tag="h3">Deletar cliente</Title3>
             </DashboardQuickCards>
