@@ -29,7 +29,7 @@ export const ClientPage = () => {
             <input
               id="inputSearch"
               type="text"
-              placeholder="Digitar Pesquisa"
+              placeholder="Buscar cliente"
               onChange={(e) => setFiltered(e.currentTarget.value)}
             />
             <BiSearchAlt2
