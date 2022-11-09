@@ -4,18 +4,32 @@ const MainRegister = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
   form {
+    position: relative;
+    top: 25px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: 0px 0px 10px 1px rgb(0 0 0 / 25%);
     border-radius: 28px;
     background-color: white;
     width: 450px;
     z-index: 2;
   }
+
+  form:not(:focus){
+    @keyframes scaleUp{
+      from{
+        transform: scale(0);
+      }to{
+        transform: scale(1);
+      }
+    }
+
+    animation: scaleUp .5s ease-in-out forwards;
+  }
+
   h1 {
     text-align: center;
   }
@@ -31,6 +45,10 @@ const MainRegister = styled.main`
   button {
     width: 100%;
     margin-top: 10px;
+  }
+
+  input{
+    margin-bottom: 10px;
   }
 
   .errorText {

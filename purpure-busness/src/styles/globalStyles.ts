@@ -22,6 +22,7 @@ body{
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 2;
 }
 
 #dashboardInterface header div{
@@ -99,6 +100,14 @@ body{
             justify-content: flex-start;
         }
         span{
+            @keyframes slideIn{
+               from{
+                opacity: 0;
+               }to{
+                    opacity: 1;
+                }
+            }
+            animation: slideIn .5s ease-in-out;
             display: block;
             margin-left: 1em;
         }
@@ -160,5 +169,29 @@ body{
     }
     animation: upTransition 1s ease;
 
+}
+
+div.loading{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+div.loading div.whiteBlock{
+    background-color: #fff;
+    padding: 3em;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
 }
 `;
