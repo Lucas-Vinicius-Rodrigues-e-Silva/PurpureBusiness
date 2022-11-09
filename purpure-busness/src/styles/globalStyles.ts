@@ -202,4 +202,29 @@ div.loading div.whiteBlock{
     }
 }
 
+#tableNoneMessage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 1.5em;
+    width: 100%;
+
+    h2{
+        margin-top: 1em;
+        font-size: 1em;
+    }
+
+    p{
+        font-size: .8em;
+
+        span{
+            background-color: #4ECB71;
+            color: #fff;
+            padding: .2em;
+            border-radius: .5em;
+        }
+    }
+}
+
 `;

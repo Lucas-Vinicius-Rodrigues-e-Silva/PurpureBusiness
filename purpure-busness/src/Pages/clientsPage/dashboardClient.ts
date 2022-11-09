@@ -39,6 +39,7 @@ export const HeaderSearch = styled.div`
     border-radius: 15px;
     display: flex;
     align-items: center;
+    background-color: #fff;
 
     input {
       border: none;

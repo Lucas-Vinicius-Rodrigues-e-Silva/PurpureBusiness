@@ -12,7 +12,7 @@ interface iApiError {
 export interface iUser {
   email: string;
   cnpj: string;
-  nomeFantasia: string;
+  commercialName: string;
   id: number;
 }
 
@@ -62,19 +62,19 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}`);
           setUser(data);
+        
           navigate("dashboard");
         } catch (error) {
           const requestError = error as AxiosError<iApiError>;
           toast.error(requestError?.request.data.error);
           console.log(error);
-          localStorage.removeItem("@accessToken");
+          localStorage.clear();
           navigate("/");
         }
       }
       setLoading(false);
     }
     loadingUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loginUser = async (data: iLogin) => {

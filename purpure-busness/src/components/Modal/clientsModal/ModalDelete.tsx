@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { ClientContext } from "../../../context/ClientContext";
 import Modal from "react-modal";
-import { Text } from "../../../styles/text/text";
 import { StyledModalDelete } from "./styledModal";
 
 const customStyles = {

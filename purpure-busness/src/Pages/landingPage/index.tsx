@@ -39,7 +39,7 @@ export const LandingPage = () => {
                     <Link to='/dashboard'><OutlinedBtn>Continuar como <b>{informations}</b></OutlinedBtn></Link>
                     <hr />
                     <span>ou</span>
-                    <a onClick={quickLogout}><FilledBtn>Encerrar seção</FilledBtn></a>
+                    <a href="#btnCont" onClick={quickLogout}><FilledBtn>Encerrar seção</FilledBtn></a>
                 </>
             )
         } else {
@@ -65,7 +65,7 @@ export const LandingPage = () => {
                     <h2>
                         Toda simplicidade para o seu <span>PURO DESEMPENHO</span> empresarial.
                     </h2>
-                    <div className="btnContainer">
+                    <div id="btnCont" className="btnContainer">
                         {handleRestore()}
                     </div>
                 </div>
