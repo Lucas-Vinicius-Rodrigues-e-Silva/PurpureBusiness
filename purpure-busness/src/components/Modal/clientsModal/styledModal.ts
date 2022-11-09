@@ -142,3 +142,73 @@ export const StyledModalEdit = styled.div`
     }
   }
 `;
+
+export const StyledModalChose = styled.div`
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  gap: 15px;
+
+  .modal_chose_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  h2 {
+    height: 22px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+  }
+
+  form {
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+
+    label {
+      margin: 0px;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 12px;
+    }
+
+    input {
+      background: #f2f2f2;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      height: 41px;
+      left: 437px;
+      top: 377px;
+
+      background: #7d02dd;
+      border-radius: 15px;
+      color: #fff;
+      border: 1px solid #7d02dd;
+    }
+
+    button:hover {
+      background: #8f00ff;
+    }
+  }
+`;

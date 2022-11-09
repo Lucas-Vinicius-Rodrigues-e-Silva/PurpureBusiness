@@ -13,10 +13,11 @@ import { AuthContext } from "../../context/AuthContext";
 export const ClientPage = () => {
   const { user } = useContext(AuthContext);
 
-  const { setModalIsOpen, filterClients, setFiltered, filtered } = useContext(ClientContext);
+  const { setModalIsOpen, filterClients, setFiltered, filtered } =
+    useContext(ClientContext);
+
   return (
     <UiDashboard companyName={`${user?.commercialName}`}>
-      <title>Clientes | Purpure Business</title>
       <ModalAddClient></ModalAddClient>
       <ModalEditClient></ModalEditClient>
       <DeleteClient></DeleteClient>
@@ -28,11 +29,8 @@ export const ClientPage = () => {
             <input
               id="inputSearch"
               type="text"
-              placeholder="Buscar cliente"
-              onChange={(e) => {
-                filterClients(e.target.value);
-                setFiltered(e.currentTarget.value)
-              }}
+              placeholder=""
+              onChange={(e) => setFiltered(e.currentTarget.value)}
             />
             <BiSearchAlt2
               className="icon"

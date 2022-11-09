@@ -20,6 +20,8 @@ import {
 import { Title3 } from "../../styles/elements";
 import { ClientContext } from "../../context/ClientContext";
 import AddInventoryModal from "../../components/Modal/AddInventoryModal";
+import { ChoseClientModal } from "../../components/Modal/clientsModal/modalChoseClient";
+
 export const DashHome = () => {
   const { styleModal, setStyleModal } = useContext(ProductContext);
 
@@ -34,9 +36,6 @@ export const DashHome = () => {
 
   const navigate = useNavigate();
   const { setSaleModalIsOpen } = useContext(SaleContext);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { setModalIsOpen, setModalDeletIsOpen, setModalEditIsOpen } =
-    useContext(ClientContext);
   const token = localStorage.getItem("@accessToken");
   const id = localStorage.getItem("@USER_ID");
 
@@ -93,11 +92,13 @@ export const DashHome = () => {
   setTimeout(() => {
     setLoading(false);
   }, 1000);
+  const { setModalIsOpen, ChoseClient } = useContext(ClientContext);
 
   return (
     <UiDashboard companyName={companyName}>
       <title>Dashboard | Purpure Business</title>
 
+      <ChoseClientModal></ChoseClientModal>
       <ModalAddClient></ModalAddClient>
       <ModalEditClient></ModalEditClient>
       <DeleteClient></DeleteClient>
@@ -143,11 +144,17 @@ export const DashHome = () => {
               <i className="bx bxs-plus-circle"></i>
               <Title3 tag="h3">Cadastrar cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="edit" id="30%">
+            <DashboardQuickCards id="30%"
+              color="edit"
+              onClick={() => ChoseClient("edit", true)}
+            >
               <i className="bx bxs-pencil"></i>
               <Title3 tag="h3">Editar Cliente</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="delete" id="30%">
+            <DashboardQuickCards id="30%"
+              color="delete"
+              onClick={() => ChoseClient("delete", true)}
+            >
               <i className="bx bxs-minus-circle"></i>
               <Title3 tag="h3">Deletar cliente</Title3>
             </DashboardQuickCards>

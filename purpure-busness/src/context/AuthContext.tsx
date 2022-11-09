@@ -75,6 +75,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       setLoading(false);
     }
     loadingUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loginUser = async (data: iLogin) => {
