@@ -91,8 +91,10 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
   const registerUser = async (data: iRegister) => {
     try {
       await api.post("/register", data);
-      toast.success("Usuarioa cadastrado com sucesso!");
-      navigate("dashboard");
+      toast.success("Usuario cadastrado com sucesso!");
+      try {
+        loginUser({ email: data.email, password: data.password })
+      } catch { }
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);

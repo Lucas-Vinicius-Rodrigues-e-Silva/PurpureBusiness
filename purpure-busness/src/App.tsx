@@ -25,7 +25,6 @@ function App() {
             theme="light"
           />
         </SalePovider>
-        <AppRoutes />
       </AuthProvider>
     </div>
   );
