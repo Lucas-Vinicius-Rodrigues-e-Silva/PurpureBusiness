@@ -120,7 +120,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/clients/${deletedsClient?.id}`);
       setClients(newClientsList);
-      toast.success("O clinte foi apagado da sua lista!");
+      toast.success("O cliente foi apagado da sua lista!");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
