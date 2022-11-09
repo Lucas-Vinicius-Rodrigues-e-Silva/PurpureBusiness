@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { ClientContext } from "../../../context/ClientContext";
 import Modal from "react-modal";
-import { StyledModalEdit } from "./styledModal";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { StyledModalChose } from "./styledModal";
 
 const customStyles = {
   content: {
@@ -59,8 +60,8 @@ export const ChoseClientModal = () => {
       style={customStyles}
       contentLabel="Chose Client Modal"
     >
-      <StyledModalEdit>
-        <div>
+      <StyledModalChose>
+        <div className="modal_chose_header">
           <h2>Escolha o cliente para execultar esta operação?</h2>
           <span onClick={() => setModalChoseIsOpen(false)}>x</span>
         </div>
@@ -77,7 +78,7 @@ export const ChoseClientModal = () => {
             Confirmar
           </button>
         </form>
-      </StyledModalEdit>
+      </StyledModalChose>
     </Modal>
   );
 };
