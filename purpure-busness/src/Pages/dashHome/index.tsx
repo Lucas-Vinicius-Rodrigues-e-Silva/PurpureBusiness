@@ -86,12 +86,15 @@ export const DashHome = () => {
     const { products } = response.data;
     setProductsRegistered(products.length);
   }
-  fistSetUp();
-  salesListing();
-  productsListing();
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
+  useEffect(() => {
+    fistSetUp();
+    salesListing();
+    productsListing();
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [])
+  
   const { setModalIsOpen, ChoseClient } = useContext(ClientContext);
 
   return (
@@ -165,10 +168,7 @@ export const DashHome = () => {
               <i className="bx bxs-purchase-tag"></i>
               <Title3 tag="h3">Vender produto</Title3>
             </DashboardQuickCards>
-            <DashboardQuickCards color="add" id="30%">
-              <i className="bx bxs-component"></i>
-              <Title3 tag="h3">Adicionar estoque</Title3>
-            </DashboardQuickCards>
+            <AddInventoryModal/>
             <NewProductModal />
           </section>
         </div>

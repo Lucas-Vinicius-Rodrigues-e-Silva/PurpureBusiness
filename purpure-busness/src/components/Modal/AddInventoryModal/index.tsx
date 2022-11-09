@@ -3,12 +3,15 @@ import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Input, FilledBtn } from "../../../styles/elements";
+import { Input, FilledBtn, Title3 } from "../../../styles/elements";
 import { Text } from "../../../styles/text/text";
 import { iProducts, ProductContext } from "../../../context/ProductsContext";
-import { editProductSchema } from "../../../schemas/editProductSchema";
-import { StyledDivEditProductModal, StyledDivEditProductModalBtn } from "../../../styles/editProductModal";
-import {BiEdit} from "react-icons/bi"
+import { addInventorySchema } from "../../../schemas/addInventorySchema";
+import { DashboardQuickCards } from "../../../styles/dashboardBase";
+import {
+  StyledDivAddInventoryModal,
+  StyledDivAddInventoryModalBtn,
+} from "./addInventoryModal";
 
 const customStyles = {
   content: {
@@ -18,31 +21,38 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    borderRadius:"15px;",
   },
 };
 
 const AddInventoryModal = () => {
-  const { editProduct, loadingClientProducts, products } = useContext(ProductContext);
- 
+  const { editProduct, loadingClientProducts, products } =
+    useContext(ProductContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<iProducts>({
-    resolver: yupResolver(editProductSchema),
+    resolver: yupResolver(addInventorySchema),
   });
 
-  const addInventorySubmit = async (data: iProducts) => {
-    console.log(data)
-    // editProduct(data, data.id);
-    // loadingClientProducts();
-    // setIsOpen(false);
+  const addInventorySubmit = (data: iProducts) => {
+    console.log(data);
+    const teste: any = products.find(
+      (product) => product.product_name === data.product_name
+    );
+    console.log(teste);
+
+    editProduct(data, teste.id);
+    loadingClientProducts();
+    setIsOpen(false);
   };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal(): void {
-    loadingClientProducts()
+    loadingClientProducts();
     setIsOpen(true);
   }
 
@@ -55,33 +65,41 @@ const AddInventoryModal = () => {
   }
 
   return (
-    <StyledDivEditProductModalBtn>
-      <button onClick={openModal}><BiEdit size={24} /></button>
+    <StyledDivAddInventoryModalBtn>
+      <DashboardQuickCards id="100%" color="add" onClick={openModal}>
+        {" "}
+        <i className="bx bxs-component"></i>
+        <Title3 tag="h3">Adicionar estoque</Title3>
+      </DashboardQuickCards>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
       >
-        <StyledDivEditProductModal>
+        <StyledDivAddInventoryModal>
           <div>
-            <h2>Editar produto</h2>
+            <h2>Adicionar estoque</h2>
             <button onClick={() => closeModal()}>
-              <AiFillCloseCircle  size={24}/>
+              <AiFillCloseCircle size={24} />
             </button>
           </div>
           <form onSubmit={handleSubmit(addInventorySubmit)}>
-            <Text tag="label" className="headline">
-              Nome do produto
-            </Text>
-            <select id="ProductName" {...register("product_name")} {...register("id")} >
-                <option>Selecione um produto</option>
-                {products.map((product) => <option key={product.id}>{product.product_name}</option>)}
-            </select>
-            <div>
-              <div className="inventoryInput">
+            <div className="productAndQuantity">
+              <div className="productName">
                 <Text tag="label" className="headline">
-                  Estoque atual:
+                  Nome do produto
+                </Text>
+                <select id="ProductName" {...register("product_name")}>
+                  <option>Selecione um produto</option>
+                  {products.map((product) => (
+                    <option key={product.id}>{product.product_name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="actualInventory">
+                <Text tag="label" className="headline">
+                  Quantidade:
                 </Text>
                 <Input
                   id={"productInventory"}
@@ -93,9 +111,9 @@ const AddInventoryModal = () => {
             </div>
             <FilledBtn type="submit">Confirmar mudanças</FilledBtn>
           </form>
-        </StyledDivEditProductModal>
+        </StyledDivAddInventoryModal>
       </Modal>
-    </StyledDivEditProductModalBtn>
+    </StyledDivAddInventoryModalBtn>
   );
 };
 

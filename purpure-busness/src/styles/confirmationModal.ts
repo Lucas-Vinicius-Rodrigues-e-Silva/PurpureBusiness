@@ -1,16 +1,18 @@
 import styled from "styled-components";
 
 export const ConfirmationModalStyledBtns = styled.div`
-  height: 24px;
-  width: 24px;
+ height: 27px;
+  width: 50px;
 
   > button {
+    width:40px;
+    height:25px;
     outline: none;
-    background: transparent;
     border: none;
-    position: absolute;
-    left: 1300px;
     cursor: pointer;
+    background: #f24e1e;
+    color:white;
+    border-radius:10px;;
   }
 `;
 
@@ -51,4 +53,6 @@ export const ConfirmationModalStyled = styled.div`
     width: 45%;
     height: 150%;
   }
+
+  
 `;

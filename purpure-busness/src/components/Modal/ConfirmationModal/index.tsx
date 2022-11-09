@@ -3,7 +3,8 @@ import Modal from "react-modal";
 import { ProductContext } from "../../../context/ProductsContext";
 import { FilledBtn, OutlinedBtn } from "../../../styles/elements";
 import { ConfirmationModalStyled, ConfirmationModalStyledBtns } from "../../../styles/confirmationModal";
-import {MdDelete} from "react-icons/md"
+import { AiFillDelete } from "react-icons/ai";
+
 const customStyles = {
     content: {
       top: "50%",
@@ -40,7 +41,7 @@ const ConfirmationModal = ({productProps}:any) => {
 
     return (
         <ConfirmationModalStyledBtns>        
-          <button onClick={openModal}><MdDelete size={24}/></button>
+          <button onClick={openModal}>< AiFillDelete size={24}/></button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}

@@ -13,7 +13,7 @@ export interface iProducts {
   product_value: string;
   product_stock: string;
   userId: number | null;
-  id?: number;
+  id?: number | null;
 }
 
 interface iProductProps {
@@ -29,11 +29,17 @@ interface iProductContext {
   editProduct: (editedProduct: iProducts, productId: number | null) => void;
   styleModal: boolean;
   setStyleModal: React.Dispatch<React.SetStateAction<boolean>>;
+  filteredProducts:  iProducts[];
+  setfilteredProducts:React.Dispatch<React.SetStateAction<iProducts[]>>;
+  notFound: boolean;
+  setNotFound:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ProductContext = createContext({} as iProductContext);
 
 const ProductPovider = ({ children }: iProductProps) => {
+  const [filteredProducts, setfilteredProducts] = useState([] as iProducts[]);
+  const [notFound, setNotFound] = useState(false);
   const [products, setProducts] = useState([] as iProducts[]);
   const [styleModal, setStyleModal] = useState(false)
 
@@ -139,6 +145,10 @@ const ProductPovider = ({ children }: iProductProps) => {
         editProduct,
         styleModal, 
         setStyleModal,
+        filteredProducts, 
+        setfilteredProducts,
+        notFound, 
+        setNotFound
       }}
     >
       {children}

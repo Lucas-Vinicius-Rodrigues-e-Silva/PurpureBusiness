@@ -55,7 +55,7 @@ const NewProductModal = () => {
   return (
     <StyledDivNewProductModalBtn>
       {styleModal ? (
-        <ButtonNewProduct onClick={openModal}>Cadastrar produto </ButtonNewProduct>
+        <ButtonNewProduct onClick={openModal}>Novo produto</ButtonNewProduct>
       ) : (
         <DashboardQuickCards id="100%" color="add" onClick={openModal}>
           {" "}

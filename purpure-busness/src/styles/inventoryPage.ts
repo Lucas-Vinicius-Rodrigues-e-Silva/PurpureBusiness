@@ -1,94 +1,99 @@
 import styled from "styled-components";
-export const StyledInventoryPage = styled.main`
+export const HeaderSearch = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+width: 80%;
+
+margin: 0 auto;
+
+margin-bottom: 20px;
+
+button {
+  border-radius: 15px;
+  border: none;
+  background-color: #4ECB71;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+  padding: .5em .8em;
+  margin-right: 15px;
+}
+
+.btnSearch {
   display: flex;
-  justify-content: center;
+}
+
+.searchBar {
+  background: #F9F9F9;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-  margin: 0 auto;
+  justify-content: center;
+  background-color: #fff;
 
-  > section {
-    width: 95%;
-    height: 90%;
+  input {
+    border: none;
+    padding-left: 10px;
+    border-radius: 15px;
   }
 
-  .pageHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 15%;
-
-  }
-  .nameAndResetFilter {
-    display: flex;
-    justify-content: space-between;
-    width: 18%;
+  input:focus {
+    box-shadow: 0;
+    outline: 0;
   }
 
-  .navHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 35%;
-
-    > form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 65%;
-
-      > input {
-        width: 95%;
-        background: #f9f9f9;
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 15px 0px 0px 15px;
-      }
-
-      > button {
-        background: #f9f9f9;
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 0px 15px 15px 0px;
-        border: none;
-        height: 38px;
-        cursor: pointer;
-      }
-    }
-
-    .btnReset {
-      border-radius: 10px;
-    }
+  svg {
+    cursor: pointer;
+    position: relative;
+    right: 2%;
   }
-  td {
-    border: 1px solid rgba(0, 0, 0, 0.25);
-  }
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: auto;
-    background: #ffffff;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  }
+`;
 
-  th,
-  td {
-    padding: 10px;
-    text-align: center;
-  }
+export const TableContent = styled.table`
+margin: 0 auto;
 
-  th {
-    background: #ffffff;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  }
+padding: 10px;
+width: 80%;
 
-  tr:hover:nth-child(1n + 2) {
-    background-color: #ececec;
-    transition: 0.25s;
-  }
+background-color: #fbfbfb;
+box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 
-  tr:hover:nth-child(1n + 1) {
-    background-color: #ececec;
-    transition: 0.25s;
-  }
+border-radius: 15px;
+
+tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+th {
+  width: 25%;
+}
+
+tbody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+td {
+  width: 25%;
+  height: 10%;
+
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.actions {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 `;
