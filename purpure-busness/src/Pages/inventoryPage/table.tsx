@@ -61,7 +61,7 @@ export const TableInventory = () => {
             <tbody>
               <tr>
                 <td id="tableNoneMessage">
-                  <h2>Nenhuma venda foi efetuada!</h2>
+                  <h2>Nenhum produto foi cadastrado!</h2>
                   <p>
                     Cadastre o seu primeiro produto clicando no botão{" "}
                     <span>Novo produto</span> a cima!
