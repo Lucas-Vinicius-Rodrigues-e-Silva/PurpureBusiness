@@ -29,10 +29,10 @@ interface iProductContext {
   editProduct: (editedProduct: iProducts, productId: number | null) => void;
   styleModal: boolean;
   setStyleModal: React.Dispatch<React.SetStateAction<boolean>>;
-  filteredProducts:  iProducts[];
-  setfilteredProducts:React.Dispatch<React.SetStateAction<iProducts[]>>;
+  filteredProducts: iProducts[];
+  setfilteredProducts: React.Dispatch<React.SetStateAction<iProducts[]>>;
   notFound: boolean;
-  setNotFound:React.Dispatch<React.SetStateAction<boolean>>;
+  setNotFound: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ProductContext = createContext({} as iProductContext);
@@ -41,11 +41,11 @@ const ProductPovider = ({ children }: iProductProps) => {
   const [filteredProducts, setfilteredProducts] = useState([] as iProducts[]);
   const [notFound, setNotFound] = useState(false);
   const [products, setProducts] = useState([] as iProducts[]);
-  const [styleModal, setStyleModal] = useState(false)
+  const [styleModal, setStyleModal] = useState(false);
 
   const loadingClientProducts = async () => {
     const token = localStorage.getItem("@accessToken");
-    setStyleModal(true)
+    setStyleModal(true);
     if (token) {
       try {
         const id = localStorage.getItem("@USER_ID");
@@ -56,13 +56,11 @@ const ProductPovider = ({ children }: iProductProps) => {
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
         toast.error(requestError?.request.data.error);
-        console.log(error);
       }
     }
   };
 
   const registerProduct = async (data: iProducts) => {
-    console.log(data)
     if (
       !products.find((product) => product.product_name === data.product_name)
     ) {
@@ -78,15 +76,12 @@ const ProductPovider = ({ children }: iProductProps) => {
         ];
         const token = localStorage.getItem("@accessToken");
         api.defaults.headers.authorization = `Bearer ${token}`;
-        console.log(data);
         await api.post("/products", data);
         toast.success("Produto cadastrado com sucesso!");
         setProducts(newProduct);
-        console.log(products)
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
         toast.error(requestError?.request.data.error);
-        console.log(error);
       }
     } else {
       toast.error("Este produto já está cadastrado.");
@@ -95,7 +90,6 @@ const ProductPovider = ({ children }: iProductProps) => {
 
   const deleteProduct = async (deletedProduct: iProducts) => {
     // eslint-disable-next-line no-restricted-globals
-    console.log(deletedProduct);
     try {
       const newProductList = products.filter(
         (product) => product.id !== deletedProduct.id
@@ -107,9 +101,8 @@ const ProductPovider = ({ children }: iProductProps) => {
       toast.success("O produto foi apagado da sua lista!");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
-      
-        toast.error(requestError?.request.data.error);
-        console.log(error);
+
+      toast.error(requestError?.request.data.error);
     }
   };
 
@@ -131,7 +124,6 @@ const ProductPovider = ({ children }: iProductProps) => {
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
-      console.log(error);
     }
   };
 
@@ -144,12 +136,12 @@ const ProductPovider = ({ children }: iProductProps) => {
         registerProduct,
         deleteProduct,
         editProduct,
-        styleModal, 
+        styleModal,
         setStyleModal,
-        filteredProducts, 
+        filteredProducts,
         setfilteredProducts,
-        notFound, 
-        setNotFound
+        notFound,
+        setNotFound,
       }}
     >
       {children}
