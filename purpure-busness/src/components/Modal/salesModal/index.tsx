@@ -1,11 +1,12 @@
 import ReactModal from "react-modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { iSales, SaleContext } from "../../../context/SalesContext";
 import "./modal.css";
 import { ClientContext } from "../../../context/ClientContext";
+import { ProductContext } from "../../../context/ProductsContext";
 
 const formSchema = yup.object().shape({
   cliente_sale_product: yup.string().required("campo obrigatório"),
@@ -14,22 +15,18 @@ const formSchema = yup.object().shape({
   total_sale_value: yup.number().required("campo obrigatório"),
 });
 
-const products = [
-  {
-    product_name: "cerveja",
-  },
-  {
-    product_name: "vinho",
-  },
-  {
-    product_name: "suco de laranja",
-  },
-];
-
 export const SalesModal = () => {
   const { registerSale, saleModalIsOpen, setSaleModalIsOpen } =
     useContext(SaleContext);
-  const { clients } = useContext(ClientContext);
+
+  const { products, loadingClientProducts } = useContext(ProductContext);
+  const { clients, loadingClients } = useContext(ClientContext);
+
+  useEffect(() => {
+    loadingClientProducts()
+    loadingClients()
+  }, [])
+
   const {
     register,
     handleSubmit,
@@ -80,7 +77,7 @@ export const SalesModal = () => {
         <div className="inputsBox">
           <label htmlFor="">QTDE.:</label>
           <input type="number" min={1} {...register("product_sale_quant")} />
-          <label htmlFor="">Valor desta operação:</label>
+          <label htmlFor="">Valor do produto:</label>
           <input type="number" min={1} {...register("total_sale_value")} />
         </div>
         <div>

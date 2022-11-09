@@ -41,8 +41,8 @@ export const TableInventory = () => {
                           </tr>
                         ))
                       : filteredProducts.map((product) => (
-                          <tr key={product.id}>
-                            <td>{product.id}</td>
+                          <tr>
+                            <td key={product.id}>{product.id}</td>
                             <td>{product.product_name}</td>
                             <td>{product.product_stock}</td>
                             <td>{product.product_value}</td>

@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import NewProductModal from "../../components/Modal/NewProductModal";
 import { ProductContext } from "../../context/ProductsContext";
 import { useState } from "react";
-import ReactLoading from "react-loading"
+import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UiDashboard } from "../../components/Interface";
@@ -72,8 +72,8 @@ export const DashHome = () => {
       setMonthlyBalance(0);
     } else if (sales.length > 0) {
       const total = sales.reduce(
-        (acc: any, curr: { total_sale_value: any }) =>
-          acc + curr.total_sale_value,
+        (acc: any, curr: any) =>
+          acc + curr.total_sale_value * curr.product_sale_quant,
         0
       );
       setMonthlyBalance(total);
