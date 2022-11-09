@@ -16,7 +16,7 @@ import {
 } from "../../styles/dashboardBase";
 import { Title3 } from "../../styles/elements";
 import { ClientContext } from "../../context/ClientContext";
-import { ChoseClientModal } from "../../components/Modal/clientsModal/modalDeleteDashboard";
+import { ChoseClientModal } from "../../components/Modal/clientsModal/modalChoseClient";
 
 export const DashHome = () => {
   const navigate = useNavigate();

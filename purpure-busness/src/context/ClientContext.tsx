@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 
@@ -63,19 +63,27 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const [clientModID, setClientModID] = useState<any>("");
   const [clientModType, setClientModType] = useState<any>("");
 
-  async function loadingClients() {
-    const token = localStorage.getItem("@accessToken");
-    const id = localStorage.getItem("@USER_ID");
+  useEffect(() => {
+    async function loadingClients() {
+      const token = localStorage.getItem("@accessToken");
+      const id = localStorage.getItem("@USER_ID");
 
-    if (token) {
-      try {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        const { data } = await api.get(`/users/${id}?_embed=clients`);
-        setClients(data.clients);
-      } catch { console.clear() }
+      if (token) {
+        try {
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          const { data } = await api.get(`/users/${id}?_embed=clients`);
+          setClients(data.clients);
+        } catch {
+          console.clear();
+        }
+      }
     }
-  }
-  loadingClients();
+    loadingClients();
+  }, [clientsFilter]);
+
+  useEffect(() => {
+    setClientsFilter(clients);
+  }, [clients]);
 
   const registerClient = async (data: iClient) => {
     if (
@@ -104,7 +112,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
         toast.error(requestError?.request.data.error);
-        loadingClients()
+        //loadingClients()
       }
     } else {
       toast.error("Este cliente já está cadastrado.");
@@ -122,7 +130,7 @@ const ClientPovider = ({ children }: iClientsProps) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/clients/${deletedsClient?.id}`);
       setClients(newClientsList);
-      loadingClients()
+      //loadingClients()
       toast.success("O cliente foi apagado da sua lista!");
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
