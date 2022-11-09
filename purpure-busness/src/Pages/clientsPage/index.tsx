@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Table } from "./table";
 import { ClientContext } from "../../context/ClientContext";
 import { UiDashboard } from "../../components/Interface";
@@ -13,8 +13,12 @@ import { AuthContext } from "../../context/AuthContext";
 export const ClientPage = () => {
   const { user } = useContext(AuthContext);
 
-  const { setModalIsOpen, filterClients, setFiltered, filtered } =
+  const { setModalIsOpen, filterClients, setFiltered, filtered, loadingClients } =
     useContext(ClientContext);
+
+  useEffect(() => {
+    loadingClients()
+  }, [])
 
   return (
     <UiDashboard companyName={`${user?.commercialName}`}>
@@ -29,7 +33,7 @@ export const ClientPage = () => {
             <input
               id="inputSearch"
               type="text"
-              placeholder=""
+              placeholder="Buscar cliente"
               onChange={(e) => setFiltered(e.currentTarget.value)}
             />
             <BiSearchAlt2

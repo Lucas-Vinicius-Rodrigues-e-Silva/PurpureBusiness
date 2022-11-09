@@ -76,6 +76,7 @@ const ProductPovider = ({ children }: iProductProps) => {
         await api.post("/products", data);
         toast.success("Produto cadastrado com sucesso!");
         setProducts(newProduct);
+        console.log(products)
       } catch (error) {
         const requestError = error as AxiosError<iApiError>;
         toast.error(requestError?.request.data.error);
