@@ -54,7 +54,7 @@ export const ModalAddClient = () => {
           </div>
           <form onSubmit={handleSubmit(submit)}>
             <Text tag="label" className="newClientInput">
-              Cliente
+              Nome do cliente
             </Text>
             <Input
               id={"client_name"}
@@ -72,7 +72,7 @@ export const ModalAddClient = () => {
               {...register("cliente_document")}
             />
             <Text tag="label" className="newClientInput">
-              Cliente
+              Email do cliente
             </Text>
             <Input
               id={"client_email"}
@@ -81,7 +81,7 @@ export const ModalAddClient = () => {
               {...register("client_email")}
             />
             <Text tag="label" className="newClientInput">
-              Cliente
+              Número do cliente
             </Text>
             <Input
               id={"clinte_phone"}
