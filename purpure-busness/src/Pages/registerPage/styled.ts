@@ -5,6 +5,21 @@ const MainRegister = styled.main`
   justify-content: center;
   align-items: center;
 
+  i{
+    font-size: 2em;
+    color: grey;
+    padding: .5em;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  i:hover{
+    cursor: pointer;
+    color: #7D02DD;
+    background-color: #f0f0f0;
+  }
+
   form {
     position: relative;
     top: 25px;
