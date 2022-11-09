@@ -2,7 +2,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Wave from "react-wavify";
 import Waves from "../../components/purpleWaves";
 import { AuthContext, iRegister } from "../../context/AuthContext";
 import { registerSchema } from "../../schemas/registerSchema";
@@ -27,6 +26,9 @@ const RegisterPage = () => {
 
   return (
     <MainRegister>
+      <Link to="/">
+        <i className='bx bx-arrow-back'></i>
+      </Link>
       <form onSubmit={handleSubmit(submit)}>
         <Title1 tag="h1">Cadastro</Title1>
 
