@@ -38,7 +38,7 @@ export const Table = () => {
           ) : (
             sales.length === 0 ? (
               <tr>
-                <td id="tableNoneMessage">
+                <td id="tableNoneMessage" colSpan={3}>
                   <h2>Nenhuma venda foi efetuada!</h2>
                   <p>Efetue a sua primeira venda clicando no botão <span>Vender</span> a cima!</p>
                 </td>

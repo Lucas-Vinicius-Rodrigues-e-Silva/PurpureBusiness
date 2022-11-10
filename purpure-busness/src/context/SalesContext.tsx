@@ -8,12 +8,12 @@ interface iApiError {
 }
 
 export interface iSales {
-  cliente_sale_product: string;
-  product_sale: string;
-  product_sale_quant: number;
-  total_sale_value: number;
-  userId?: number;
-  id?: number;
+  cliente_sale_product: string,
+  product_sale: string,
+  product_sale_quant: number,
+  total_sale_value: number,
+  userId?: number,
+  id?: number,
 }
 
 interface iSalesProps {
