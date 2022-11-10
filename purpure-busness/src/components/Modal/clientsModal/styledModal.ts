@@ -131,8 +131,9 @@ export const StyledModalEdit = styled.div`
       left: 437px;
       top: 377px;
 
+      margin-top: 10px;
       background: #7d02dd;
-      border-radius: 15px;
+      border-radius: 10px;
       color: #fff;
       border: 1px solid #7d02dd;
     }
@@ -156,7 +157,7 @@ export const StyledModalChose = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    margin-bottom: 10px;
   }
 
   span {
@@ -164,14 +165,10 @@ export const StyledModalChose = styled.div`
   }
 
   h2 {
-    height: 22px;
     font-family: "Inter";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: bold;
+    font-size: 18px;
     line-height: 15px;
-    text-align: center;
-    color: #000000;
   }
 
   form {
@@ -195,6 +192,13 @@ export const StyledModalChose = styled.div`
       border-radius: 5px;
     }
 
+    select{
+      background: #f2f2f2;
+      border: none;
+      border-radius: 5px;
+      padding: 1em;
+    }
+
     button {
       width: 100%;
       height: 41px;
@@ -202,7 +206,7 @@ export const StyledModalChose = styled.div`
       top: 377px;
 
       background: #7d02dd;
-      border-radius: 15px;
+      border-radius: 10px;
       color: #fff;
       border: 1px solid #7d02dd;
     }

@@ -3,6 +3,13 @@ import { primaryColor } from "./colors";
 
 export const LandingPageStyle = styled.main`
 
+    .btnContainer a{
+    width: 100%;
+    button{
+        width: 60%;
+    }
+}
+
     .landingPageBtn1 {
         text-decoration: none;
         border: 2px solid #7D02DD;
