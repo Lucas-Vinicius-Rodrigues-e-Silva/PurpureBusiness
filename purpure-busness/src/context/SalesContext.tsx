@@ -77,7 +77,6 @@ const SalePovider = ({ children }: iSalesProps) => {
           userId: data.userId,
         },
       ];
-
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.post("/sales", data);
 

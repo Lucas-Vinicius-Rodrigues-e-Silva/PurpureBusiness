@@ -4,7 +4,7 @@ import { ProductContext } from "../../context/ProductsContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { searchProductSchema } from "../../schemas/searchItemSchema";
-import { Input, OutlinedBtn } from "../../styles/elements";
+import { OutlinedBtn } from "../../styles/elements";
 import { UiDashboard } from "../../components/Interface";
 import NewProductModal from "../../components/Modal/NewProductModal";
 import { HeaderSearch } from "../dashSales/dashboardSales";
@@ -70,7 +70,7 @@ const InventoryPage = () => {
               placeholder="Pesquise o produto aqui"
               {...register("searchProduct")}
             ></input>
-            <BiSearchAlt2 size={24} />
+            <BiSearchAlt2 />
           </div>
         </form>
       </HeaderSearch>

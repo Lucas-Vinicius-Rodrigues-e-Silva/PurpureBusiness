@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { newProductSchema } from "../../../schemas/NewProductSchema";
+import { newProductSchema } from "../../../schemas/newProductSchema";
 import { Input, FilledBtn, Title3, ButtonNewProduct } from "../../../styles/elements";
 import { Text } from "../../../styles/text/text";
 import { iProducts, ProductContext } from "../../../context/ProductsContext";
