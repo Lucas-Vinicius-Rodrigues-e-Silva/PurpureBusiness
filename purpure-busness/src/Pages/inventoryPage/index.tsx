@@ -58,17 +58,20 @@ const InventoryPage = () => {
         ) : (
           <></>
         )}
-        <form className="btnSearch" onSubmit={handleSubmit(searchedItemSubmit)}>
+        <form
+          className="btnSearch "
+          onSubmit={handleSubmit(searchedItemSubmit)}
+        >
           <NewProductModal />
-          <Input
-            type="text"
-            id="search-product"
-            placeholder="Digite o nome do produto aqui"
-            {...register("searchProduct")}
-          ></Input>
-          <button type="submit">
+          <div className="searchBar">
+            <input
+              type="text"
+              id="search-product"
+              placeholder="Pesquise o produto aqui"
+              {...register("searchProduct")}
+            ></input>
             <BiSearchAlt2 size={24} />
-          </button>
+          </div>
         </form>
       </HeaderSearch>
       <section>
