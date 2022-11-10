@@ -22,6 +22,7 @@ const LoginPage = () => {
 
   return (
     <MainForm>
+      <title>Login | Purpure Business</title>
       <Link to="/">
         <i className='bx bx-arrow-back'></i>
       </Link>

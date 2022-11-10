@@ -26,6 +26,7 @@ const RegisterPage = () => {
 
   return (
     <MainRegister>
+      <title>Cadastro | Purpure Business</title>
       <Link to="/">
         <i className='bx bx-arrow-back'></i>
       </Link>

@@ -1,6 +1,6 @@
 import { BiSearchAlt2 } from "react-icons/bi";
-import { useContext, useEffect, useState } from "react";
-import { iProducts, ProductContext } from "../../context/ProductsContext";
+import { useContext } from "react";
+import { ProductContext } from "../../context/ProductsContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { searchProductSchema } from "../../schemas/searchItemSchema";

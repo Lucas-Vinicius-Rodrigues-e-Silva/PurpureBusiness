@@ -55,7 +55,7 @@ export const LandingPage = () => {
     }
     return (
         <LandingPageStyle id="landingPage">
-            <title>PURPURE Business - Sua ferramenta de BI grátis!</title>
+            <title>Purpure Business - Power your BI!</title>
             <header>
                 <Title2 tag="h1">PUR<span>PURE</span> Business</Title2>
                 <Link to='/register'><OutlinedBtn>Começe grátis!</OutlinedBtn></Link>

@@ -22,6 +22,7 @@ export const ClientPage = () => {
 
   return (
     <UiDashboard companyName={`${user?.commercialName}`}>
+      <title>Clientes | Purpure Business</title>
       <ModalAddClient></ModalAddClient>
       <ModalEditClient></ModalEditClient>
       <DeleteClient></DeleteClient>
