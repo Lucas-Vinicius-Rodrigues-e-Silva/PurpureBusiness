@@ -98,10 +98,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       try {
         loginUser({ email: data.email, password: data.password });
       } catch { }
-    } catch (error) {
-      const requestError = error as AxiosError<iApiError>;
-      toast.error(requestError?.request.data.error);
-      console.log(error);
+    } catch {
+      toast.error("Não foi possível realizar o cadastro! Dados inseridos já cadastrados!");
     }
   };
 
