@@ -14,10 +14,10 @@ export const HeaderSearch = styled.div`
   button {
     border-radius: 15px;
     border: none;
-    background-color: #4ECB71;
+    background-color: #4ecb71;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     color: white;
-    padding: .5em .8em;
+    padding: 0.5em 0.8em;
     margin-right: 15px;
   }
 
@@ -26,7 +26,7 @@ export const HeaderSearch = styled.div`
   }
 
   .searchBar {
-    background: #F9F9F9;
+    background: #f9f9f9;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     display: flex;
@@ -51,7 +51,6 @@ export const HeaderSearch = styled.div`
       right: 2%;
     }
   }
-
 `;
 
 export const TableContent = styled.table`
