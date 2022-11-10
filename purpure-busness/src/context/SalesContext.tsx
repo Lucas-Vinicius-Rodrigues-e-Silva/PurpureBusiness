@@ -1,11 +1,6 @@
-import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
-
-interface iApiError {
-  error: string;
-}
 
 export interface iSales {
   cliente_sale_product: string,
@@ -113,7 +108,6 @@ const SalePovider = ({ children }: iSalesProps) => {
         product_sale_quant: editedSale.product_sale_quant,
         total_sale_value: editedSale.total_sale_value,
       };
-
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/sales/${editedSale.id}`, pachSale);
 
