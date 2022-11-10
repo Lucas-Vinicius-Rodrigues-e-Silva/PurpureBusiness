@@ -20,8 +20,8 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
     borderRadius: "15px",
+    transform: "translate(-50%, -50%)",
   },
 };
 
@@ -29,11 +29,7 @@ const AddInventoryModal = () => {
   const { editProduct, loadingClientProducts, products } =
     useContext(ProductContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<iProducts>({
+  const { register, handleSubmit } = useForm<iProducts>({
     resolver: yupResolver(addInventorySchema),
   });
 
