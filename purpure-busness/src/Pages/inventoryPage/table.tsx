@@ -4,6 +4,7 @@ import EditProductModal from "../../components/Modal/EditProductModal";
 import { useContext, useEffect } from "react";
 import { ProductContext } from "../../context/ProductsContext";
 import { TableContent } from "../../styles/inventoryPage";
+import { NoProducts } from "../dashSales/dashboardSales";
 
 export const TableInventory = () => {
   const { products, loadingClientProducts, filteredProducts, notFound } =
@@ -32,34 +33,34 @@ export const TableInventory = () => {
               <tbody>
                 {filteredProducts.length === 0
                   ? products.map((product) => (
-                      <tr key={product.id}>
-                        <td>{product.id}</td>
-                        <td>{product.product_name}</td>
-                        <td>{product.product_stock}</td>
-                        <td>{product.product_value}</td>
-                        <td className="actions">
-                          <EditProductModal productProps={product} />
-                          <ConfirmationModal productProps={product} />
-                        </td>
-                      </tr>
-                    ))
+                    <tr key={product.id}>
+                      <td>{product.id}</td>
+                      <td>{product.product_name}</td>
+                      <td>{product.product_stock}</td>
+                      <td>{product.product_value}</td>
+                      <td className="actions">
+                        <EditProductModal productProps={product} />
+                        <ConfirmationModal productProps={product} />
+                      </td>
+                    </tr>
+                  ))
                   : filteredProducts.map((product) => (
-                      <tr key={product.id}>
-                        <td>{product.id}</td>
-                        <td>{product.product_name}</td>
-                        <td>{product.product_stock}</td>
-                        <td>{product.product_value}</td>
-                        <td>
-                          <ConfirmationModal productProps={product} />{" "}
-                          <EditProductModal productProps={product} />
-                        </td>
-                      </tr>
-                    ))}
+                    <tr key={product.id}>
+                      <td>{product.id}</td>
+                      <td>{product.product_name}</td>
+                      <td>{product.product_stock}</td>
+                      <td>{product.product_value}</td>
+                      <td>
+                        <ConfirmationModal productProps={product} />
+                        <EditProductModal productProps={product} />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </>
           ) : (
             <tbody>
-              <tr>
+              <NoProducts >
                 <td id="tableNoneMessage">
                   <h2>Nenhum produto foi cadastrado!</h2>
                   <p>
@@ -67,7 +68,7 @@ export const TableInventory = () => {
                     <span>Novo produto</span> a cima!
                   </p>
                 </td>
-              </tr>
+              </NoProducts>
             </tbody>
           )}
         </>

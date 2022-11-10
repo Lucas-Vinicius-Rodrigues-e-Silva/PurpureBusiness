@@ -34,11 +34,10 @@ const AddInventoryModal = () => {
   });
 
   const addInventorySubmit = (data: iProducts) => {
-    console.log(data);
     const allProducts: any = products.find(
       (product) => product.product_name === data.product_name
     );
-    const newData:any = {
+    const newData: any = {
       product_name: data.product_name,
       product_stock: data.product_stock + allProducts.product_stock
     }

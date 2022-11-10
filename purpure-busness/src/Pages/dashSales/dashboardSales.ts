@@ -14,6 +14,7 @@ export const HeaderSearch = styled.div`
   button {
     border-radius: 15px;
     border: none;
+    width: fit-content;
     background-color: #4ecb71;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     color: white;
@@ -90,33 +91,64 @@ export const TableContent = styled.table`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    
+    
   }
-
-
-
-#tableNoneMessage{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    line-height: 1.5em;
-    width: 100%;
-
-    h2{
-        margin-top: 1em;
-        font-size: 1em;
-    }
-
-    p{
-        font-size: .8em;
-
-        span{
-            background-color: #4ECB71;
-            color: #fff;
-            padding: .2em;
-            border-radius: .5em;
-        }
-    }
+  
+  #tableNoneMessage{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      line-height: 1.5em;
+      width: 100%;
+  
+      h2{
+          margin-top: 1em;
+          font-size: 1em;
+      }
+  
+      p{
+          font-size: .8em;
+  
+          span{
+              background-color: #4ECB71;
+              color: #fff;
+              padding: .2em;
+              border-radius: .5em;
+          }
+      }
 }
-
 `;
+
+export const NoProducts = styled.tr`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 1.5em;
+
+   #tableNoneMessage{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      line-height: 1.5em;
+      width: 100%;
+    } 
+      h2{
+          margin-top: 1em;
+          font-size: 1em;
+      }
+  
+      p{
+          font-size: .8em;
+  
+          span{
+              background-color: #4ECB71;
+              color: #fff;
+              padding: .2em;
+              border-radius: .5em;
+          }
+      }
+`

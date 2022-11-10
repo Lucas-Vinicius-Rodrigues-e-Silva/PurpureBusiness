@@ -93,10 +93,8 @@ const ClientPovider = ({ children }: iClientsProps) => {
         api.defaults.headers.authorization = `Bearer ${token}`;
         const { data } = await api.get(`/users/${id}?_embed=clients`);
         setClients(data.clients);
-      } catch (error) {
-        const requestError = error as AxiosError<iApiError>;
-        toast.error(requestError?.request.data.error);
-        console.log(error);
+      } catch {
+        toast.error("Erro ao carregar clientes");
       }
     }
   };
@@ -141,12 +139,10 @@ const ClientPovider = ({ children }: iClientsProps) => {
 
   const deleteClient = async (deletedsClient: iClient | null) => {
     try {
-      console.log(deletedsClient);
       const newClientsList = clients.filter(
         (client) => client.id !== deletedsClient?.id
       );
       const token = localStorage.getItem("@accessToken");
-      console.log(newClientsList);
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.delete(`/clients/${deletedsClient?.id}`);
       setClients(newClientsList);
@@ -179,10 +175,8 @@ const ClientPovider = ({ children }: iClientsProps) => {
       await api.patch(`/clients/${clientMod?.id}`, pachClient);
 
       toast.success("O cliente foi editado com sucesso!");
-    } catch (error) {
-      const requestError = error as AxiosError<iApiError>;
-      toast.error(requestError?.request.data.error);
-      console.log(error);
+    } catch {
+      toast.error("Verifique os dados e tente novamente.");
     }
   };
 
@@ -211,8 +205,6 @@ const ClientPovider = ({ children }: iClientsProps) => {
   const ChoseClient = (value: "edit" | "delete", state: boolean) => {
     setModalChoseIsOpen(state);
     setClientModType(value);
-
-    console.log(value, state);
   };
 
   return (

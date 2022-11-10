@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { useNavigate } from "react-router-dom";
@@ -63,9 +62,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
           const { data } = await api.get(`/users/${id}`);
           setUser(data);
         } catch (error) {
-          const requestError = error as AxiosError<iApiError>;
-          toast.error(requestError?.request.data.error);
-          console.log(error);
+          toast.error("Erro ao carregar usuário");
           localStorage.clear();
         }
       }
@@ -98,10 +95,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       try {
         loginUser({ email: data.email, password: data.password });
       } catch { }
-    } catch (error) {
-      const requestError = error as AxiosError<iApiError>;
-      toast.error(requestError?.request.data.error);
-      console.log(error);
+    } catch {
+      toast.error("Não foi possível realizar o cadastro! Dados inseridos já cadastrados!");
     }
   };
 

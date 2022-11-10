@@ -1,19 +1,14 @@
-import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
 
-interface iApiError {
-  error: string;
-}
-
 export interface iSales {
-  cliente_sale_product: string;
-  product_sale: string;
-  product_sale_quant: number;
-  total_sale_value: number;
-  userId?: number;
-  id?: number;
+  cliente_sale_product: string,
+  product_sale: string,
+  product_sale_quant: number,
+  total_sale_value: number,
+  userId?: number,
+  id?: number,
 }
 
 interface iSalesProps {
@@ -53,10 +48,8 @@ const SalePovider = ({ children }: iSalesProps) => {
           const { data } = await api.get(`/users/${id}?_embed=sales`);
           setSales(data.sales);
           setFilter(data.sales);
-        } catch (error) {
-          const requestError = error as AxiosError<iApiError>;
-          toast.error(requestError?.request.data.error);
-          console.log(error);
+        } catch {
+          toast.error("Erro ao carregar vendas");
         }
       }
     }
@@ -84,9 +77,7 @@ const SalePovider = ({ children }: iSalesProps) => {
 
       setSales(newSale);
     } catch (error) {
-      const requestError = error as AxiosError<iApiError>;
-      toast.error(requestError?.request.data.error);
-      console.log(error);
+      toast.error("Erro ao cadastrar venda");
     }
   };
 
@@ -102,9 +93,7 @@ const SalePovider = ({ children }: iSalesProps) => {
         setSales(newSalesList);
         toast.success("A venda foi apagada da sua lista!");
       } catch (error) {
-        const requestError = error as AxiosError<iApiError>;
-        toast.error(requestError?.request.data.error);
-        console.log(error);
+        toast.error("Erro ao apagar venda, tente novamente!");
       }
     }
   };
@@ -119,15 +108,12 @@ const SalePovider = ({ children }: iSalesProps) => {
         product_sale_quant: editedSale.product_sale_quant,
         total_sale_value: editedSale.total_sale_value,
       };
-
       api.defaults.headers.authorization = `Bearer ${token}`;
       await api.patch(`/sales/${editedSale.id}`, pachSale);
 
       toast.success("A venda foi editada com sucesso!");
     } catch (error) {
-      const requestError = error as AxiosError<iApiError>;
-      toast.error(requestError?.request.data.error);
-      console.log(error);
+      toast.error("Erro ao editar venda, tente novamente!");
     }
   };
 

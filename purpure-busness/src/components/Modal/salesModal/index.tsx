@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { iSales, SaleContext } from "../../../context/SalesContext";
-import "./modal.css";
 import { ClientContext } from "../../../context/ClientContext";
 import { ProductContext } from "../../../context/ProductsContext";
 
@@ -50,6 +49,7 @@ export const SalesModal = () => {
       overlayClassName="modal-overlay"
       className="modal-content"
     >
+
       <div>
         <h1>Vender Produto</h1>
         <span onClick={() => setSaleModalIsOpen(false)}>X</span>
@@ -77,9 +77,9 @@ export const SalesModal = () => {
         <p className="errorMsg">{errors.product_sale?.message}</p>
         <div className="inputsBox">
           <label htmlFor="">QTDE.:</label>
-          <input type="number" min={1} {...register("product_sale_quant")} />
+          <input type="text" {...register("product_sale_quant")} />
           <label htmlFor="">Valor do produto:</label>
-          <input type="number" min={1} {...register("total_sale_value")} />
+          <input type="text" {...register("total_sale_value")} />
         </div>
         <div>
           <button
@@ -93,6 +93,7 @@ export const SalesModal = () => {
           </button>
         </div>
       </form>
-    </ReactModal>
+
+    </ReactModal >
   );
 };

@@ -157,3 +157,16 @@ export const ErrorPage = styled.div`
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7d02dd",endColorstr="#4f00ff",GradientType=1);
 `;
+
+export const InputSmall = styled.input`
+  border: 1px solid transparent;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  padding: 10px;
+  width: 60px;
+  text-align: end;
+
+  &&:focus {
+    outline: 1px solid black;
+  }
+`
