@@ -1,8 +1,9 @@
 import Wave from "react-wavify";
+import { WaveMainComposer } from "./style";
 
 export const Waves = () => {
   return (
-    <>
+    <WaveMainComposer>
       <div id="waves" className="waveOne">
         <Wave
           fill="url(#gradient)"
@@ -39,7 +40,7 @@ export const Waves = () => {
           </defs>
         </Wave>
       </div>
-    </>
+    </WaveMainComposer>
   );
 };
 

@@ -58,7 +58,7 @@ export const ChoseClientModal = () => {
     >
       <StyledModalChose>
         <div className="modal_chose_header">
-          <h2>Escolha o cliente para execultar esta operação?</h2>
+          <h2>Escolha o cliente:</h2>
           <span onClick={() => setModalChoseIsOpen(false)}>x</span>
         </div>
         <form onSubmit={handleSubmit(submit)}>

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Li } from "../../styles/dashboardBase";
+import { UiBase } from "./style";
 
 interface iUiDashboardProps {
   children: ReactNode;
@@ -27,7 +28,7 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
   };
 
   return (
-    <div id="dashboardInterface">
+    <UiBase id="dashboardInterface">
       <header>
         <div>
           <i className="bx bx-menu"></i>
@@ -71,6 +72,6 @@ export const UiDashboard = ({ children, companyName }: iUiDashboardProps) => {
         </nav>
       </aside>
       <main>{children}</main>
-    </div>
+    </UiBase>
   );
 };

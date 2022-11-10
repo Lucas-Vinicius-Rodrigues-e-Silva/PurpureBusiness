@@ -62,14 +62,11 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}`);
           setUser(data);
-        
-          navigate("dashboard");
         } catch (error) {
           const requestError = error as AxiosError<iApiError>;
           toast.error(requestError?.request.data.error);
           console.log(error);
           localStorage.clear();
-          navigate("/");
         }
       }
       setLoading(false);
@@ -89,10 +86,8 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       localStorage.setItem("@USER_ID", userResponse.id);
       toast.success("Login realizado com sucesso!");
       navigate("dashboard");
-    } catch (error) {
-      const requestError = error as AxiosError<iApiError>;
-      toast.error(requestError?.request.data.error);
-      console.log(error);
+    } catch {
+      toast.error("Verifique os dados informados e tente novamente!");
     }
   };
 
@@ -102,7 +97,7 @@ const AuthProvider = ({ children }: iAuthContextProps) => {
       toast.success("Usuario cadastrado com sucesso!");
       try {
         loginUser({ email: data.email, password: data.password });
-      } catch {}
+      } catch { }
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.error(requestError?.request.data.error);
