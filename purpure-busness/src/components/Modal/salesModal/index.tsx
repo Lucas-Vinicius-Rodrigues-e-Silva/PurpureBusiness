@@ -37,6 +37,7 @@ export const SalesModal = () => {
   const submit = (data: iSales) => {
     const id = localStorage.getItem("@USER_ID");
     const newData: iSales = { ...data, userId: parseInt(`${id}`) };
+    const teste = 
     registerSale(newData);
     setSaleModalIsOpen(false);
   };

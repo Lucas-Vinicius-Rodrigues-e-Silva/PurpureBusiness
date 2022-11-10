@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { AiFillCloseCircle } from "react-icons/ai";
@@ -20,8 +20,8 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
+    borderRadius: "15px",
     transform: "translate(-50%, -50%)",
-    borderRadius:"15px;",
   },
 };
 
@@ -29,22 +29,21 @@ const AddInventoryModal = () => {
   const { editProduct, loadingClientProducts, products } =
     useContext(ProductContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<iProducts>({
+  const { register, handleSubmit } = useForm<iProducts>({
     resolver: yupResolver(addInventorySchema),
   });
 
   const addInventorySubmit = (data: iProducts) => {
     console.log(data);
-    const teste: any = products.find(
+    const allProducts: any = products.find(
       (product) => product.product_name === data.product_name
     );
-    console.log(teste);
+    const newData:any = {
+      product_name: data.product_name,
+      product_stock: data.product_stock + allProducts.product_stock
+    }
 
-    editProduct(data, teste.id);
+    editProduct(newData, allProducts.id);
     loadingClientProducts();
     setIsOpen(false);
   };
